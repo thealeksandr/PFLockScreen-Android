@@ -6,32 +6,38 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="pf_key_button">@style/MyLockScreenButtonStyle</item>
-        <item name="pf_fingerprint_button">@style/MyLockScreenFingerprintButtonStyle</item>
-        <item name="pf_delete_button">@style/MyLockScreenDeleteButtonStyle</item>
-        <item name="pf_lock_screen">@style/MyLockScreenStyle</item>
+
     </style>
 
+    <!--
+    <item name="pf_key_button">@style/MyLockScreenButtonStyle</item>
+    <item name="pf_fingerprint_button">@style/MyLockScreenFingerprintButtonStyle</item>
+    <item name="pf_delete_button">@style/MyLockScreenDeleteButtonStyle</item>
+    <item name="pf_lock_screen">@style/MyLockScreenStyle</item>
+    <item name="pf_code_view">@style/MyLockScreenCodeStyle</item> -->
 
     <style name="MyLockScreenStyle">
-        <item name="android:background">@color/background_lock_screen_pf</item>
+        <item name="android:background">#746189</item>
     </style>
 
     <style name="MyLockScreenButtonStyle">
         <!-- Customize your theme here. -->
-        <item name="android:layout_height">@dimen/button_lock_screen_fp_size</item>
-        <item name="android:layout_width">@dimen/button_lock_screen_fp_size</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">18dp</item>
         <item name="android:background">@drawable/touch_selector</item>
-        <item name="android:foreground">@drawable/circle_background_pf_lock_screen</item>
+        <item name="android:foreground">@drawable/key_foreground</item>
     </style>
 
     <style name="MyLockScreenFingerprintButtonStyle">
-        <item name="android:src">@drawable/fingerprint_lockscreen_pf</item>
+        <item name="android:src">@drawable/fingerprint_lockscreen</item>
     </style>
 
     <style name="MyLockScreenDeleteButtonStyle">
-        <item name="android:src">@drawable/delete_lockscreen_pf</item>
+        <item name="android:src">@drawable/delete_lockscreen</item>
+    </style>
+
+    <style name="MyLockScreenCodeStyle">
+        <item name="android:button">@drawable/code_selector</item>
     </style>
 
 
