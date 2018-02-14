@@ -8,7 +8,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:theme="@style/PFLockScreenStyle">
+        style="?pf_lock_screen">
 
         <com.beautycoder.pflockscreen.views.PFCodeView
             android:id="@+id/code_view"
@@ -27,7 +27,9 @@
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1">
-                <com.beautycoder.pflockscreen.views.PFKeyButton
+                <TextView
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:id="@+id/button_1"
                     android:text="1"
                     android:gravity="center"
@@ -42,6 +44,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_2"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="2"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -55,6 +59,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_3"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="3"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -76,6 +82,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_4"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="4"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -89,6 +97,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_5"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="5"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -102,6 +112,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_6"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="6"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -123,6 +135,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_7"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="7"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -136,6 +150,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_8"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="8"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -149,6 +165,8 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_9"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="9"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -184,11 +202,13 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_0"
+                    android:layout_height="@dimen/button_lock_screen_fp_size"
+                    android:layout_width="@dimen/button_lock_screen_fp_size"
                     android:text="0"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="?pf_key_button"
-                    android:theme="@style/PFLockScreenButtonStyle"/>
+                    android:theme="@style/PFLockScreenButtonStyle"
+                    style="?pf_key_button" />
             </FrameLayout>
 
             <FrameLayout
@@ -213,6 +233,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:theme="@style/PFLockScreenDeleteButtonStyle"
+                    style="?pf_delete_button"
                     android:visibility="gone"/>
 
                 <ImageView
@@ -222,7 +243,8 @@
                     android:text="fp"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:theme="@style/PFLockScreenFingerPrintButtonStyle"/>
+                    android:theme="@style/PFLockScreenFingerPrintButtonStyle"
+                    style="?pf_fingerprint_button"/>
 
             </FrameLayout>
 

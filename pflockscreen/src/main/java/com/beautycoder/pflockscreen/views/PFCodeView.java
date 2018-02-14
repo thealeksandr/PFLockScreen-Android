@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -22,7 +24,7 @@ import java.util.List;
 public class PFCodeView extends LinearLayout {
 
     private static final int DEFAULT_CODE_LENGTH = 4;
-    List<ImageView> codeViews = new ArrayList<>();
+    List<CheckBox> codeViews = new ArrayList<>();
     private String code = "";
     private int codeLength = 4;
     private OnPFCodeListener mListener;
@@ -43,26 +45,21 @@ public class PFCodeView extends LinearLayout {
         init();
     }
 
-    public PFCodeView(Context context, @Nullable AttributeSet attrs, int defStyleAttr,
-                      int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-        init();
-    }
-
     private void init() {
         inflate(getContext(), R.layout.view_code_pf_lockscreen, this);
         for (int i = 0; i < DEFAULT_CODE_LENGTH; i++) {
-            final ImageView imageView = new ImageView(getContext());
+            LayoutInflater inflater = (LayoutInflater) getContext()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            CheckBox view = (CheckBox) inflater.inflate(R.layout.view_pf_code_checkbox, null);
+
             LinearLayout.LayoutParams layoutParams = new LayoutParams(
-                    getResources().getDimensionPixelSize(R.dimen.code_fp_size),
-                    getResources().getDimensionPixelSize(R.dimen.code_fp_size));
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             int margin = getResources().getDimensionPixelSize(R.dimen.code_fp_margin);
             layoutParams.setMargins(margin, margin, margin, margin);
-            imageView.setLayoutParams(layoutParams);
-            imageView.setBackgroundColor(android.R.color.holo_green_dark);
-            imageView.setImageDrawable(getResources().getDrawable(R.drawable.circle_code_empty_pf_lockscreen));
-            addView(imageView);
-            codeViews.add(imageView);
+            view.setLayoutParams(layoutParams);
+            view.setChecked(false);
+            addView(view);
+            codeViews.add(view);
         }
     }
 
@@ -70,8 +67,7 @@ public class PFCodeView extends LinearLayout {
         if (code.length() == codeLength) {
             return code.length();
         }
-        codeViews.get(code.length()).setImageDrawable(getResources()
-                .getDrawable(R.drawable.circle_code_fill_pf_lockscreen));
+        codeViews.get(code.length()).setChecked(true);
         code += number;
         if (code.length() == codeLength && mListener != null) {
             mListener.onCodeCompleted(code);
@@ -87,8 +83,7 @@ public class PFCodeView extends LinearLayout {
             return code.length();
         }
         code = code.substring(0, code.length() - 1);
-        codeViews.get(code.length()).setImageDrawable(getResources()
-                .getDrawable(R.drawable.circle_code_empty_pf_lockscreen));
+        codeViews.get(code.length()).setChecked(false);
         return code.length();
     }
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- NOTE: order is important (the first matching state(s) is what is rendered) -->
+    <item
+        android:state_checked="true"
+        android:drawable="@drawable/circle_code_fill_pf_lockscreen"/>
+    <item
+        android:drawable="@drawable/circle_code_empty_pf_lockscreen"/>
+</selector>
