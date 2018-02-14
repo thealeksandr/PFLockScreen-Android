@@ -1,4 +1,4 @@
-package com.beautycoder.pflockscreen.settings;
+package com.beautycoder.applicationlockscreenexample;
 
 import android.content.Context;
 import android.content.SharedPreferences;

@@ -22,8 +22,7 @@ public class FingerprintPinCodeHelper {
 
     }
 
-    public String savePin(Context context, String pin, String finger,
-                          boolean usefingerprint)
+    public String savePin(Context context, String pin, boolean usefingerprint)
             throws PFSecurityException {
         return SecurityUtils.getInstance().encode(PIN_ALIAS, pin, false);
     }
@@ -44,6 +43,10 @@ public class FingerprintPinCodeHelper {
 
     public void delete() {
 
+    }
+
+    public boolean isPincodeExist() throws PFSecurityException {
+        return SecurityUtils.getInstance().isKeystoreContainAlias(PIN_ALIAS);
     }
 
 }

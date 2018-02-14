@@ -25,6 +25,7 @@ public class PFCodeView extends LinearLayout {
     List<ImageView> codeViews = new ArrayList<>();
     private String code = "";
     private int codeLength = 4;
+    private OnPFCodeListener mListener;
 
 
     public PFCodeView(Context context) {
@@ -72,10 +73,16 @@ public class PFCodeView extends LinearLayout {
         codeViews.get(code.length()).setImageDrawable(getResources()
                 .getDrawable(R.drawable.circle_code_fill_pf_lockscreen));
         code += number;
+        if (code.length() == codeLength && mListener != null) {
+            mListener.onCodeCompleted(code);
+        }
         return code.length();
     }
 
     public int delete() {
+        if (mListener != null) {
+            mListener.onCodeNotCompleted(code);
+        }
         if (code.length() == 0) {
             return code.length();
         }
@@ -83,5 +90,17 @@ public class PFCodeView extends LinearLayout {
         codeViews.get(code.length()).setImageDrawable(getResources()
                 .getDrawable(R.drawable.circle_code_empty_pf_lockscreen));
         return code.length();
+    }
+
+    public void setListener(OnPFCodeListener listener) {
+        mListener = listener;
+    }
+
+    public interface OnPFCodeListener {
+
+        void onCodeCompleted(String code);
+
+        void onCodeNotCompleted(String code);
+
     }
 }

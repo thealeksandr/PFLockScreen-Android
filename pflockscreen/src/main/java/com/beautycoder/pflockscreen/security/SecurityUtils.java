@@ -113,7 +113,7 @@ public class SecurityUtils {
     public String decode(String alias, String encodedString) throws PFSecurityException  {
         try {
             Cipher cipher = getCipherInstance();
-            initDecodeCipher(alias);
+            initDecodeCipher(cipher, alias);
             byte[] bytes = Base64.decode(encodedString, Base64.NO_WRAP);
             return new String(cipher.doFinal(bytes));
         } catch (IllegalBlockSizeException | BadPaddingException e) {
@@ -158,10 +158,9 @@ public class SecurityUtils {
     }
 
 
-    private void initDecodeCipher(String alias) throws PFSecurityException {
+    private void initDecodeCipher(Cipher cipher, String alias) throws PFSecurityException {
         try {
             KeyStore keyStore = loadKeyStore();
-            Cipher cipher = getCipherInstance();
             PrivateKey key  = (PrivateKey) keyStore.getKey(alias, null);
             cipher.init(Cipher.DECRYPT_MODE, key);
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException
@@ -187,6 +186,16 @@ public class SecurityUtils {
                 NoSuchAlgorithmException | InvalidKeyException |
                 InvalidAlgorithmParameterException e) {
             throw new PFSecurityException("Can not initialize Encode Cipher:" + e.getMessage());
+        }
+    }
+
+    public boolean isKeystoreContainAlias(String alias) throws PFSecurityException {
+        KeyStore keyStore = loadKeyStore();
+        try {
+            return keyStore.containsAlias(alias);
+        } catch (KeyStoreException e) {
+            e.printStackTrace();
+            throw new PFSecurityException(e.getMessage());
         }
     }
 
