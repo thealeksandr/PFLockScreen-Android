@@ -36,8 +36,7 @@ import com.beautycoder.pflockscreen.R;
  * authentication if fingerprint is not available.
  */
 @RequiresApi(api = Build.VERSION_CODES.M)
-public class PFFingerprintAuthDialogFragment extends DialogFragment
-        implements PFFingerprintUIHelper.Callback {
+public class PFFingerprintAuthDialogFragment extends DialogFragment {
 
     private Button mCancelButton;
     private View mFingerprintContent;
@@ -49,6 +48,9 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment
     private PFFingerprintUIHelper mFingerprintCallback;
 
     private Context mContext;
+
+
+    private PFFingerprintAuthListener mAuthListener;
 
 
     @Override
@@ -82,7 +84,7 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment
         mFingerprintCallback = new PFFingerprintUIHelper(manager,
                 (ImageView) v.findViewById(R.id.fingerprint_icon),
                 (TextView) v.findViewById(R.id.fingerprint_status),
-                this);
+                mAuthListener);
         updateStage();
 
         // If fingerprint authentication is not available, switch immediately to the backup
@@ -120,11 +122,9 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment
     /**
      * Sets the crypto object to be passed in when authenticating with fingerprint.
      */
-    public void setCryptoObject(FingerprintManagerCompat.CryptoObject cryptoObject) {
+    /*public void setCryptoObject(FingerprintManagerCompat.CryptoObject cryptoObject) {
         mCryptoObject = cryptoObject;
-    }
-
-
+    }*/
 
 
     private void updateStage() {
@@ -137,14 +137,8 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment
     }
 
 
-    @Override
-    public void onAuthenticated() {
-        dismiss();
-    }
-
-    @Override
-    public void onError() {
-
+    public void setAuthListener(PFFingerprintAuthListener authListener) {
+        mAuthListener = authListener;
     }
 
     /**

@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onFingerprintSuccessful() {
             Toast.makeText(MainActivity.this, "Fingerprint successfull", Toast.LENGTH_SHORT).show();
+            showMainFragment();
         }
 
         @Override

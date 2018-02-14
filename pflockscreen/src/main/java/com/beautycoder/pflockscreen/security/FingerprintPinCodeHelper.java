@@ -33,6 +33,10 @@ public class FingerprintPinCodeHelper {
         return pinCode.equals(pin);
     }
 
+    public void useFingerprint(Context context) {
+
+    }
+
     private boolean isFingerPrintAvailable(Context context) {
         return FingerprintManagerCompat.from(context).isHardwareDetected();
     }

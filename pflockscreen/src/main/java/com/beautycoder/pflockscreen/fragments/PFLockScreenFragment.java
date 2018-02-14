@@ -4,12 +4,15 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.beautycoder.pflockscreen.R;
@@ -31,7 +34,9 @@ public class PFLockScreenFragment extends Fragment {
     private View mLeftButton;
     private View mNextButton;
     private PFCodeView mCodeView;
-    private boolean mFingerPrintAvailable = true;
+
+    private boolean mUseFingerPrint = true;
+    private boolean mFingerprintHarwareDetected = false;
 
     private boolean mCreatePasswordMode = true;
 
@@ -73,6 +78,13 @@ public class PFLockScreenFragment extends Fragment {
             mNextButton.setOnClickListener(null);
         }
 
+        if (!mUseFingerPrint) {
+            mFingerprintButton.setVisibility(View.GONE);
+        }
+
+        mFingerprintHarwareDetected = isFingerprintApiAvailable(getContext());
+
+
         return view;
     }
 
@@ -88,6 +100,8 @@ public class PFLockScreenFragment extends Fragment {
         parent.findViewById(R.id.button_8).setOnClickListener(mOnKeyClickListener);
         parent.findViewById(R.id.button_9).setOnClickListener(mOnKeyClickListener);
     }
+
+
 
     private View.OnClickListener mOnKeyClickListener = new View.OnClickListener() {
         @Override
@@ -114,9 +128,25 @@ public class PFLockScreenFragment extends Fragment {
     private View.OnClickListener mOnFingerprintClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            PFFingerprintAuthDialogFragment fragment
+            final PFFingerprintAuthDialogFragment fragment
                     = new PFFingerprintAuthDialogFragment();
             fragment.show(getFragmentManager(), FINGERPRINT_DIALOG_FRAGMENT_TAG);
+            fragment.setAuthListener(new PFFingerprintAuthListener() {
+                @Override
+                public void onAuthenticated() {
+                    if (mLoginListener != null) {
+                        mLoginListener.onFingerprintSuccessful();
+                    }
+                    fragment.dismiss();
+                }
+
+                @Override
+                public void onError() {
+                    if (mLoginListener != null) {
+                        mLoginListener.onFingerprintLoginFailed();
+                    }
+                }
+            });
         }
     };
 
@@ -137,7 +167,7 @@ public class PFLockScreenFragment extends Fragment {
             return;
         }
 
-        if (mFingerPrintAvailable) {
+        if (mUseFingerPrint && mFingerprintHarwareDetected) {
             mFingerprintButton.setVisibility(View.VISIBLE);
             mDeleteButton.setVisibility(View.GONE);
         } else {
@@ -173,8 +203,13 @@ public class PFLockScreenFragment extends Fragment {
             try {
                 boolean isCorrect
                         = FingerprintPinCodeHelper.getInstance().checkPin(getContext(), mEncodedPinCode, mCode);
-                if (isCorrect && mLoginListener != null) {
-                     mLoginListener.onCodeInputSuccessful();
+                if (mLoginListener != null) {
+                    if (isCorrect) {
+                        mLoginListener.onCodeInputSuccessful();
+                    } else {
+                        mLoginListener.onPinLoginFailed();
+                        errorAction();
+                    }
                 }
             } catch (PFSecurityException e) {
                 e.printStackTrace();
@@ -203,7 +238,7 @@ public class PFLockScreenFragment extends Fragment {
                 if (mCodeCreateListener != null) {
                     mCodeCreateListener.onCodeCreated(encodedCode);
                 }
-                showFingerprintAlertDialog(getActivity());
+                //showFingerprintAlertDialog(getActivity());
             } catch (PFSecurityException e) {
                 e.printStackTrace();
                 //TODO: Show error;
@@ -212,13 +247,16 @@ public class PFLockScreenFragment extends Fragment {
     };
 
 
-    private void showFingerprintAlertDialog(Context context) {
+
+    /*private void showFingerprintAlertDialog(Context context) {
         new AlertDialog.Builder(context).setTitle("Fingerprint").setMessage(
                 "Would you like to use fingerprint for future login?")
                 .setPositiveButton("Use fingerprint", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                //if (isFingerprintsExists(getContext())) {
+                    //FingerprintPinCodeHelper.getInstance().savePin()
+                //}
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             @Override
@@ -226,7 +264,7 @@ public class PFLockScreenFragment extends Fragment {
 
             }
         }).create().show();
-    }
+    }*/
 
     public void setCodeCreateListener(OnPFLockScreenCodeCreateListener listener) {
         mCodeCreateListener = listener;
@@ -238,6 +276,13 @@ public class PFLockScreenFragment extends Fragment {
 
     public void setEncodedPinCode(String encodedPinCode) {
         mEncodedPinCode = encodedPinCode;
+    }
+
+    private void errorAction() {
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        v.vibrate(400);
+        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        mCodeView.startAnimation(animShake);
     }
 
     public interface OnPFLockScreenCodeCreateListener {
@@ -258,7 +303,16 @@ public class PFLockScreenFragment extends Fragment {
         void onFingerprintLoginFailed();
 
     }
+
+
 }
+
+
+
+
+
+
+
 
 
 
