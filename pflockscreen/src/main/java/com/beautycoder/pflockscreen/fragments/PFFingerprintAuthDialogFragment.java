@@ -66,7 +66,7 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getDialog().setTitle(getString(R.string.sign_in));
+        getDialog().setTitle(getString(R.string.sign_in_pf));
         View v = inflater.inflate(R.layout.view_pf_fingerprint_dialog_container, container,
                 false);
         mCancelButton = v.findViewById(R.id.cancel_button);
@@ -130,7 +130,7 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment {
     private void updateStage() {
         switch (mStage) {
             case FINGERPRINT:
-                mCancelButton.setText(R.string.cancel);
+                mCancelButton.setText(R.string.cancel_pf);
                 mFingerprintContent.setVisibility(View.VISIBLE);
                 break;
         }

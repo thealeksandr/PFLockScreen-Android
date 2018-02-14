@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="PFLockScreenStyle">
+        <item name="android:background">@color/background_lock_screen_pf</item>
+    </style>
+
     <style name="PFLockScreenButtonStyle">
         <!-- Customize your theme here. -->
         <item name="android:layout_height">@dimen/button_lock_screen_fp_size</item>
@@ -9,8 +14,18 @@
         <item name="android:foreground">@drawable/circle_background_pf_lock_screen</item>
     </style>
 
-    <style name="PFCodeButtonStyle">
-        <item name="android:foreground">@drawable/touch_selector</item>
+    <style name="PFLockScreenFingerPrintButtonStyle">
+        <item name="android:src">@drawable/fingerprint_lockscreen_pf</item>
     </style>
+
+    <style name="PFLockScreenDeleteButtonStyle">
+        <item name="android:src">@drawable/delete_lockscreen_pf</item>
+    </style>
+
+    <style name="PFLockScreenCodeStyle">
+        <item name="android:src">@drawable/delete_lockscreen_pf</item>
+    </style>
+
+
 
 </resources>

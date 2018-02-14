@@ -8,8 +8,7 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_lock_screen_pf">
-
+        android:theme="@style/PFLockScreenStyle">
 
         <com.beautycoder.pflockscreen.views.PFCodeView
             android:id="@+id/code_view"
@@ -28,12 +27,13 @@
                 android:layout_height="wrap_content"
                 android:layout_width="0dp"
                 android:layout_weight="1">
-                <TextView
+                <com.beautycoder.pflockscreen.views.PFKeyButton
                     android:id="@+id/button_1"
                     android:text="1"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle" />
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
@@ -45,7 +45,8 @@
                     android:text="2"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
@@ -57,7 +58,8 @@
                     android:text="3"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -77,7 +79,8 @@
                     android:text="4"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
@@ -89,7 +92,8 @@
                     android:text="5"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
@@ -101,7 +105,8 @@
                     android:text="6"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -121,7 +126,8 @@
                     android:text="7"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
@@ -133,7 +139,8 @@
                     android:text="8"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
@@ -145,7 +152,8 @@
                     android:text="9"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    style="@style/PFLockScreenButtonStyle"/>
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
         </LinearLayout>
@@ -164,7 +172,7 @@
                     android:id="@+id/button_left"
                     android:layout_height="match_parent"
                     android:layout_width="60dp"
-                    android:text="Forgot?"
+                    android:text="@string/forgot_pf"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white" />
@@ -176,16 +184,18 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_0"
-                    style="@style/PFLockScreenButtonStyle"
                     android:text="0"
                     android:gravity="center"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    style="?pf_key_button"
+                    android:theme="@style/PFLockScreenButtonStyle"/>
             </FrameLayout>
 
             <FrameLayout
                 android:layout_height="match_parent"
                 android:layout_width="0dp"
                 android:layout_weight="1">
+
                 <TextView
                     android:id="@+id/button_right"
                     android:layout_height="40dp"
@@ -202,7 +212,7 @@
                     android:text="fp"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:src="@drawable/delete_lockscreen_pf"
+                    android:theme="@style/PFLockScreenDeleteButtonStyle"
                     android:visibility="gone"/>
 
                 <ImageView
@@ -212,7 +222,8 @@
                     android:text="fp"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:src="@drawable/fingerprint_lockscreen_pf" />
+                    android:theme="@style/PFLockScreenFingerPrintButtonStyle"/>
+
             </FrameLayout>
 
         </LinearLayout>
@@ -229,7 +240,7 @@
             android:id="@+id/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Next"
+            android:text="@string/next_pf"
             android:visibility="gone"/>
 
     </LinearLayout>
