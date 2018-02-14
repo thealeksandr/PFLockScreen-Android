@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_lock_screen_pf">
+
+
+    <com.beautycoder.pflockscreen.views.PFCodeView
+        android:id="@+id/code_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_1"
+                android:text="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_2"
+                android:text="2"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_3"
+                android:text="3"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_4"
+                android:text="4"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_5"
+                android:text="5"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_6"
+                android:text="6"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_7"
+                android:text="7"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_8"
+                android:text="8"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_9"
+                android:text="9"
+                android:gravity="center"
+                android:layout_gravity="center"
+                style="@style/PFLockScreenButtonStyle"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="25dp">
+
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_left"
+                android:layout_height="match_parent"
+                android:layout_width="60dp"
+                android:text="Forgot?"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_0"
+                style="@style/PFLockScreenButtonStyle"
+                android:text="0"
+                android:gravity="center"
+                android:layout_gravity="center"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/button_right"
+                android:layout_height="40dp"
+                android:layout_width="40dp"
+                android:text=""
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/button_delete"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:text="fp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:src="@drawable/delete_lockscreen_pf"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/button_finger_print"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                android:text="fp"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:src="@drawable/fingerprint_lockscreen_pf" />
+        </FrameLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

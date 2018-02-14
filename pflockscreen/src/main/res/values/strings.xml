@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">PFLockScreen</string>
+    <string name="cancel">Cancel</string>
+    <string name="use_pin">Use pin</string>
+    <string name="sign_in">Sign in</string>
+    <string name="ok">OK</string>
+    <string name="fingerprint_not_recognized">Fingerprint not recognized. Try again</string>
+    <string name="fingerprint_success">Fingerprint recognized</string>
+    <string name="fingerprint_description">Confirm fingerprint to continue</string>
+    <string name="fingerprint_hint">Touch sensor</string>
+    <string name="description_fingerprint_icon">Fingerprint icon</string>
+</resources>
