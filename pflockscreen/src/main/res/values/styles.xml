@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="PFLockScreenButtonStyle">
+        <!-- Customize your theme here. -->
+        <item name="android:layout_height">@dimen/button_lock_screen_fp_size</item>
+        <item name="android:layout_width">@dimen/button_lock_screen_fp_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/touch_selector</item>
+        <item name="android:foreground">@drawable/circle_background_pf_lock_screen</item>
+    </style>
+
+    <style name="PFCodeButtonStyle">
+        <item name="android:foreground">@drawable/touch_selector</item>
+    </style>
+
+</resources>
