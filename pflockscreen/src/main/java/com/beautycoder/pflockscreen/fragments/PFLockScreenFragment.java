@@ -1,6 +1,8 @@
 package com.beautycoder.pflockscreen.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.beautycoder.pflockscreen.R;
+import com.beautycoder.pflockscreen.security.FingerprintPinCodeHelper;
+import com.beautycoder.pflockscreen.security.PFSecurityException;
 import com.beautycoder.pflockscreen.views.PFCodeView;
 
 /**
@@ -25,9 +29,16 @@ public class PFLockScreenFragment extends Fragment {
     private View mDeleteButton;
     private View mRightButton;
     private View mLeftButton;
+    private View mNextButton;
     private PFCodeView mCodeView;
-
     private boolean mFingerPrintAvailable = true;
+
+    private boolean mCreatePasswordMode = true;
+
+    private OnPFLockScreenCodeCreateListener mCodeCreateListener;
+    private OnPFLockScreenLoginListener mLoginListener;
+    private String mCode = "";
+    private String mEncodedPinCode = "";
 
     @Nullable
     @Override
@@ -37,14 +48,31 @@ public class PFLockScreenFragment extends Fragment {
         mFingerprintButton = view.findViewById(R.id.button_finger_print);
         mDeleteButton = view.findViewById(R.id.button_delete);
 
+        mLeftButton = view.findViewById(R.id.button_left);
+        mRightButton = view.findViewById(R.id.button_right);
+        mNextButton = view.findViewById(R.id.button_next);
+
 
         mDeleteButton.setOnClickListener(mOnDeleteButtonClickListener);
         mFingerprintButton.setOnClickListener(mOnFingerprintClickListener);
 
-
-
         mCodeView = view.findViewById(R.id.code_view);
         initKeyViews(view);
+
+        if (mCreatePasswordMode) {
+            mLeftButton.setVisibility(View.GONE);
+            mRightButton.setVisibility(View.GONE);
+            mFingerprintButton.setVisibility(View.GONE);
+        }
+
+        mCodeView.setListener(mCodeListener);
+
+        if (mCreatePasswordMode) {
+            mNextButton.setOnClickListener(mOnNextButtonClickListener);
+        } else {
+            mNextButton.setOnClickListener(null);
+        }
+
         return view;
     }
 
@@ -92,8 +120,16 @@ public class PFLockScreenFragment extends Fragment {
         }
     };
 
-
     private void configureRightButton(int codeLength) {
+        if (mCreatePasswordMode) {
+            if (codeLength > 0) {
+                mDeleteButton.setVisibility(View.VISIBLE);
+            } else {
+                mDeleteButton.setVisibility(View.GONE);
+            }
+            return;
+        }
+
         if (codeLength > 0) {
             mFingerprintButton.setVisibility(View.GONE);
             mDeleteButton.setVisibility(View.VISIBLE);
@@ -120,8 +156,108 @@ public class PFLockScreenFragment extends Fragment {
         return FingerprintManagerCompat.from(context).hasEnrolledFingerprints();
     }
 
+    public void setCreatePasswordMode(boolean createPasswordMode) {
+        mCreatePasswordMode = createPasswordMode;
+    }
 
 
+    private PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
+        @Override
+        public void onCodeCompleted(String code) {
+            if (mCreatePasswordMode) {
+                mNextButton.setVisibility(View.VISIBLE);
+                mCode = code;
+                return;
+            }
+            mCode = code;
+            try {
+                boolean isCorrect
+                        = FingerprintPinCodeHelper.getInstance().checkPin(getContext(), mEncodedPinCode, mCode);
+                if (isCorrect && mLoginListener != null) {
+                     mLoginListener.onCodeInputSuccessful();
+                }
+            } catch (PFSecurityException e) {
+                e.printStackTrace();
+
+            }
+
+
+        }
+
+        @Override
+        public void onCodeNotCompleted(String code) {
+            if (mCreatePasswordMode) {
+                mNextButton.setVisibility(View.GONE);
+                return;
+            }
+        }
+    };
+
+
+    private View.OnClickListener mOnNextButtonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            try {
+                String encodedCode = FingerprintPinCodeHelper.getInstance().savePin(getContext(),
+                        mCode, true);
+                if (mCodeCreateListener != null) {
+                    mCodeCreateListener.onCodeCreated(encodedCode);
+                }
+                showFingerprintAlertDialog(getActivity());
+            } catch (PFSecurityException e) {
+                e.printStackTrace();
+                //TODO: Show error;
+            }
+        }
+    };
+
+
+    private void showFingerprintAlertDialog(Context context) {
+        new AlertDialog.Builder(context).setTitle("Fingerprint").setMessage(
+                "Would you like to use fingerprint for future login?")
+                .setPositiveButton("Use fingerprint", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).create().show();
+    }
+
+    public void setCodeCreateListener(OnPFLockScreenCodeCreateListener listener) {
+        mCodeCreateListener = listener;
+    }
+
+    public void setLoginListener(OnPFLockScreenLoginListener listener) {
+        mLoginListener = listener;
+    }
+
+    public void setEncodedPinCode(String encodedPinCode) {
+        mEncodedPinCode = encodedPinCode;
+    }
+
+    public interface OnPFLockScreenCodeCreateListener {
+
+        void onCodeCreated(String encodedCode);
+
+    }
+
+
+    public interface  OnPFLockScreenLoginListener {
+
+        void onCodeInputSuccessful();
+
+        void onFingerprintSuccessful();
+
+        void onPinLoginFailed();
+
+        void onFingerprintLoginFailed();
+
+    }
 }
 
 
