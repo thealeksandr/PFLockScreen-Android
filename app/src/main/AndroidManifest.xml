@@ -3,6 +3,7 @@
     package="com.beautycoder.applicationlockscreenexample">
 
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <uses-feature android:name="android.hardware.fingerprint" android:required="false"/>
 

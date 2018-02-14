@@ -18,18 +18,19 @@ import com.beautycoder.pflockscreen.R;
 public class PFFingerprintUIHelper extends FingerprintManagerCompat.AuthenticationCallback {
 
     private static final long ERROR_TIMEOUT_MILLIS = 1600;
-    private static final long SUCCESS_DELAY_MILLIS = 1300;
+    private static final long SUCCESS_DELAY_MILLIS = 200;
 
     private final FingerprintManagerCompat mFingerprintManager;
     private final ImageView mIcon;
     private final TextView mErrorTextView;
-    private final Callback mCallback;
+    private final PFFingerprintAuthListener mCallback;
     private CancellationSignal mCancellationSignal;
 
     private boolean mSelfCancelled;
 
     public PFFingerprintUIHelper(FingerprintManagerCompat fingerprintManager,
-                                 ImageView icon, TextView errorTextView, Callback callback) {
+                                 ImageView icon, TextView errorTextView,
+                                 PFFingerprintAuthListener callback) {
         super();
         mFingerprintManager = fingerprintManager;
         mIcon = icon;
@@ -125,10 +126,4 @@ public class PFFingerprintUIHelper extends FingerprintManagerCompat.Authenticati
         }
     };
 
-    public interface Callback {
-
-        void onAuthenticated();
-
-        void onError();
-    }
 }
