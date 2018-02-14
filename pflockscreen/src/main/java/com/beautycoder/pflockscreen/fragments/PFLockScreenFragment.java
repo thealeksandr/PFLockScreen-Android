@@ -1,8 +1,6 @@
 package com.beautycoder.pflockscreen.fragments;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
@@ -30,13 +28,12 @@ public class PFLockScreenFragment extends Fragment {
 
     private View mFingerprintButton;
     private View mDeleteButton;
-    private View mRightButton;
     private View mLeftButton;
     private View mNextButton;
     private PFCodeView mCodeView;
 
     private boolean mUseFingerPrint = true;
-    private boolean mFingerprintHarwareDetected = false;
+    private boolean mFingerprintHardwareDetected = false;
 
     private boolean mCreatePasswordMode = true;
 
@@ -54,7 +51,6 @@ public class PFLockScreenFragment extends Fragment {
         mDeleteButton = view.findViewById(R.id.button_delete);
 
         mLeftButton = view.findViewById(R.id.button_left);
-        mRightButton = view.findViewById(R.id.button_right);
         mNextButton = view.findViewById(R.id.button_next);
 
 
@@ -66,7 +62,6 @@ public class PFLockScreenFragment extends Fragment {
 
         if (mCreatePasswordMode) {
             mLeftButton.setVisibility(View.GONE);
-            mRightButton.setVisibility(View.GONE);
             mFingerprintButton.setVisibility(View.GONE);
         }
 
@@ -82,8 +77,7 @@ public class PFLockScreenFragment extends Fragment {
             mFingerprintButton.setVisibility(View.GONE);
         }
 
-        mFingerprintHarwareDetected = isFingerprintApiAvailable(getContext());
-
+        mFingerprintHardwareDetected = isFingerprintApiAvailable(getContext());
 
         return view;
     }
@@ -167,13 +161,14 @@ public class PFLockScreenFragment extends Fragment {
             return;
         }
 
-        if (mUseFingerPrint && mFingerprintHarwareDetected) {
+        if (mUseFingerPrint && mFingerprintHardwareDetected) {
             mFingerprintButton.setVisibility(View.VISIBLE);
             mDeleteButton.setVisibility(View.GONE);
         } else {
             mFingerprintButton.setVisibility(View.GONE);
             mDeleteButton.setVisibility(View.VISIBLE);
         }
+
         mDeleteButton.setEnabled(false);
 
     }
@@ -186,9 +181,7 @@ public class PFLockScreenFragment extends Fragment {
         return FingerprintManagerCompat.from(context).hasEnrolledFingerprints();
     }
 
-    public void setCreatePasswordMode(boolean createPasswordMode) {
-        mCreatePasswordMode = createPasswordMode;
-    }
+
 
 
     private PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
@@ -246,7 +239,14 @@ public class PFLockScreenFragment extends Fragment {
         }
     };
 
-
+    private void errorAction() {
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        if (v != null) {
+            v.vibrate(400);
+        }
+        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        mCodeView.startAnimation(animShake);
+    }
 
     /*private void showFingerprintAlertDialog(Context context) {
         new AlertDialog.Builder(context).setTitle("Fingerprint").setMessage(
@@ -266,40 +266,77 @@ public class PFLockScreenFragment extends Fragment {
         }).create().show();
     }*/
 
+
+    /**
+     * Setter for password create mode.
+     * @param createPasswordMode true if screen has to be in pin code creation mode.
+     */
+    public void setCreatePasswordMode(boolean createPasswordMode) {
+        mCreatePasswordMode = createPasswordMode;
+    }
+
+    /**
+     * Set OnPFLockScreenCodeCreateListener.
+     * @param listener OnPFLockScreenCodeCreateListener object.
+     */
     public void setCodeCreateListener(OnPFLockScreenCodeCreateListener listener) {
         mCodeCreateListener = listener;
     }
 
+    /**
+     * Set OnPFLockScreenLoginListener.
+     * @param listener OnPFLockScreenLoginListener object.
+     */
     public void setLoginListener(OnPFLockScreenLoginListener listener) {
         mLoginListener = listener;
     }
 
+    /**
+     * Set Encoded pin code.
+     * @param encodedPinCode encoded pin code string, that was created before.
+     */
     public void setEncodedPinCode(String encodedPinCode) {
         mEncodedPinCode = encodedPinCode;
     }
 
-    private void errorAction() {
-        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(400);
-        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
-        mCodeView.startAnimation(animShake);
-    }
 
+    /**
+     * Pin Code create callback interface.
+     */
     public interface OnPFLockScreenCodeCreateListener {
 
+        /**
+         * Callback method for pin code creation.
+         * @param encodedCode encoded pin code string.
+         */
         void onCodeCreated(String encodedCode);
 
     }
 
 
+    /**
+     * Login callback interface.
+     */
     public interface  OnPFLockScreenLoginListener {
 
+        /**
+         * Callback method for successful login attempt with pin code.
+         */
         void onCodeInputSuccessful();
 
+        /**
+         * Callback method for successful login attempt with fingerprint.
+         */
         void onFingerprintSuccessful();
 
+        /**
+         * Callback method for unsuccessful login attempt with pin code.
+         */
         void onPinLoginFailed();
 
+        /**
+         * Callback method for unsuccessful login attempt with fingerprint.
+         */
         void onFingerprintLoginFailed();
 
     }

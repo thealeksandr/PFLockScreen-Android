@@ -87,7 +87,7 @@ public class PFFingerprintUIHelper extends FingerprintManagerCompat.Authenticati
     @Override
     public void onAuthenticationFailed() {
         showError(mIcon.getResources().getString(
-                R.string.fingerprint_not_recognized));
+                R.string.fingerprint_not_recognized_pf));
     }
 
     @Override
@@ -97,7 +97,7 @@ public class PFFingerprintUIHelper extends FingerprintManagerCompat.Authenticati
         mErrorTextView.setTextColor(
                 mErrorTextView.getResources().getColor(R.color.success_color, null));
         mErrorTextView.setText(
-                mErrorTextView.getResources().getString(R.string.fingerprint_success));
+                mErrorTextView.getResources().getString(R.string.fingerprint_success_pf));
         mIcon.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -121,7 +121,7 @@ public class PFFingerprintUIHelper extends FingerprintManagerCompat.Authenticati
             mErrorTextView.setTextColor(
                     mErrorTextView.getResources().getColor(R.color.hint_color, null));
             mErrorTextView.setText(
-                    mErrorTextView.getResources().getString(R.string.fingerprint_hint));
+                    mErrorTextView.getResources().getString(R.string.fingerprint_hint_pf));
             mIcon.setImageResource(R.drawable.ic_fp_40px);
         }
     };
