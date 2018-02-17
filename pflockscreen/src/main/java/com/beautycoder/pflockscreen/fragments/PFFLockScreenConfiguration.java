@@ -2,6 +2,7 @@ package com.beautycoder.pflockscreen.fragments;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.view.View;
 
 import com.beautycoder.pflockscreen.R;
 
@@ -36,6 +37,7 @@ public class PFFLockScreenConfiguration {
     static class Builder {
 
         private String mLeftButton = "";
+        private View.OnClickListener mOnLeftButtonClickListener = null;
         private boolean mUseFingerprint = false;
         private String mTitle = "";
 
@@ -48,8 +50,9 @@ public class PFFLockScreenConfiguration {
             return this;
         }
 
-        public Builder setLeftButton(String leftButton) {
+        public Builder setLeftButton(String leftButton, View.OnClickListener onClickListener) {
             mLeftButton = leftButton;
+            mOnLeftButtonClickListener = onClickListener;
             return this;
         }
 

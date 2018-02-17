@@ -2,17 +2,13 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_pf">
 
-    <ImageView
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        style="?pf_lock_screen"
-        android:theme="@style/PFLockScreenStyle"/>
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="400dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         style="?pf_lock_screen"
         android:paddingBottom="60dp"
@@ -25,9 +21,9 @@
             android:textColor="@android:color/white"
             android:text="@string/lock_screen_title_pf"
             android:gravity="center"
-            android:textSize="20dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"/>
+            android:textSize="18dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"/>
 
         <com.beautycoder.pflockscreen.views.PFCodeView
             android:id="@+id/code_view"
