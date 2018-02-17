@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="button_lock_screen_fp_size">70dp</dimen>
+    <dimen name="button_lock_screen_fp_size">60dp</dimen>
     <dimen name="code_fp_size">20dp</dimen>
     <dimen name="code_fp_margin">5dp</dimen>
 </resources>

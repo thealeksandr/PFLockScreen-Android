@@ -6,6 +6,7 @@ import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +29,7 @@ public class PFLockScreenFragment extends Fragment {
 
     private View mFingerprintButton;
     private View mDeleteButton;
-    private View mLeftButton;
+    private TextView mLeftButton;
     private View mNextButton;
     private PFCodeView mCodeView;
 
@@ -41,6 +42,10 @@ public class PFLockScreenFragment extends Fragment {
     private OnPFLockScreenLoginListener mLoginListener;
     private String mCode = "";
     private String mEncodedPinCode = "";
+
+
+    private PFFLockScreenConfiguration mConfiguration;
+    private View mRootView;
 
     @Nullable
     @Override
@@ -79,7 +84,33 @@ public class PFLockScreenFragment extends Fragment {
 
         mFingerprintHardwareDetected = isFingerprintApiAvailable(getContext());
 
+        applyConfiguration(mConfiguration);
+
+        mRootView = view;
         return view;
+    }
+
+    public void setConfiguration(PFFLockScreenConfiguration configuration) {
+        this.mConfiguration = configuration;
+        applyConfiguration(configuration);
+    }
+
+    private void applyConfiguration(PFFLockScreenConfiguration configuration) {
+        if (mRootView == null || configuration == null) {
+            return;
+        }
+        TextView titleView = mRootView.findViewById(R.id.title_text_view);
+        titleView.setText(configuration.getTitle());
+        if (TextUtils.isEmpty(configuration.getLeftButton())) {
+            mLeftButton.setVisibility(View.GONE);
+        } else {
+            mLeftButton.setText(configuration.getLeftButton());
+        }
+        mUseFingerPrint = configuration.isUseFingerprint();
+        if (!mUseFingerPrint) {
+            mFingerprintButton.setVisibility(View.GONE);
+            mDeleteButton.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initKeyViews(View parent) {
@@ -247,6 +278,9 @@ public class PFLockScreenFragment extends Fragment {
         final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
         mCodeView.startAnimation(animShake);
     }
+
+
+
 
     /*private void showFingerprintAlertDialog(Context context) {
         new AlertDialog.Builder(context).setTitle("Fingerprint").setMessage(
