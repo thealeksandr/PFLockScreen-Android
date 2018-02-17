@@ -86,12 +86,6 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment {
                 (TextView) v.findViewById(R.id.fingerprint_status),
                 mAuthListener);
         updateStage();
-
-        // If fingerprint authentication is not available, switch immediately to the backup
-        // (password) screen.
-        /*if (!mFingerprintUiHelper.isFingerprintAuthAvailable()) {
-            goToBackup();
-        }*/
         return v;
     }
 

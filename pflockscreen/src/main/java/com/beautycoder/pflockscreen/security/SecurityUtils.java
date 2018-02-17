@@ -76,7 +76,7 @@ public class SecurityUtils {
         }
     }
 
-    // workaround for using public key
+    // More information about this hack
     // from https://developer.android.com/reference/android/security/keystore/KeyGenParameterSpec.html
     // from https://code.google.com/p/android/issues/detail?id=197719
     private Cipher getEncodeCipher(String alias, boolean isAuthenticationRequired)

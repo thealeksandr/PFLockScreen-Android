@@ -2,10 +2,10 @@
 <resources>
 
     <style name="PFLockScreenStyle">
-        <item name="android:background">@color/background_lock_screen_pf</item>
+        <item name="android:background">@drawable/background_pf</item>
     </style>
 
-    <style name="PFLockScreenButtonStyle">
+    <style name="PFLockScreenButtonStyle" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/white</item>
         <item name="android:foreground">@drawable/touch_selector</item>
