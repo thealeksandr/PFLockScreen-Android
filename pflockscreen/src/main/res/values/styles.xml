@@ -8,7 +8,7 @@
     <style name="PFLockScreenButtonStyle" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@drawable/touch_selector</item>
+        <item name="android:background">@drawable/touch_selector_pf</item>
     </style>
 
     <style name="PFLockScreenFingerPrintButtonStyle">
@@ -26,7 +26,7 @@
         <item name="android:checkboxStyle">@style/PFLockScreenCodeStyle</item>
     </style>
     <style name="PFLockScreenCodeStyle">
-        <item name="android:button">@drawable/pf_code_selector</item>
+        <item name="android:button">@drawable/code_selector_pf</item>
     </style>
 
 
