@@ -93,7 +93,7 @@ public class PFFLockScreenConfiguration {
 
     @Retention(SOURCE)
     @IntDef({MODE_CREATE, MODE_AUTH})
-    public @interface LockScreenMode {}
+    public @interface PFLockScreenMode {}
     public static final int MODE_CREATE = 0;
     public static final int MODE_AUTH = 1;
 

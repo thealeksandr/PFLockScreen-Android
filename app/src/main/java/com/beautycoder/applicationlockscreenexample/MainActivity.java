@@ -7,9 +7,8 @@ import android.widget.Toast;
 
 import com.beautycoder.pflockscreen.fragments.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
-import com.beautycoder.pflockscreen.security.FingerprintPinCodeHelper;
+import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
 import com.beautycoder.pflockscreen.security.PFSecurityException;
-import com.beautycoder.pflockscreen.security.SecurityUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         PFLockScreenFragment fragment = new PFLockScreenFragment();
 
         try {
-            boolean isPinExist = FingerprintPinCodeHelper.getInstance().isPincodeExist();
+            boolean isPinExist = PFFingerprintPinCodeHelper.getInstance().isPinCodeExist();
             builder.setMode(isPinExist
                     ? PFFLockScreenConfiguration.MODE_CREATE
                     : PFFLockScreenConfiguration.MODE_AUTH);
