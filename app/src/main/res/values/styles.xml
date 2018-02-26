@@ -7,7 +7,11 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
-
+        <item name="pf_key_button">@style/MyLockScreenButtonStyle</item>
+        <item name="pf_fingerprint_button">@style/MyLockScreenFingerprintButtonStyle</item>
+        <item name="pf_delete_button">@style/MyLockScreenDeleteButtonStyle</item>
+        <item name="pf_lock_screen">@style/MyLockScreenStyle</item>
+        <item name="pf_code_view">@style/MyLockScreenCodeStyle</item>
     </style>
 
     <!--
@@ -18,23 +22,20 @@
     <item name="pf_code_view">@style/MyLockScreenCodeStyle</item> -->
 
     <style name="MyLockScreenStyle">
-        <item name="android:background">#746189</item>
+        <item name="android:background">@drawable/screen_background</item>
     </style>
 
     <style name="MyLockScreenButtonStyle">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">18dp</item>
-        <item name="android:background">@drawable/touch_selector</item>
         <item name="android:foreground">@drawable/key_foreground</item>
     </style>
 
     <style name="MyLockScreenFingerprintButtonStyle">
-        <item name="android:src">@drawable/fingerprint_lockscreen</item>
     </style>
 
     <style name="MyLockScreenDeleteButtonStyle">
-        <item name="android:src">@drawable/delete_lockscreen</item>
     </style>
 
     <style name="MyLockScreenCodeStyle">

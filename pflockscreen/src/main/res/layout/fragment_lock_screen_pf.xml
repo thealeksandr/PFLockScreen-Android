@@ -8,14 +8,13 @@
     <ImageView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:theme="?pf_lock_screen"
-        style="@style/PFLockScreenStyle"/>
+        android:theme="@style/PFLockScreenStyle"
+        style="?pf_lock_screen"/>
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        style="?pf_lock_screen"
         android:paddingBottom="60dp"
         android:layout_centerInParent="true">
 
@@ -258,8 +257,7 @@
                     android:theme="@style/PFLockScreenDeleteButtonStyle"
                     style="?pf_delete_button"
                     android:visibility="gone"
-                    android:background="@drawable/ripple_selector"
-                    android:padding="20dp"/>
+                    android:background="@drawable/ripple_selector" />
 
                 <ImageView
                     android:id="@+id/button_finger_print"
@@ -270,8 +268,7 @@
                     android:layout_gravity="center"
                     android:theme="@style/PFLockScreenFingerPrintButtonStyle"
                     android:background="@drawable/ripple_selector"
-                    style="?pf_fingerprint_button"
-                    android:padding="20dp"/>
+                    style="?pf_fingerprint_button" />
 
             </FrameLayout>
 
