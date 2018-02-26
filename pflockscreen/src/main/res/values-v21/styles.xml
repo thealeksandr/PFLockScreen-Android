@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="PFLockScreenButtonStyle2">
+    <style name="PFLockScreenButtonStyle">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/white</item>
         <item name="android:background">@drawable/ripple_drawable</item>

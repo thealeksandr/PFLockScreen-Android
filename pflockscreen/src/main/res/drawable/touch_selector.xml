@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
     android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+
     <item android:state_focused="true"  android:state_enabled="false" android:state_pressed="true"
-        android:drawable="@color/white_selector_pf" />
+        android:drawable="@drawable/pf_circle_key_selector" />
     <item android:state_focused="true"  android:state_enabled="false"
-        android:drawable="@android:color/white" />
+        android:drawable="@drawable/pf_circle_key_selector" />
     <item android:state_focused="true"                                android:state_pressed="true"
-        android:drawable="@color/white_selector_pf" />
+        android:drawable="@drawable/pf_circle_key_selector" />
     <item android:state_focused="false"                               android:state_pressed="true"
-        android:drawable="@color/white_selector_pf" />
+        android:drawable="@drawable/pf_circle_key_selector" />
     <item android:state_focused="true"
-        android:drawable="@android:color/white" />
+        android:drawable="@drawable/pf_circle_key_selector" />
     <item
-        android:drawable="@android:color/transparent" />
+        android:drawable="@drawable/circle_background_pf_lock_screen" />
 </selector>

@@ -8,8 +8,7 @@
     <style name="PFLockScreenButtonStyle" parent="Theme.AppCompat.Light">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:foreground">@drawable/touch_selector</item>
-        <item name="android:background">@drawable/circle_background_pf_lock_screen</item>
+        <item name="android:background">@drawable/touch_selector</item>
     </style>
 
     <style name="PFLockScreenFingerPrintButtonStyle">
