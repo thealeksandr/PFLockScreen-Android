@@ -22,6 +22,10 @@
         <item name="android:padding">20dp</item>
     </style>
 
+
+    <style name="PFCheckBox">
+        <item name="android:checkboxStyle">@style/PFLockScreenCodeStyle</item>
+    </style>
     <style name="PFLockScreenCodeStyle">
         <item name="android:button">@drawable/pf_code_selector</item>
     </style>

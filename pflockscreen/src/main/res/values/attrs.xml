@@ -5,5 +5,4 @@
         <attr name="pf_fingerprint_button" format="reference|integer"/>
         <attr name="pf_delete_button" format="reference|integer"/>
         <attr name="pf_code_view" format="reference|integer"/>
-        <attr name="pf_background" format="reference|integer"/>
 </resources>

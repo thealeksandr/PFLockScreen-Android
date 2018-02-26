@@ -69,10 +69,10 @@ public class MainActivity extends AppCompatActivity {
         PFLockScreenFragment fragment = new PFLockScreenFragment();
 
         try {
-            boolean isPinExist = PFFingerprintPinCodeHelper.getInstance().isPinCodeExist();
+            boolean isPinExist = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
             builder.setMode(isPinExist
-                    ? PFFLockScreenConfiguration.MODE_CREATE
-                    : PFFLockScreenConfiguration.MODE_AUTH);
+                    ? PFFLockScreenConfiguration.MODE_AUTH
+                    : PFFLockScreenConfiguration.MODE_CREATE);
             if (isPinExist) {
                 fragment.setEncodedPinCode(PreferencesSettings.getCode(this));
                 fragment.setLoginListener(mLoginListener);

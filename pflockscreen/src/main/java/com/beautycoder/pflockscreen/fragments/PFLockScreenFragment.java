@@ -66,18 +66,7 @@ public class PFLockScreenFragment extends Fragment {
         mCodeView = view.findViewById(R.id.code_view);
         initKeyViews(view);
 
-        if (mIsCreateMode) {
-            mLeftButton.setVisibility(View.GONE);
-            mFingerprintButton.setVisibility(View.GONE);
-        }
-
         mCodeView.setListener(mCodeListener);
-
-        if (mIsCreateMode) {
-            mNextButton.setOnClickListener(mOnNextButtonClickListener);
-        } else {
-            mNextButton.setOnClickListener(null);
-        }
 
         if (!mUseFingerPrint) {
             mFingerprintButton.setVisibility(View.GONE);
@@ -114,6 +103,17 @@ public class PFLockScreenFragment extends Fragment {
             mDeleteButton.setVisibility(View.VISIBLE);
         }
         mIsCreateMode = mConfiguration.getMode() == PFFLockScreenConfiguration.MODE_CREATE;
+
+        if (mIsCreateMode) {
+            mLeftButton.setVisibility(View.GONE);
+            mFingerprintButton.setVisibility(View.GONE);
+        }
+
+        if (mIsCreateMode) {
+            mNextButton.setOnClickListener(mOnNextButtonClickListener);
+        } else {
+            mNextButton.setOnClickListener(null);
+        }
     }
 
     private void initKeyViews(View parent) {

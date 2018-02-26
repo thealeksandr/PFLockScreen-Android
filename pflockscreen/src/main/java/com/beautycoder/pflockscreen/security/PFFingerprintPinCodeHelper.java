@@ -10,7 +10,6 @@ import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
  *
  * PFFingerprintPinCodeHelper - helper class to encode/decode pin code string,
  * validate pin code etc.
- *
  */
 public class PFFingerprintPinCodeHelper {
 
