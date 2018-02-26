@@ -1,6 +1,9 @@
 package com.beautycoder.pflockscreen.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -156,9 +159,17 @@ public class PFLockScreenFragment extends Fragment {
     private View.OnClickListener mOnFingerprintClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||
+                    !isFingerprintApiAvailable(getActivity())) {
                 return;
             }
+
+
+            if (!isFingerprintsExists(getActivity())) {
+                showNoFingetprintDialog();
+                return;
+            }
+
             final PFFingerprintAuthDialogFragment fragment
                     = new PFFingerprintAuthDialogFragment();
             fragment.show(getFragmentManager(), FINGERPRINT_DIALOG_FRAGMENT_TAG);
@@ -216,6 +227,22 @@ public class PFLockScreenFragment extends Fragment {
 
     private boolean isFingerprintsExists(Context context) {
         return FingerprintManagerCompat.from(context).hasEnrolledFingerprints();
+    }
+
+
+    private void showNoFingetprintDialog() {
+        new AlertDialog.Builder(getContext())
+                .setTitle("No fingerprints found")
+                .setMessage("Please add fingerprints in the settings if you want to use " +
+                        "this authorization method.")
+                .setCancelable(true)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+                    }
+                }).create().show();
     }
 
 
