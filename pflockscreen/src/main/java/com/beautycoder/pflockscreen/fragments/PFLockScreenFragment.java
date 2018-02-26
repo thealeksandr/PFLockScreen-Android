@@ -1,6 +1,7 @@
 package com.beautycoder.pflockscreen.fragments;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
@@ -35,8 +36,7 @@ public class PFLockScreenFragment extends Fragment {
 
     private boolean mUseFingerPrint = true;
     private boolean mFingerprintHardwareDetected = false;
-
-    private boolean mCreatePasswordMode = true;
+    private boolean mIsCreateMode = false;
 
     private OnPFLockScreenCodeCreateListener mCodeCreateListener;
     private OnPFLockScreenLoginListener mLoginListener;
@@ -66,14 +66,14 @@ public class PFLockScreenFragment extends Fragment {
         mCodeView = view.findViewById(R.id.code_view);
         initKeyViews(view);
 
-        if (mCreatePasswordMode) {
+        if (mIsCreateMode) {
             mLeftButton.setVisibility(View.GONE);
             mFingerprintButton.setVisibility(View.GONE);
         }
 
         mCodeView.setListener(mCodeListener);
 
-        if (mCreatePasswordMode) {
+        if (mIsCreateMode) {
             mNextButton.setOnClickListener(mOnNextButtonClickListener);
         } else {
             mNextButton.setOnClickListener(null);
@@ -113,6 +113,7 @@ public class PFLockScreenFragment extends Fragment {
             mFingerprintButton.setVisibility(View.GONE);
             mDeleteButton.setVisibility(View.VISIBLE);
         }
+        mIsCreateMode = mConfiguration.getMode() == PFFLockScreenConfiguration.MODE_CREATE;
     }
 
     private void initKeyViews(View parent) {
@@ -155,6 +156,9 @@ public class PFLockScreenFragment extends Fragment {
     private View.OnClickListener mOnFingerprintClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                return;
+            }
             final PFFingerprintAuthDialogFragment fragment
                     = new PFFingerprintAuthDialogFragment();
             fragment.show(getFragmentManager(), FINGERPRINT_DIALOG_FRAGMENT_TAG);
@@ -178,7 +182,7 @@ public class PFLockScreenFragment extends Fragment {
     };
 
     private void configureRightButton(int codeLength) {
-        if (mCreatePasswordMode) {
+        if (mIsCreateMode) {
             if (codeLength > 0) {
                 mDeleteButton.setVisibility(View.VISIBLE);
             } else {
@@ -220,7 +224,7 @@ public class PFLockScreenFragment extends Fragment {
     private PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
         @Override
         public void onCodeCompleted(String code) {
-            if (mCreatePasswordMode) {
+            if (mIsCreateMode) {
                 mNextButton.setVisibility(View.VISIBLE);
                 mCode = code;
                 return;
@@ -247,7 +251,7 @@ public class PFLockScreenFragment extends Fragment {
 
         @Override
         public void onCodeNotCompleted(String code) {
-            if (mCreatePasswordMode) {
+            if (mIsCreateMode) {
                 mNextButton.setVisibility(View.GONE);
                 return;
             }
@@ -302,14 +306,6 @@ public class PFLockScreenFragment extends Fragment {
         }).create().show();
     }*/
 
-
-    /**
-     * Setter for password create mode.
-     * @param createPasswordMode true if screen has to be in pin code creation mode.
-     */
-    public void setCreatePasswordMode(boolean createPasswordMode) {
-        mCreatePasswordMode = createPasswordMode;
-    }
 
     /**
      * Set OnPFLockScreenCodeCreateListener.

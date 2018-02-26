@@ -68,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .setUseFingerprint(true);
         PFLockScreenFragment fragment = new PFLockScreenFragment();
-        fragment.setConfiguration(builder.build());
+
         try {
             boolean isPinExist = FingerprintPinCodeHelper.getInstance().isPincodeExist();
-            fragment.setCreatePasswordMode(!isPinExist);
+            builder.setMode(isPinExist
+                    ? PFFLockScreenConfiguration.MODE_CREATE
+                    : PFFLockScreenConfiguration.MODE_AUTH);
             if (isPinExist) {
                 fragment.setEncodedPinCode(PreferencesSettings.getCode(this));
                 fragment.setLoginListener(mLoginListener);
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Can not get pin code info", Toast.LENGTH_SHORT).show();
             return;
         }
+        fragment.setConfiguration(builder.build());
         fragment.setCodeCreateListener(mCodeCreateListener);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_view, fragment).commit();
