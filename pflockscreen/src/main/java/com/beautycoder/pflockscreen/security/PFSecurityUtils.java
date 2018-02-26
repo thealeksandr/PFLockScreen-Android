@@ -32,7 +32,9 @@ import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
 
 /**
- * Created by aleksandr on 2018/02/07.
+ * Created by Aleksandr Nikiforov on 2018/02/07.
+ *
+ * Class to work with AndroidKeyStore.
  */
 class PFSecurityUtils {
 
