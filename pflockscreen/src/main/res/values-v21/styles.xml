@@ -4,8 +4,7 @@
     <style name="PFLockScreenButtonStyle">
         <!-- Customize your theme here. -->
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
-        <item name="android:foreground">@drawable/circle_background_pf_lock_screen</item>
+        <item name="android:background">@drawable/ripple_drawable</item>
         <item name="android:theme">@style/PFCodeButtonHighlight</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>

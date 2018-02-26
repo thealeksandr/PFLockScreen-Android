@@ -67,7 +67,7 @@ public class PFCodeView extends LinearLayout {
         if (code.length() == codeLength) {
             return code.length();
         }
-        codeViews.get(code.length()).setChecked(true);
+        codeViews.get(code.length()).toggle(); //.setChecked(true);
         code += number;
         if (code.length() == codeLength && mListener != null) {
             mListener.onCodeCompleted(code);
@@ -83,7 +83,7 @@ public class PFCodeView extends LinearLayout {
             return code.length();
         }
         code = code.substring(0, code.length() - 1);
-        codeViews.get(code.length()).setChecked(false);
+        codeViews.get(code.length()).toggle();//.setChecked(false);
         return code.length();
     }
 

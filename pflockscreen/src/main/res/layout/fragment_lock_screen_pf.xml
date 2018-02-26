@@ -2,9 +2,14 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background_pf">
+    android:layout_height="wrap_content">
 
+
+    <ImageView
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:theme="?pf_lock_screen"
+        style="@style/PFLockScreenStyle"/>
 
     <LinearLayout
         android:orientation="vertical"
@@ -36,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="25dp">
+            android:layout_marginTop="30dp">
 
             <FrameLayout
                 android:layout_height="wrap_content"
@@ -203,12 +208,15 @@
                 android:layout_weight="1">
                 <TextView
                     android:id="@+id/button_left"
-                    android:layout_height="match_parent"
-                    android:layout_width="60dp"
+                    android:layout_height="70dp"
+                    android:layout_width="70dp"
                     android:text="@string/forgot_pf"
                     android:gravity="center"
                     android:layout_gravity="center"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white"
+                    android:background="@drawable/ripple_selector"
+                    android:clickable="true"
+                    android:focusable="true"/>
             </FrameLayout>
 
             <FrameLayout
@@ -242,24 +250,28 @@
 
                 <ImageView
                     android:id="@+id/button_delete"
-                    android:layout_height="30dp"
-                    android:layout_width="30dp"
+                    android:layout_height="70dp"
+                    android:layout_width="70dp"
                     android:text="fp"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:theme="@style/PFLockScreenDeleteButtonStyle"
                     style="?pf_delete_button"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:background="@drawable/ripple_selector"
+                    android:padding="20dp"/>
 
                 <ImageView
                     android:id="@+id/button_finger_print"
-                    android:layout_height="30dp"
-                    android:layout_width="30dp"
+                    android:layout_height="70dp"
+                    android:layout_width="70dp"
                     android:text="fp"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:theme="@style/PFLockScreenFingerPrintButtonStyle"
-                    style="?pf_fingerprint_button"/>
+                    android:background="@drawable/ripple_selector"
+                    style="?pf_fingerprint_button"
+                    android:padding="20dp"/>
 
             </FrameLayout>
 
@@ -271,13 +283,17 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
-        android:gravity="end">
+        android:gravity="center">
 
         <Button
             android:id="@+id/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/next_pf"
+            android:text="Next"
+            android:background="@null"
+            android:textColor="#9FFF"
+            android:textSize="18dp"
+            android:layout_margin="20dp"
             android:visibility="gone"/>
 
     </LinearLayout>
