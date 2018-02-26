@@ -51,7 +51,8 @@ public class PFLockScreenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lock_screen_pf, container, false);
+        View view = inflater.inflate(R.layout.fragment_lock_screen_pf, container,
+                false);
         mFingerprintButton = view.findViewById(R.id.button_finger_print);
         mDeleteButton = view.findViewById(R.id.button_delete);
 
@@ -105,6 +106,7 @@ public class PFLockScreenFragment extends Fragment {
             mLeftButton.setVisibility(View.GONE);
         } else {
             mLeftButton.setText(configuration.getLeftButton());
+            mLeftButton.setOnClickListener(configuration.getOnLeftButtonClickListener());
         }
         mUseFingerPrint = configuration.isUseFingerprint();
         if (!mUseFingerPrint) {
