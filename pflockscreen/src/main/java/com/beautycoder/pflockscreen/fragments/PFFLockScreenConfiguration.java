@@ -84,7 +84,8 @@ public class PFFLockScreenConfiguration {
         }
 
         public PFFLockScreenConfiguration build() {
-            return new PFFLockScreenConfiguration(this);
+            return new PFFLockScreenConfiguration(
+                    this);
         }
 
 

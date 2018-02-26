@@ -27,7 +27,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/fingerprint_description"
         android:layout_marginTop="20dp"
-        android:src="@drawable/ic_fp_40px"
+        android:src="@drawable/ic_fp_40px_pf"
         android:contentDescription="@string/description_fingerprint_icon_pf"/>
 
     <TextView

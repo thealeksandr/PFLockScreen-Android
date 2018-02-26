@@ -7,6 +7,9 @@
     <string name="next_pf">Next</string>
     <string name="forgot_pf">Forgot?</string>
     <string name="lock_screen_title_pf">Input pin code or use fingerprint</string>
+    <string name="settings_pf">Settings</string>
+    <string name="no_fingerprints_message_pf">No fingerprints found. Please add fingerprints in the settings if you want to use this authorization method."</string>
+    <string name="no_fingerprints_title_pf">"No fingerprints found"</string>
 
     <string name="fingerprint_not_recognized_pf">Fingerprint not recognized. Try again</string>
     <string name="fingerprint_success_pf">Fingerprint recognized</string>

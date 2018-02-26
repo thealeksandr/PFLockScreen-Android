@@ -24,9 +24,11 @@ import com.beautycoder.pflockscreen.security.PFSecurityException;
 import com.beautycoder.pflockscreen.views.PFCodeView;
 
 /**
- * Created by aleksandr on 2018/02/07.
+ * Created by Aleksandr Nikiforov on 2018/02/07.
+ *
+ * Lock Screen Fragment. Support pin code authorization and
+ * fingerprint authorization for API 23 +.
  */
-
 public class PFLockScreenFragment extends Fragment {
 
     private static final String FINGERPRINT_DIALOG_FRAGMENT_TAG = "FingerprintDialogFragment";
@@ -166,7 +168,7 @@ public class PFLockScreenFragment extends Fragment {
 
 
             if (!isFingerprintsExists(getActivity())) {
-                showNoFingetprintDialog();
+                showNoFingerprintDialog();
                 return;
             }
 
@@ -230,22 +232,19 @@ public class PFLockScreenFragment extends Fragment {
     }
 
 
-    private void showNoFingetprintDialog() {
+    private void showNoFingerprintDialog() {
         new AlertDialog.Builder(getContext())
-                .setTitle("No fingerprints found")
-                .setMessage("Please add fingerprints in the settings if you want to use " +
-                        "this authorization method.")
+                .setTitle(R.string.no_fingerprints_title_pf)
+                .setMessage(R.string.no_fingerprints_message_pf)
                 .setCancelable(true)
-                .setNegativeButton(android.R.string.cancel, null)
-                .setPositiveButton("Settings", new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.cancel_pf, null)
+                .setPositiveButton(R.string.settings_pf, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
                     }
                 }).create().show();
     }
-
-
 
 
     private PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
@@ -308,7 +307,7 @@ public class PFLockScreenFragment extends Fragment {
         if (v != null) {
             v.vibrate(400);
         }
-        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake);
+        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_pf);
         mCodeView.startAnimation(animShake);
     }
 
