@@ -6,4 +6,5 @@
         <attr name="pf_delete_button" format="reference|integer"/>
         <attr name="pf_code_view" format="reference|integer"/>
         <attr name="pf_key_button_size" format="dimension"/>
+        <attr name="pf_background" format="reference|integer"/>
 </resources>
