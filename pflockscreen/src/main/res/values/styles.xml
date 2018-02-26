@@ -10,15 +10,16 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:foreground">@drawable/touch_selector</item>
         <item name="android:background">@drawable/circle_background_pf_lock_screen</item>
-        <item name="pf_key_button_size">70dp</item>
     </style>
 
     <style name="PFLockScreenFingerPrintButtonStyle">
         <item name="android:src">@drawable/fingerprint_lockscreen_pf</item>
+        <item name="android:padding">20dp</item>
     </style>
 
     <style name="PFLockScreenDeleteButtonStyle">
         <item name="android:src">@drawable/delete_lockscreen_pf</item>
+        <item name="android:padding">20dp</item>
     </style>
 
     <style name="PFLockScreenCodeStyle">

@@ -7,12 +7,12 @@
         android:radius="2dp"/>
     <stroke
         android:color="#f4e9ff"
-        android:width="1px"/>
+        android:width="3px"/>
 
     <solid
         android:color="#f4e9ff"/>
 
     <size
-        android:width="@dimen/code_fp_size"
-        android:height="@dimen/code_fp_size"/>
+        android:width="20dp"
+        android:height="20dp"/>
 </shape>

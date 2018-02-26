@@ -39,7 +39,7 @@ public class PFFLockScreenConfiguration {
         return mOnLeftButtonClickListener;
     }
 
-    static class Builder {
+    public static class Builder {
 
         private String mLeftButton = "";
         private View.OnClickListener mOnLeftButtonClickListener = null;

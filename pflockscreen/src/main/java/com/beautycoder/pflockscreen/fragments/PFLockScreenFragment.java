@@ -85,9 +85,9 @@ public class PFLockScreenFragment extends Fragment {
 
         mFingerprintHardwareDetected = isFingerprintApiAvailable(getContext());
 
+        mRootView = view;
         applyConfiguration(mConfiguration);
 
-        mRootView = view;
         return view;
     }
 

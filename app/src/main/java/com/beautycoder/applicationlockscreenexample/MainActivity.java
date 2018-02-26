@@ -2,8 +2,10 @@ package com.beautycoder.applicationlockscreenexample;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Toast;
 
+import com.beautycoder.pflockscreen.fragments.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.beautycoder.pflockscreen.security.FingerprintPinCodeHelper;
 import com.beautycoder.pflockscreen.security.PFSecurityException;
@@ -56,7 +58,17 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void showLockScreenFragment() {
+        PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
+                .setTitle("Unlock with your pin code or fingerprint")
+                .setLeftButton("Can't remeber", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                })
+                .setUseFingerprint(true);
         PFLockScreenFragment fragment = new PFLockScreenFragment();
+        fragment.setConfiguration(builder.build());
         try {
             boolean isPinExist = FingerprintPinCodeHelper.getInstance().isPincodeExist();
             fragment.setCreatePasswordMode(!isPinExist);
