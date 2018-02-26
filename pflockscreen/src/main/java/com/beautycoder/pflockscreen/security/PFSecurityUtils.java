@@ -36,7 +36,7 @@ import javax.crypto.spec.PSource;
  *
  * Class to work with AndroidKeyStore.
  */
-class PFSecurityUtils {
+public class PFSecurityUtils {
 
     private static final PFSecurityUtils ourInstance = new PFSecurityUtils();
 
