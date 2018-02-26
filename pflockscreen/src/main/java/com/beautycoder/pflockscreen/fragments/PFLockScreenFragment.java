@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,8 @@ import com.beautycoder.pflockscreen.views.PFCodeView;
  * fingerprint authorization for API 23 +.
  */
 public class PFLockScreenFragment extends Fragment {
+
+    private static final String TAG = PFLockScreenFragment.class.getName();
 
     private static final String FINGERPRINT_DIALOG_FRAGMENT_TAG = "FingerprintDialogFragment";
 
@@ -297,10 +300,21 @@ public class PFLockScreenFragment extends Fragment {
                 //showFingerprintAlertDialog(getActivity());
             } catch (PFSecurityException e) {
                 e.printStackTrace();
-                //TODO: Show error;
+                Log.d(TAG, "Can not encode pin code");
+                deleteEncodeKey();
             }
         }
     };
+
+
+    private void deleteEncodeKey() {
+        try {
+            PFFingerprintPinCodeHelper.getInstance().delete();
+        } catch (PFSecurityException e) {
+            e.printStackTrace();
+            Log.d(TAG, "Can not delete the alias");
+        }
+    }
 
     private void errorAction() {
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
