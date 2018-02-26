@@ -34,15 +34,15 @@ import javax.crypto.spec.PSource;
 /**
  * Created by aleksandr on 2018/02/07.
  */
-public class SecurityUtils {
+class PFSecurityUtils {
 
-    private static final SecurityUtils ourInstance = new SecurityUtils();
+    private static final PFSecurityUtils ourInstance = new PFSecurityUtils();
 
-    static public SecurityUtils getInstance() {
+    static public PFSecurityUtils getInstance() {
         return ourInstance;
     }
 
-    private SecurityUtils() {
+    private PFSecurityUtils() {
 
     }
 

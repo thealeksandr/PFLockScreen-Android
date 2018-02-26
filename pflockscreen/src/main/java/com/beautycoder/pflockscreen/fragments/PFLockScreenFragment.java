@@ -16,7 +16,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.beautycoder.pflockscreen.R;
-import com.beautycoder.pflockscreen.security.FingerprintPinCodeHelper;
+import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
 import com.beautycoder.pflockscreen.security.PFSecurityException;
 import com.beautycoder.pflockscreen.views.PFCodeView;
 
@@ -232,7 +232,7 @@ public class PFLockScreenFragment extends Fragment {
             mCode = code;
             try {
                 boolean isCorrect
-                        = FingerprintPinCodeHelper.getInstance().checkPin(getContext(), mEncodedPinCode, mCode);
+                        = PFFingerprintPinCodeHelper.getInstance().checkPin(getContext(), mEncodedPinCode, mCode);
                 if (mLoginListener != null) {
                     if (isCorrect) {
                         mLoginListener.onCodeInputSuccessful();
@@ -263,7 +263,7 @@ public class PFLockScreenFragment extends Fragment {
         @Override
         public void onClick(View v) {
             try {
-                String encodedCode = FingerprintPinCodeHelper.getInstance().savePin(getContext(),
+                String encodedCode = PFFingerprintPinCodeHelper.getInstance().savePin(getContext(),
                         mCode, true);
                 if (mCodeCreateListener != null) {
                     mCodeCreateListener.onCodeCreated(encodedCode);
@@ -295,7 +295,7 @@ public class PFLockScreenFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //if (isFingerprintsExists(getContext())) {
-                    //FingerprintPinCodeHelper.getInstance().savePin()
+                    //PFFingerprintPinCodeHelper.getInstance().savePin()
                 //}
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
