@@ -4,9 +4,14 @@ import android.content.Context;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 
 /**
- * Created by aleksandr on 2018/02/09.
+ * Created by Aleksandr Nikiforov on 2018/02/09.
+ *
+ *
+ *
+ * PFFingerprintPinCodeHelper - helper class to encode/decode pin code string,
+ * validate pin code etc.
+ *
  */
-
 public class PFFingerprintPinCodeHelper {
 
     private static final String FINGERPRINT_ALIAS = "fp_fingerprint_lock_screen_key_store";
@@ -22,11 +27,27 @@ public class PFFingerprintPinCodeHelper {
 
     }
 
-    public String savePin(Context context, String pin, boolean usefingerprint)
+    /**
+     * Encode pin code.
+     * @param context any context.
+     * @param pin pin code string.
+     * @param usefingerprint use fingerprint authorization.
+     * @return encoded pin code string.
+     * @throws PFSecurityException throw exception if something went wrong.
+     */
+    public String encodePin(Context context, String pin, boolean usefingerprint)
             throws PFSecurityException {
         return PFSecurityUtils.getInstance().encode(PIN_ALIAS, pin, false);
     }
 
+    /**
+     * Check if pin code is valid.
+     * @param context any context.
+     * @param encodedPin encoded pin code string.
+     * @param pin pin code string to check.
+     * @return true if pin codes matches.
+     * @throws PFSecurityException  throw exception if something went wrong.
+     */
     public boolean checkPin(Context context, String encodedPin, String pin)
             throws PFSecurityException {
         String pinCode = PFSecurityUtils.getInstance().decode(PIN_ALIAS, encodedPin);
@@ -42,11 +63,20 @@ public class PFFingerprintPinCodeHelper {
         return FingerprintManagerCompat.from(context).hasEnrolledFingerprints();
     }
 
+    /**
+     * Delete pin code encryption key.
+     * @throws PFSecurityException throw exception if something went wrong.
+     */
     public void delete() throws PFSecurityException {
         PFSecurityUtils.getInstance().deleteKey(PIN_ALIAS);
     }
 
-    public boolean isPinCodeExist() throws PFSecurityException {
+    /**
+     * Check if pin code encryption key is exist.
+     * @return true if key exist in KeyStore.
+     * @throws PFSecurityException throw exception if something went wrong.
+     */
+    public boolean isPinCodeEncryptionKeyExist() throws PFSecurityException {
         return PFSecurityUtils.getInstance().isKeystoreContainAlias(PIN_ALIAS);
     }
 

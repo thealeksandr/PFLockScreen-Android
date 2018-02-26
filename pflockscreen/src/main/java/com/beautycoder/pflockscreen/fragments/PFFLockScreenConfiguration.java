@@ -46,7 +46,7 @@ public class PFFLockScreenConfiguration {
         return mOnLeftButtonClickListener;
     }
 
-    public @LockScreenMode int getMode() {
+    public @PFLockScreenMode int getMode() {
         return this.mMode;
     }
 
@@ -78,7 +78,7 @@ public class PFFLockScreenConfiguration {
             return this;
         }
 
-        public Builder setMode(@LockScreenMode int mode) {
+        public Builder setMode(@PFLockScreenMode int mode) {
             mMode = mode;
             return this;
         }

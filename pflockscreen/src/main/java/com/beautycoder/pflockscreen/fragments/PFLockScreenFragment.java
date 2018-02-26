@@ -263,7 +263,7 @@ public class PFLockScreenFragment extends Fragment {
         @Override
         public void onClick(View v) {
             try {
-                String encodedCode = PFFingerprintPinCodeHelper.getInstance().savePin(getContext(),
+                String encodedCode = PFFingerprintPinCodeHelper.getInstance().encodePin(getContext(),
                         mCode, true);
                 if (mCodeCreateListener != null) {
                     mCodeCreateListener.onCodeCreated(encodedCode);
@@ -295,7 +295,7 @@ public class PFLockScreenFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //if (isFingerprintsExists(getContext())) {
-                    //PFFingerprintPinCodeHelper.getInstance().savePin()
+                    //PFFingerprintPinCodeHelper.getInstance().encodePin()
                 //}
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
