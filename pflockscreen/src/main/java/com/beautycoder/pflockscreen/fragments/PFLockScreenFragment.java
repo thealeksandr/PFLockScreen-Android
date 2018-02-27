@@ -19,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.R;
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
 import com.beautycoder.pflockscreen.security.PFSecurityException;
@@ -122,6 +123,7 @@ public class PFLockScreenFragment extends Fragment {
         } else {
             mNextButton.setOnClickListener(null);
         }
+        mCodeView.setCodeLength(mConfiguration.getCodeLength());
     }
 
     private void initKeyViews(View parent) {
@@ -136,8 +138,6 @@ public class PFLockScreenFragment extends Fragment {
         parent.findViewById(R.id.button_8).setOnClickListener(mOnKeyClickListener);
         parent.findViewById(R.id.button_9).setOnClickListener(mOnKeyClickListener);
     }
-
-
 
     private View.OnClickListener mOnKeyClickListener = new View.OnClickListener() {
         @Override
@@ -272,9 +272,7 @@ public class PFLockScreenFragment extends Fragment {
                 }
             } catch (PFSecurityException e) {
                 e.printStackTrace();
-
             }
-
 
         }
 
