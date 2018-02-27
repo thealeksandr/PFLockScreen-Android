@@ -49,7 +49,6 @@ public class PFFingerprintAuthDialogFragment extends DialogFragment {
 
     private Context mContext;
 
-
     private PFFingerprintAuthListener mAuthListener;
 
 

@@ -1,19 +1,16 @@
-package com.beautycoder.pflockscreen.fragments;
+package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import android.support.annotation.IntDef;
 import android.view.View;
-
-import com.beautycoder.pflockscreen.R;
 
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
 
 /**
- * Created by aleksandr on 2018/02/14.
+ * Created by Aleksandr Nikiforov on 2018/02/14.
  */
-
 public class PFFLockScreenConfiguration {
 
     private String mLeftButton = "";
@@ -21,6 +18,7 @@ public class PFFLockScreenConfiguration {
     private boolean mUseFingerprint = false;
     private String mTitle = "";
     private int mMode = MODE_AUTH;
+    private int mCodeLength = 4;
 
     private PFFLockScreenConfiguration(Builder builder) {
         mLeftButton = builder.mLeftButton;
@@ -28,22 +26,28 @@ public class PFFLockScreenConfiguration {
         mTitle = builder.mTitle;
         mOnLeftButtonClickListener = builder.mOnLeftButtonClickListener;
         mMode = builder.mMode;
+        mCodeLength = builder.mCodeLength;
     }
 
-    String getLeftButton() {
+    public String getLeftButton() {
         return mLeftButton;
     }
 
-    boolean isUseFingerprint() {
+    public boolean isUseFingerprint() {
         return mUseFingerprint;
     }
 
-    String getTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
     public View.OnClickListener getOnLeftButtonClickListener() {
         return mOnLeftButtonClickListener;
+    }
+
+
+    public int getCodeLength() {
+        return mCodeLength;
     }
 
     public @PFLockScreenMode int getMode() {
@@ -57,6 +61,8 @@ public class PFFLockScreenConfiguration {
         private boolean mUseFingerprint = false;
         private String mTitle = "";
         private int mMode = 0;
+        private int mCodeLength = 4;
+
 
         public Builder(Context context) {
             mTitle = context.getResources().getString(R.string.lock_screen_title_pf);
@@ -83,11 +89,15 @@ public class PFFLockScreenConfiguration {
             return this;
         }
 
+        public Builder setCodeLength(int codeLength) {
+            this.mCodeLength = codeLength;
+            return this;
+        }
+
         public PFFLockScreenConfiguration build() {
             return new PFFLockScreenConfiguration(
                     this);
         }
-
 
 
     }
