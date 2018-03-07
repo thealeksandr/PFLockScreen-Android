@@ -1,6 +1,7 @@
 package com.beautycoder.pflockscreen;
 
 
+import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,7 +15,7 @@ import junit.framework.Assert;
  * Created by Aleksandr Nikiforov on 2018/02/27.
  */
 
-public class FragmentTestRule <F extends Fragment> extends ActivityTestRule<TestActivity> {
+public abstract class FragmentTestRule <F extends Fragment> extends ActivityTestRule<TestActivity> {
 
     private final Class<F> mFragmentClass;
     private F mFragment;
@@ -31,22 +32,24 @@ public class FragmentTestRule <F extends Fragment> extends ActivityTestRule<Test
         getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                try {
+                //try {
                     //Instantiate and insert the fragment into the container layout
                     FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
-                    mFragment = mFragmentClass.newInstance();
+                    mFragment = getInstance(getActivity()); //mFragmentClass.newInstance();
                     transaction.replace(android.R.id.content, mFragment);
                     transaction.commit();
-                } catch (InstantiationException | IllegalAccessException e) {
+                /*} catch (InstantiationException | IllegalAccessException e) {
                     Assert.fail(String.format("%s: Could not insert %s into TestActivity: %s",
                             getClass().getSimpleName(),
                             mFragmentClass.getSimpleName(),
                             e.getMessage()));
-                }
+                }*/
             }
         });
     }
+
+    public abstract F getInstance(Context context);
 
 
     public F getFragment(){
