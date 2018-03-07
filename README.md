@@ -6,9 +6,8 @@
 
 PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **fingerprint** authorization for API level 23+.   
           
-            
 <p align="center">
-<img src="https://user-images.githubusercontent.com/1378730/36675642-2c3e2796-1b3c-11e8-8711-d95455dd8cdf.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675641-2c16130a-1b3c-11e8-88ac-32038e5b3540.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675645-2c63823e-1b3c-11e8-8936-6db8c84333f1.png" alt="alt text" width="200" hspace="40">
+<img src="https://user-images.githubusercontent.com/1378730/37100456-9225c0c6-2255-11e8-972c-e365ef2659fa.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675641-2c16130a-1b3c-11e8-88ac-32038e5b3540.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675645-2c63823e-1b3c-11e8-8936-6db8c84333f1.png" alt="alt text" width="200" hspace="40">
 </p>
             
      
