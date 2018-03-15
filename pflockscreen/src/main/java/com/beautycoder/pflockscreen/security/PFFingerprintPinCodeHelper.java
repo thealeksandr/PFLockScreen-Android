@@ -30,11 +30,10 @@ public class PFFingerprintPinCodeHelper {
      * Encode pin code.
      * @param context any context.
      * @param pin pin code string.
-     * @param usefingerprint use fingerprint authorization.
      * @return encoded pin code string.
      * @throws PFSecurityException throw exception if something went wrong.
      */
-    public String encodePin(Context context, String pin, boolean usefingerprint)
+    public String encodePin(Context context, String pin)
             throws PFSecurityException {
         return PFSecurityUtils.getInstance().encode(PIN_ALIAS, pin, false);
     }

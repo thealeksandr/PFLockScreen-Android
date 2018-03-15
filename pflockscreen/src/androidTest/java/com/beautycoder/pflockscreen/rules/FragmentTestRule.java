@@ -1,4 +1,4 @@
-package com.beautycoder.pflockscreen;
+package com.beautycoder.pflockscreen.rules;
 
 
 import android.content.Context;
