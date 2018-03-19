@@ -61,7 +61,7 @@ public class PFSecurityUtilsTest {
         boolean isAliasFalse = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
         assertFalse(isAliasFalse);
 
-        String encoded = PFFingerprintPinCodeHelper.getInstance().encodePin(appContext, pinCode, false);
+        String encoded = PFFingerprintPinCodeHelper.getInstance().encodePin(appContext, pinCode);
         assertNotNull(encoded);
 
         boolean isAliasTrue = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();

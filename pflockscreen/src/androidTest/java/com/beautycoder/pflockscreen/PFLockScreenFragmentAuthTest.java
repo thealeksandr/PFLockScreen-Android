@@ -2,6 +2,7 @@ package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import android.support.test.espresso.Espresso;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
@@ -11,6 +12,7 @@ import com.beautycoder.pflockscreen.security.PFSecurityException;
 
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
@@ -24,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by aleksandr on 2018/03/10.
  */
-
+@RunWith(AndroidJUnit4.class)
 public class PFLockScreenFragmentAuthTest {
 
     private static final String LEFT_BUTTON = "Can't remember";
@@ -54,15 +56,6 @@ public class PFLockScreenFragmentAuthTest {
 
     @Test
     public void fragment_can_be_instantiated() {
-        try {
-            PFFingerprintPinCodeHelper.getInstance().delete();
-            boolean isAliasFalse = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-            assertFalse(isAliasFalse);
-        } catch (PFSecurityException e) {
-            e.printStackTrace();
-            assertFalse(true);
-        }
-
 
         // Launch the activity to make the fragment visible
         mFragmentTestRule.launchActivity(null);
@@ -79,19 +72,23 @@ public class PFLockScreenFragmentAuthTest {
 
         for (int i = 0; i < CODE_LENGTH; i ++) {
             Espresso.onView(withId(R.id.button_1)).perform(click());
+            Espresso.onView(withId(R.id.button_finger_print)).check(matches(not(isDisplayed())));
+            Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
         }
 
-        Espresso.onView(withId(R.id.button_next)).check(matches(isDisplayed()));
-
-        Espresso.onView(withId(R.id.button_next)).perform(click());
-
-        try {
-            boolean isAliasFalse = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-            assertTrue(isAliasFalse);
-        } catch (PFSecurityException e) {
-            e.printStackTrace();
-            assertFalse(true);
+        for (int i = 0; i < CODE_LENGTH - 1; i ++) {
+            Espresso.onView(withId(R.id.button_delete)).perform(click());
+            Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
+            Espresso.onView(withId(R.id.button_finger_print)).check(matches(not(isDisplayed())));
         }
+
+        Espresso.onView(withId(R.id.button_delete)).perform(click());
+        Espresso.onView(withId(R.id.button_finger_print)).check(matches(isDisplayed()));
+        Espresso.onView(withId(R.id.button_delete)).check(matches(not(isDisplayed())));
+
+
+        Espresso.onView(withId(R.id.button_next)).check(matches(not(isDisplayed())));
+
 
     }
 
