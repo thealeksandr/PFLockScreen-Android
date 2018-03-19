@@ -291,7 +291,7 @@ public class PFLockScreenFragment extends Fragment {
         public void onClick(View v) {
             try {
                 String encodedCode = PFFingerprintPinCodeHelper.getInstance().encodePin(getContext(),
-                        mCode, true);
+                        mCode);
                 if (mCodeCreateListener != null) {
                     mCodeCreateListener.onCodeCreated(encodedCode);
                 }

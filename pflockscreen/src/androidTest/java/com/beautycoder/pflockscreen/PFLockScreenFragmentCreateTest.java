@@ -2,17 +2,13 @@ package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import android.support.test.espresso.Espresso;
-import android.support.test.espresso.matcher.BoundedMatcher;
 import android.support.test.runner.AndroidJUnit4;
-import android.view.View;
 
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.beautycoder.pflockscreen.rules.FragmentTestRule;
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
 import com.beautycoder.pflockscreen.security.PFSecurityException;
-import com.beautycoder.pflockscreen.views.PFCodeView;
 
-import org.hamcrest.Description;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -104,8 +100,6 @@ public class PFLockScreenFragmentCreateTest {
 
 
         Espresso.onView(withId(R.id.button_next)).perform(click());
-
-
 
 
         try {
