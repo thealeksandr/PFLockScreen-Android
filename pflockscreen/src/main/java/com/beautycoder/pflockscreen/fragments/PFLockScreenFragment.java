@@ -90,12 +90,12 @@ public class PFLockScreenFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
+    public void onStart() {
         if (!mIsCreateMode && mUseFingerPrint && mConfiguration.isAutoShowFingerprint() &&
                 isFingerprintApiAvailable(getActivity()) && isFingerprintsExists(getActivity())) {
             mOnFingerprintClickListener.onClick(mFingerprintButton);
         }
-        super.onResume();
+        super.onStart();
     }
 
     public void setConfiguration(PFFLockScreenConfiguration configuration) {
