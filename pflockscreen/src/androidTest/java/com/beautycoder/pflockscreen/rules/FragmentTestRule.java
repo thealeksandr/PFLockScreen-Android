@@ -9,8 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.beautycoder.pflockscreen.activities.TestActivity;
 
-import junit.framework.Assert;
-
 /**
  * Created by Aleksandr Nikiforov on 2018/02/27.
  */
