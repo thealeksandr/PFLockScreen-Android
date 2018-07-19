@@ -14,27 +14,41 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 public class PFFLockScreenConfiguration {
 
     private String mLeftButton = "";
+    private String mNextButton = "";
     private View.OnClickListener mOnLeftButtonClickListener = null;
     private boolean mUseFingerprint = false;
+    private boolean mAutoShowFingerprint = false;
     private String mTitle = "";
     private int mMode = MODE_AUTH;
     private int mCodeLength = 4;
+    private boolean mClearCodeOnError = false;
 
     private PFFLockScreenConfiguration(Builder builder) {
         mLeftButton = builder.mLeftButton;
+        mNextButton = builder.mNextButton;
         mUseFingerprint = builder.mUseFingerprint;
+        mAutoShowFingerprint = builder.mAutoShowFingerprint;
         mTitle = builder.mTitle;
         mOnLeftButtonClickListener = builder.mOnLeftButtonClickListener;
         mMode = builder.mMode;
         mCodeLength = builder.mCodeLength;
+        mClearCodeOnError = builder.mClearCodeOnError;
     }
 
     public String getLeftButton() {
         return mLeftButton;
     }
 
+    public String getNextButton() {
+        return mNextButton;
+    }
+
     public boolean isUseFingerprint() {
         return mUseFingerprint;
+    }
+
+    public boolean isAutoShowFingerprint() {
+        return mAutoShowFingerprint;
     }
 
     public String getTitle() {
@@ -45,9 +59,12 @@ public class PFFLockScreenConfiguration {
         return mOnLeftButtonClickListener;
     }
 
-
     public int getCodeLength() {
         return mCodeLength;
+    }
+
+    public boolean isClearCodeOnError() {
+        return mClearCodeOnError;
     }
 
     public @PFLockScreenMode int getMode() {
@@ -57,11 +74,14 @@ public class PFFLockScreenConfiguration {
     public static class Builder {
 
         private String mLeftButton = "";
+        private String mNextButton = "";
         private View.OnClickListener mOnLeftButtonClickListener = null;
         private boolean mUseFingerprint = false;
+        private boolean mAutoShowFingerprint = false;
         private String mTitle = "";
         private int mMode = 0;
         private int mCodeLength = 4;
+        private boolean mClearCodeOnError = false;
 
 
         public Builder(Context context) {
@@ -79,8 +99,18 @@ public class PFFLockScreenConfiguration {
             return this;
         }
 
+        public Builder setNextButton(String nextButton) {
+            mNextButton = nextButton;
+            return this;
+        }
+
         public Builder setUseFingerprint(boolean useFingerprint) {
             mUseFingerprint = useFingerprint;
+            return this;
+        }
+
+        public Builder setAutoShowFingerprint(boolean autoShowFingerprint) {
+            mAutoShowFingerprint = autoShowFingerprint;
             return this;
         }
 
@@ -91,6 +121,11 @@ public class PFFLockScreenConfiguration {
 
         public Builder setCodeLength(int codeLength) {
             this.mCodeLength = codeLength;
+            return this;
+        }
+
+        public Builder setClearCodeOnError(boolean clearCodeOnError) {
+            mClearCodeOnError = clearCodeOnError;
             return this;
         }
 
