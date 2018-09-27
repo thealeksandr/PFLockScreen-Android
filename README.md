@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
-**Feel free to ask questions add issues. If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr **
+**Feel free to ask questions add issues.** If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr
 
 ## Min SDK Version - 15
 
