@@ -2,6 +2,8 @@
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
+**Feel free to ask questions add issues. If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr **
+
 ## Min SDK Version - 15
 
 PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **fingerprint** authorization for API level 23+.   
@@ -151,5 +153,5 @@ Examples:
 
 The only important thing you can't change right now is the size of keys. But it's coming.
 
-**Fell free to ask questions add issues.**
+**Feel free to ask questions add issues.** If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr
 
