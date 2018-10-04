@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
@@ -27,7 +28,7 @@ import com.beautycoder.pflockscreen.views.PFCodeView;
 
 /**
  * Created by Aleksandr Nikiforov on 2018/02/07.
- *
+ * <p>
  * Lock Screen Fragment. Support pin code authorization and
  * fingerprint authorization for API 23 +.
  */
@@ -40,7 +41,7 @@ public class PFLockScreenFragment extends Fragment {
     private View mFingerprintButton;
     private View mDeleteButton;
     private TextView mLeftButton;
-    private View mNextButton;
+    private Button mNextButton;
     private PFCodeView mCodeView;
 
     private boolean mUseFingerPrint = true;
@@ -51,7 +52,6 @@ public class PFLockScreenFragment extends Fragment {
     private OnPFLockScreenLoginListener mLoginListener;
     private String mCode = "";
     private String mEncodedPinCode = "";
-
 
     private PFFLockScreenConfiguration mConfiguration;
     private View mRootView;
@@ -68,8 +68,8 @@ public class PFLockScreenFragment extends Fragment {
         mLeftButton = view.findViewById(R.id.button_left);
         mNextButton = view.findViewById(R.id.button_next);
 
-
         mDeleteButton.setOnClickListener(mOnDeleteButtonClickListener);
+        mDeleteButton.setOnLongClickListener(mOnDeleteButtonOnLongClickListener);
         mFingerprintButton.setOnClickListener(mOnFingerprintClickListener);
 
         mCodeView = view.findViewById(R.id.code_view);
@@ -89,6 +89,15 @@ public class PFLockScreenFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        if (!mIsCreateMode && mUseFingerPrint && mConfiguration.isAutoShowFingerprint() &&
+                isFingerprintApiAvailable(getActivity()) && isFingerprintsExists(getActivity())) {
+            mOnFingerprintClickListener.onClick(mFingerprintButton);
+        }
+        super.onStart();
+    }
+
     public void setConfiguration(PFFLockScreenConfiguration configuration) {
         this.mConfiguration = configuration;
         applyConfiguration(configuration);
@@ -106,6 +115,11 @@ public class PFLockScreenFragment extends Fragment {
             mLeftButton.setText(configuration.getLeftButton());
             mLeftButton.setOnClickListener(configuration.getOnLeftButtonClickListener());
         }
+
+        if (!TextUtils.isEmpty(configuration.getNextButton())) {
+            mNextButton.setText(configuration.getNextButton());
+        }
+
         mUseFingerPrint = configuration.isUseFingerprint();
         if (!mUseFingerPrint) {
             mFingerprintButton.setVisibility(View.GONE);
@@ -158,6 +172,15 @@ public class PFLockScreenFragment extends Fragment {
         public void onClick(View v) {
             int codeLength = mCodeView.delete();
             configureRightButton(codeLength);
+        }
+    };
+
+    private View.OnLongClickListener mOnDeleteButtonOnLongClickListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            mCodeView.clearCode();
+            configureRightButton(0);
+            return true;
         }
     };
 
@@ -270,6 +293,9 @@ public class PFLockScreenFragment extends Fragment {
                         errorAction();
                     }
                 }
+                if (!isCorrect && mConfiguration.isClearCodeOnError()) {
+                    mCodeView.clearCode();
+                }
             } catch (PFSecurityException e) {
                 e.printStackTrace();
             }
@@ -347,6 +373,7 @@ public class PFLockScreenFragment extends Fragment {
 
     /**
      * Set OnPFLockScreenCodeCreateListener.
+     *
      * @param listener OnPFLockScreenCodeCreateListener object.
      */
     public void setCodeCreateListener(OnPFLockScreenCodeCreateListener listener) {
@@ -355,6 +382,7 @@ public class PFLockScreenFragment extends Fragment {
 
     /**
      * Set OnPFLockScreenLoginListener.
+     *
      * @param listener OnPFLockScreenLoginListener object.
      */
     public void setLoginListener(OnPFLockScreenLoginListener listener) {
@@ -363,6 +391,7 @@ public class PFLockScreenFragment extends Fragment {
 
     /**
      * Set Encoded pin code.
+     *
      * @param encodedPinCode encoded pin code string, that was created before.
      */
     public void setEncodedPinCode(String encodedPinCode) {
@@ -377,6 +406,7 @@ public class PFLockScreenFragment extends Fragment {
 
         /**
          * Callback method for pin code creation.
+         *
          * @param encodedCode encoded pin code string.
          */
         void onCodeCreated(String encodedCode);
@@ -387,7 +417,7 @@ public class PFLockScreenFragment extends Fragment {
     /**
      * Login callback interface.
      */
-    public interface  OnPFLockScreenLoginListener {
+    public interface OnPFLockScreenLoginListener {
 
         /**
          * Callback method for successful login attempt with pin code.
@@ -413,14 +443,6 @@ public class PFLockScreenFragment extends Fragment {
 
 
 }
-
-
-
-
-
-
-
-
 
 
 //private static final String KEY_STORE_NAME = "fp_lock_screen_key_store";
@@ -453,9 +475,9 @@ public class PFLockScreenFragment extends Fragment {
         }
         prepareSensor();*/
 
-    //private boolean isDeviceLockScreenIsProtected(Context context) {
-       // return keyguardManager.isKeyguardSecure();
-    //}
+//private boolean isDeviceLockScreenIsProtected(Context context) {
+// return keyguardManager.isKeyguardSecure();
+//}
 
 
     /*private void prepareSensor() {
