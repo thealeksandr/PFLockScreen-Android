@@ -98,6 +98,15 @@ public class PFCodeView extends LinearLayout {
         return mCode.length();
     }
 
+    public void clearCode() {
+        if (mListener != null) {
+            mListener.onCodeNotCompleted(mCode);
+        }
+        mCode = "";
+        for (CheckBox codeView : mCodeViews) {
+            codeView.setChecked(false);
+        }
+    }
 
     public int getInputCodeLength() {
         return mCode.length();
