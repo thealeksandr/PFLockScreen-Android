@@ -214,7 +214,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:textColor="@android:color/white"
-                    android:background="@drawable/ripple_selector_side_pf"
+                    android:background="@drawable/side_button_background_pf"
                     android:clickable="true"
                     android:focusable="true"/>
             </FrameLayout>
@@ -258,7 +258,7 @@
                     android:theme="@style/PFLockScreenDeleteButtonStyle"
                     style="?pf_delete_button"
                     android:visibility="gone"
-                    android:background="@drawable/ripple_selector_side_pf"/>
+                    android:background="@drawable/side_button_background_pf"/>
 
                 <ImageView
                     android:id="@+id/button_finger_print"
@@ -268,7 +268,7 @@
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:theme="@style/PFLockScreenFingerPrintButtonStyle"
-                    android:background="@drawable/ripple_selector_side_pf"
+                    android:background="@drawable/side_button_background_pf"
                     style="?pf_fingerprint_button" />
 
             </FrameLayout>
