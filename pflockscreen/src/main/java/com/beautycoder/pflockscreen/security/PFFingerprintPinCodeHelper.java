@@ -1,12 +1,11 @@
 package com.beautycoder.pflockscreen.security;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 
 /**
  * Created by Aleksandr Nikiforov on 2018/02/09.
- *
- *
  *
  * PFFingerprintPinCodeHelper - helper class to encode/decode pin code string,
  * validate pin code etc.
@@ -22,6 +21,9 @@ public class PFFingerprintPinCodeHelper {
         return ourInstance;
     }
 
+    private final IPFSecurityUtils pfSecurityUtils
+            = PFSecurityUtilsFactory.getPFSecurityUtilsInstance();
+
     private PFFingerprintPinCodeHelper() {
 
     }
@@ -35,7 +37,7 @@ public class PFFingerprintPinCodeHelper {
      */
     public String encodePin(Context context, String pin)
             throws PFSecurityException {
-        return PFSecurityUtils.getInstance().encode(PIN_ALIAS, pin, false);
+        return pfSecurityUtils.encode(context, PIN_ALIAS, pin, false);
     }
 
     /**
@@ -48,7 +50,7 @@ public class PFFingerprintPinCodeHelper {
      */
     public boolean checkPin(Context context, String encodedPin, String pin)
             throws PFSecurityException {
-        String pinCode = PFSecurityUtils.getInstance().decode(PIN_ALIAS, encodedPin);
+        final String pinCode = pfSecurityUtils.decode(PIN_ALIAS, encodedPin);
         return pinCode.equals(pin);
     }
 
@@ -66,7 +68,7 @@ public class PFFingerprintPinCodeHelper {
      * @throws PFSecurityException throw exception if something went wrong.
      */
     public void delete() throws PFSecurityException {
-        PFSecurityUtils.getInstance().deleteKey(PIN_ALIAS);
+        pfSecurityUtils.deleteKey(PIN_ALIAS);
     }
 
     /**
@@ -75,7 +77,7 @@ public class PFFingerprintPinCodeHelper {
      * @throws PFSecurityException throw exception if something went wrong.
      */
     public boolean isPinCodeEncryptionKeyExist() throws PFSecurityException {
-        return PFSecurityUtils.getInstance().isKeystoreContainAlias(PIN_ALIAS);
+        return pfSecurityUtils.isKeystoreContainAlias(PIN_ALIAS);
     }
 
 }
