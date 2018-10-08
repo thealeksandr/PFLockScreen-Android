@@ -67,7 +67,8 @@ public class PFFLockScreenConfiguration {
         return mClearCodeOnError;
     }
 
-    public @PFLockScreenMode int getMode() {
+    @PFLockScreenMode
+    public int getMode() {
         return this.mMode;
     }
 
