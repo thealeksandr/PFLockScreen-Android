@@ -7,8 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="pf_key_button">@style/MyLockScreenButtonStyle</item>
-        <item name="pf_lock_screen">@style/MyLockScreenStyle</item>
     </style>
 
     <!--

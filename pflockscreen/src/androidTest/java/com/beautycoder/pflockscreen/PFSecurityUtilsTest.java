@@ -33,7 +33,7 @@ public class PFSecurityUtilsTest {
         boolean isAliasFalse = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
         assertFalse(isAliasFalse);
 
-        String encoded = PFSecurityUtils.getInstance().encode(alias, pinCode, false);
+        String encoded = PFSecurityUtils.getInstance().encode(null, alias, pinCode, false);
         assertNotNull(encoded);
 
         boolean isAliasTrue = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
