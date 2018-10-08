@@ -4,6 +4,10 @@
 
 **Feel free to ask questions add issues.** If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr
 
+## beta 3 Update
+* Fix support for Android < M
+* Minor fixes and Improvements
+
 ## Min SDK Version - 15
 
 PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **fingerprint** authorization for API level 23+.   
