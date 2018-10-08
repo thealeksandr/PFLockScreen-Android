@@ -24,7 +24,9 @@
 
     <style name="PFCheckBox">
         <item name="android:checkboxStyle">@style/PFLockScreenCodeStyle</item>
+        <item name="checkboxStyle">@style/PFLockScreenCodeStyle</item>
     </style>
+
     <style name="PFLockScreenCodeStyle">
         <item name="android:button">@drawable/code_selector_pf</item>
     </style>
