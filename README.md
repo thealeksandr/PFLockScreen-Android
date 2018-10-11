@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
-**Feel free to ask questions add issues.** If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr.
 
 ## beta 3 Update
 * Fix support for Android < M
@@ -10,15 +10,15 @@
 
 ## Min SDK Version - 15
 
-PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **fingerprint** authorization for API level 23+.   
-          
+PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **fingerprint** authorization for API level 23+.
+
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1378730/37100456-9225c0c6-2255-11e8-972c-e365ef2659fa.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675641-2c16130a-1b3c-11e8-88ac-32038e5b3540.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675645-2c63823e-1b3c-11e8-8936-6db8c84333f1.png" alt="alt text" width="200" hspace="40">
 </p>
-            
-     
-     
-## Add library to your project     
+
+
+
+## Add library to your project
 ```gradle
 allprojects {
 	repositories {
@@ -34,10 +34,10 @@ dependencies {
 }
 ```
 
-## Create pin code 
+## Create pin code
 
 Creating lock screen fragment in **create mode**.
- 
+
 ```java
 PFLockScreenFragment fragment = new PFLockScreenFragment();
 PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
@@ -46,7 +46,7 @@ fragment.setConfiguration(builder.build());
 fragment.setCodeCreateListener(new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
 	@Override
   public void onCodeCreated(String encodedCode) {
-		//TODO: save somewhere;		   
+		//TODO: save somewhere;
 	}
 });
 //TODO: show fragment;
@@ -55,35 +55,35 @@ fragment.setCodeCreateListener(new PFLockScreenFragment.OnPFLockScreenCodeCreate
 
 After user created pin code. The library will encode it using Android Key Store and return an encoded string in **PFLockScreenFragment.OnPFLockScreenCodeCreateListener**. All you have to do is save encoded string somewhere - database, SharedPreferences, Android Account etc.
 
-      
+
 ## Show authorization screen
 
-Creating lock screen fragment in *authorization mode* is same as in *creation mode*, but instead of MODE_CREATE use MODE_AUTH. 
+Creating lock screen fragment in *authorization mode* is same as in *creation mode*, but instead of MODE_CREATE use MODE_AUTH.
 
 ```java
 PFFLockScreenConfiguration.Builder(this).setMode(PFFLockScreenConfiguration.MODE_AUTH);
 ```
 
-        
+
 ## Configure screen
 
 ```java
 PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
-            .setTitle("Unlock") 
+            .setTitle("Unlock")
             .setUseFingerprint(true).
             .setMode(PFFLockScreenConfiguration.MODE_AUTH)
             .setCodeLength(6)
-            .setLeftButton("Can't remeber", 
+            .setLeftButton("Can't remeber",
 			            new View.OnClickListener() {
 		                @Override
                     public void onClick(View v) {
 
                     }
                 });
-                
+
 ```
-      
-    
+
+
 *setTitle(String)* - set custom string on the top of the screen.
 *setUseFingerprint(boolean)* - by default fingerprint button will be shown for all device 23+ with a fingerprint sensor. If you don't want use fingerprint at all set *false*.
 *setMode(PFLockScreenMode)* - MODE_CREATE or MODE_AUTH. See details above.
@@ -91,17 +91,17 @@ PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Buil
 *setLeftButton(String, View.OnClickListener)* - set string for the left button and ClickListener.
 
 
-        
+
 ## Check if pin code encryption key exist
 
 ```java
 boolean isExist = PFFingerprintPinCodeHelper.getInstance().isPinCodeExist();
 ```
- 
+
 An encryption key is needed to encode/decode pin code and stored in Android KeyStore.
 
 
-       
+
 ## Delete pin code encryption key.
 You need to delete encryption key if you delete/reset pin code.
 
@@ -111,7 +111,7 @@ PFFingerprintPinCodeHelper.getInstance().delete();
 
 ## UI Customization
 
-You can customize buttons, backgrounds etc. To do that use attributes in your activity theme:
+You can customize buttons, backgrounds, etc. To do that, use attributes in your activity theme:
 
 *pf_key_button* - style object for key buttons (0-9)
 *pf_lock_screen* - style object for the background. Use it to set custom background.
@@ -120,7 +120,7 @@ You can customize buttons, backgrounds etc. To do that use attributes in your ac
 *pf_code_view* - style object to customize code view. (The view from the top of the screen). The view itself is set of check boxes. To customize it use a custom selector with checked states.
 
 
-Examples: 
+Examples:
 ```xml
  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     <!-- Some of your styles. -->
@@ -157,5 +157,4 @@ Examples:
 
 The only important thing you can't change right now is the size of keys. But it's coming.
 
-**Feel free to ask questions add issues.** If I don't responce in Issue or PR feel free to ping me or send me DM on twitter @thealeksandr
-
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr.
