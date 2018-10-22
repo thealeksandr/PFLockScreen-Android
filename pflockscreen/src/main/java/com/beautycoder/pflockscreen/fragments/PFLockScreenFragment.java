@@ -1,6 +1,7 @@
 package com.beautycoder.pflockscreen.fragments;
 
 import android.app.AlertDialog;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -24,6 +25,8 @@ import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.R;
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
 import com.beautycoder.pflockscreen.security.PFSecurityException;
+import com.beautycoder.pflockscreen.security.PFSecurityResult;
+import com.beautycoder.pflockscreen.viewmodels.PFPinCodeViewModel;
 import com.beautycoder.pflockscreen.views.PFCodeView;
 
 /**
@@ -55,6 +58,8 @@ public class PFLockScreenFragment extends Fragment {
 
     private PFFLockScreenConfiguration mConfiguration;
     private View mRootView;
+
+    private final PFPinCodeViewModel mPFPinCodeViewModel = new PFPinCodeViewModel();
 
     @Nullable
     @Override
@@ -273,7 +278,7 @@ public class PFLockScreenFragment extends Fragment {
     }
 
 
-    private PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
+    private final PFCodeView.OnPFCodeListener mCodeListener = new PFCodeView.OnPFCodeListener() {
         @Override
         public void onCodeCompleted(String code) {
             if (mIsCreateMode) {
@@ -282,23 +287,31 @@ public class PFLockScreenFragment extends Fragment {
                 return;
             }
             mCode = code;
-            try {
-                boolean isCorrect
-                        = PFFingerprintPinCodeHelper.getInstance().checkPin(getContext(), mEncodedPinCode, mCode);
-                if (mLoginListener != null) {
-                    if (isCorrect) {
-                        mLoginListener.onCodeInputSuccessful();
-                    } else {
-                        mLoginListener.onPinLoginFailed();
-                        errorAction();
-                    }
-                }
-                if (!isCorrect && mConfiguration.isClearCodeOnError()) {
-                    mCodeView.clearCode();
-                }
-            } catch (PFSecurityException e) {
-                e.printStackTrace();
-            }
+            mPFPinCodeViewModel.checkPin(getContext(), mEncodedPinCode, mCode).observe(
+                    PFLockScreenFragment.this,
+                    new Observer<PFSecurityResult<Boolean>>() {
+                        @Override
+                        public void onChanged(@Nullable PFSecurityResult<Boolean> result) {
+                            if (result == null) {
+                                return;
+                            }
+                            if (result.getError() != null) {
+                                return;
+                            }
+                            final boolean isCorrect = result.getResult();
+                            if (mLoginListener != null) {
+                                if (isCorrect) {
+                                    mLoginListener.onCodeInputSuccessful();
+                                } else {
+                                    mLoginListener.onPinLoginFailed();
+                                    errorAction();
+                                }
+                            }
+                            if (!isCorrect && mConfiguration.isClearCodeOnError()) {
+                                mCodeView.clearCode();
+                            }
+                        }
+                    });
 
         }
 
@@ -312,36 +325,54 @@ public class PFLockScreenFragment extends Fragment {
     };
 
 
-    private View.OnClickListener mOnNextButtonClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnNextButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            try {
-                String encodedCode = PFFingerprintPinCodeHelper.getInstance().encodePin(getContext(),
-                        mCode);
-                if (mCodeCreateListener != null) {
-                    mCodeCreateListener.onCodeCreated(encodedCode);
-                }
-                //showFingerprintAlertDialog(getActivity());
-            } catch (PFSecurityException e) {
-                e.printStackTrace();
-                Log.d(TAG, "Can not encode pin code");
-                deleteEncodeKey();
-            }
+            mPFPinCodeViewModel.encodePin(getContext(), mCode).observe(
+                    PFLockScreenFragment.this,
+                    new Observer<PFSecurityResult<String>>() {
+                        @Override
+                        public void onChanged(@Nullable PFSecurityResult<String> result) {
+                            if (result == null) {
+                                return;
+                            }
+                            if (result.getError() != null) {
+                                Log.d(TAG, "Can not encode pin code");
+                                deleteEncodeKey();
+                                return;
+                            }
+                            final String encodedCode = result.getResult();
+                            if (mCodeCreateListener != null) {
+                                mCodeCreateListener.onCodeCreated(encodedCode);
+                            }
+                        }
+                    }
+            );
         }
     };
 
 
     private void deleteEncodeKey() {
-        try {
-            PFFingerprintPinCodeHelper.getInstance().delete();
-        } catch (PFSecurityException e) {
-            e.printStackTrace();
-            Log.d(TAG, "Can not delete the alias");
-        }
+        mPFPinCodeViewModel.delete().observe(
+                this,
+                new Observer<PFSecurityResult<Boolean>>() {
+                    @Override
+                    public void onChanged(@Nullable PFSecurityResult<Boolean> result) {
+                        if (result == null) {
+                            return;
+                        }
+                        if (result.getError() != null) {
+                            Log.d(TAG, "Can not delete the alias");
+                            return;
+                        }
+
+                    }
+                }
+        );
     }
 
     private void errorAction() {
-        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        final Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         if (v != null) {
             v.vibrate(400);
         }
