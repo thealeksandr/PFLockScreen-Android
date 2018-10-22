@@ -1,7 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
+
 group='com.github.thealeksandr'
+
+final def lifecycle_version = "2.0.0"
 
 android {
     compileSdkVersion 27
@@ -28,6 +31,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:27.1.1'
+
+    //Livecycles & ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
