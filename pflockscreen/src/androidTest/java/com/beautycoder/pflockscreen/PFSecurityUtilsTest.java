@@ -5,7 +5,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
+import com.beautycoder.pflockscreen.security.PFSecurityResult;
 import com.beautycoder.pflockscreen.security.PFSecurityUtils;
+import com.beautycoder.pflockscreen.security.PFSecurityUtilsOld;
+import com.beautycoder.pflockscreen.security.callbacks.PFSecurityCallback;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,6 +16,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -20,63 +24,140 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 public class PFSecurityUtilsTest {
+
     @Test
     public void pfSecurityUtils() throws Exception {
         // Context of the app under test.
-        String alias = "test_alias";
-        String pinCode = "1234";
+        final String alias = "test_alias";
+        final String pinCode = "1234";
 
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        final Context appContext = InstrumentationRegistry.getTargetContext();
 
         PFSecurityUtils.getInstance().deleteKey(alias);
 
-        boolean isAliasFalse = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
+        final boolean isAliasFalse = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
         assertFalse(isAliasFalse);
 
-        String encoded = PFSecurityUtils.getInstance().encode(null, alias, pinCode, false);
+        final String encoded = PFSecurityUtils.getInstance().encode(null, alias, pinCode, false);
         assertNotNull(encoded);
 
-        boolean isAliasTrue = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
+        final boolean isAliasTrue = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
         assertTrue(isAliasTrue);
 
-        String decoded = PFSecurityUtils.getInstance().decode(alias, encoded);
+        final String decoded = PFSecurityUtils.getInstance().decode(alias, encoded);
         assertEquals(decoded, pinCode);
 
         PFSecurityUtils.getInstance().deleteKey(alias);
-        boolean isAliasFalse2 = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
+        final boolean isAliasFalse2 = PFSecurityUtils.getInstance().isKeystoreContainAlias(alias);
         assertFalse(isAliasFalse2);
-
     }
 
+    @Test
+    public void pfSecurityUtilsOld() throws Exception {
+        // Context of the app under test.
+        final String alias = "test_alias";
+        final String pinCode = "1234";
+
+        final Context appContext = InstrumentationRegistry.getTargetContext();
+
+        PFSecurityUtilsOld.getInstance().deleteKey(alias);
+
+        final boolean isAliasFalse = PFSecurityUtilsOld.getInstance().isKeystoreContainAlias(alias);
+        assertFalse(isAliasFalse);
+
+        final String encoded = PFSecurityUtilsOld.getInstance().encode(appContext, alias, pinCode, false);
+        assertNotNull(encoded);
+
+        final boolean isAliasTrue = PFSecurityUtilsOld.getInstance().isKeystoreContainAlias(alias);
+        assertTrue(isAliasTrue);
+
+        final String decoded = PFSecurityUtilsOld.getInstance().decode(alias, encoded);
+        assertEquals(decoded, pinCode);
+
+        PFSecurityUtilsOld.getInstance().deleteKey(alias);
+        final boolean isAliasFalse2 = PFSecurityUtilsOld.getInstance().isKeystoreContainAlias(alias);
+        assertFalse(isAliasFalse2);
+    }
 
     @Test
     public void pfFingerPrintPinCodeHelper() throws Exception {
         // Context of the app under test.
-        String pinCode = "1234";
+        final String pinCode = "1234";
 
-        Context appContext = InstrumentationRegistry.getTargetContext();
+        final Context appContext = InstrumentationRegistry.getTargetContext();
 
-        PFFingerprintPinCodeHelper.getInstance().delete();
+        PFFingerprintPinCodeHelper.getInstance().delete(new PFSecurityCallback<Boolean>() {
+            @Override
+            public void onResult(PFSecurityResult<Boolean> result) {
+                assertNull(result.getError());
+            }
+        });
 
-        boolean isAliasFalse = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-        assertFalse(isAliasFalse);
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(
+                new PFSecurityCallback<Boolean>() {
+                    @Override
+                    public void onResult(PFSecurityResult<Boolean> result) {
+                        assertNull(result.getError());
+                        assertFalse(result.getResult());
+                    }
+                });
 
-        String encoded = PFFingerprintPinCodeHelper.getInstance().encodePin(appContext, pinCode);
-        assertNotNull(encoded);
+        final StringBuilder stringBuilder = new StringBuilder();
+        PFFingerprintPinCodeHelper.getInstance().encodePin(appContext, pinCode,
+                new PFSecurityCallback<String>() {
+            @Override
+            public void onResult(PFSecurityResult<String> result) {
+                assertNull(result.getError());
+                final String encoded = result.getResult();
+                stringBuilder.append(encoded);
+                assertNotNull(encoded);
+            }
+        });
 
-        boolean isAliasTrue = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-        assertTrue(isAliasTrue);
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(
+                new PFSecurityCallback<Boolean>() {
+                    @Override
+                    public void onResult(PFSecurityResult<Boolean> result) {
+                        assertNull(result.getError());
+                        assertTrue(result.getResult());
+                    }
+                }
+        );
 
-        boolean isCorrect = PFFingerprintPinCodeHelper.getInstance().checkPin(appContext, encoded, pinCode);
-        assertTrue(isCorrect);
+        final String encoded = stringBuilder.toString();
+        PFFingerprintPinCodeHelper.getInstance().checkPin(appContext, encoded, pinCode,
+                new PFSecurityCallback<Boolean>() {
+            @Override
+            public void onResult(PFSecurityResult<Boolean> result) {
+                assertNull(result.getError());
+                assertTrue(result.getResult());
+            }
+        });
 
-        boolean isWrong = PFFingerprintPinCodeHelper.getInstance().checkPin(appContext, encoded, "1122");
-        assertFalse(isWrong);
 
-        PFFingerprintPinCodeHelper.getInstance().delete();
+        PFFingerprintPinCodeHelper.getInstance().checkPin(appContext, encoded, "1122",
+                new PFSecurityCallback<Boolean>() {
+            @Override
+            public void onResult(PFSecurityResult<Boolean> result) {
+                assertNull(result.getError());
+                assertFalse(result.getResult());
+            }
+        });
 
-        boolean isAliasFalse2 = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-        assertFalse(isAliasFalse2);
+        PFFingerprintPinCodeHelper.getInstance().delete(new PFSecurityCallback<Boolean>() {
+            @Override
+            public void onResult(PFSecurityResult<Boolean> result) {
+                assertNull(result.getError());
+            }
+        });
+
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFSecurityCallback<Boolean>() {
+            @Override
+            public void onResult(PFSecurityResult<Boolean> result) {
+                assertNull(result.getError());
+                assertFalse(result.getResult());
+            }
+        });
 
     }
 
