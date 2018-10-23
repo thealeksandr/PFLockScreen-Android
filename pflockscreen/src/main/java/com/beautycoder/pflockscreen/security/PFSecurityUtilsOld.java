@@ -37,8 +37,11 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
 
     }
 
-    private static final String RSA_MODE =  "RSA/ECB/PKCS1Padding";
-    private static final String PROVIDER =  "AndroidOpenSSL";
+    private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
+    private static final String PROVIDER =
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                    ? "AndroidKeyStoreBCWorkaround"
+                    : "AndroidOpenSSL";
 
     /**
      * Load AndroidKeyStore.
