@@ -38,6 +38,7 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
     }
 
     private static final String RSA_MODE =  "RSA/ECB/PKCS1Padding";
+    private static final String PROVIDER =  "AndroidOpenSSL";
 
     /**
      * Load AndroidKeyStore.
@@ -103,7 +104,7 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
         generateKeyIfNecessary(context, keyStore, keystoreAlias, false);
         final KeyStore.PrivateKeyEntry privateKeyEntry
                 = (KeyStore.PrivateKeyEntry) keyStore.getEntry(keystoreAlias, null);
-        final Cipher inputCipher = Cipher.getInstance(RSA_MODE, "AndroidOpenSSL");
+        final Cipher inputCipher = Cipher.getInstance(RSA_MODE, PROVIDER);
         inputCipher.init(Cipher.ENCRYPT_MODE, privateKeyEntry.getCertificate().getPublicKey());
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         final CipherOutputStream cipherOutputStream
@@ -138,7 +139,7 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
         final KeyStore keyStore = loadKeyStore();
         final KeyStore.PrivateKeyEntry privateKeyEntry =
                 (KeyStore.PrivateKeyEntry)keyStore.getEntry(keystoreAlias, null);
-        final Cipher output = Cipher.getInstance(RSA_MODE, "AndroidOpenSSL");
+        final Cipher output = Cipher.getInstance(RSA_MODE, PROVIDER);
         output.init(Cipher.DECRYPT_MODE, privateKeyEntry.getPrivateKey());
         final CipherInputStream cipherInputStream = new CipherInputStream(
                 new ByteArrayInputStream(encrypted), output);

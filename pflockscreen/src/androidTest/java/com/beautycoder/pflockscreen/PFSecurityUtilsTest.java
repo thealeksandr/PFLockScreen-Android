@@ -52,10 +52,11 @@ public class PFSecurityUtilsTest {
         assertFalse(isAliasFalse2);
     }
 
+
     @Test
     public void pfSecurityUtilsOld() throws Exception {
         // Context of the app under test.
-        final String alias = "test_alias";
+        final String alias = "test_alias_old";
         final String pinCode = "1234";
 
         final Context appContext = InstrumentationRegistry.getTargetContext();
