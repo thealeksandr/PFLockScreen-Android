@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
-import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
-import com.beautycoder.pflockscreen.security.PFSecurityException;
 import com.beautycoder.pflockscreen.security.PFSecurityResult;
 import com.beautycoder.pflockscreen.viewmodels.PFPinCodeViewModel;
 
@@ -24,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
+    private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
             new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
         @Override
         public void onCodeCreated(String encodedCode) {
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
+    private final PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
             new PFLockScreenFragment.OnPFLockScreenLoginListener() {
 
         @Override
@@ -90,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .setUseFingerprint(true);
-        PFLockScreenFragment fragment = new PFLockScreenFragment();
+        final PFLockScreenFragment fragment = new PFLockScreenFragment();
 
         builder.setMode(isPinExist
                 ? PFFLockScreenConfiguration.MODE_AUTH
@@ -107,10 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
     private  void showMainFragment() {
-        MainFragment fragment = new MainFragment();
+        final MainFragment fragment = new MainFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_view, fragment).commit();
     }
