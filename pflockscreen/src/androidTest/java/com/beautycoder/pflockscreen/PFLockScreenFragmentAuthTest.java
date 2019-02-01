@@ -37,17 +37,18 @@ public class PFLockScreenFragmentAuthTest {
             = new FragmentTestRule<PFLockScreenFragment>(PFLockScreenFragment.class) {
         @Override
         public PFLockScreenFragment getInstance(Context context) {
-            PFLockScreenFragment fragment = new PFLockScreenFragment();
-            PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(context)
-                    .setCodeLength(CODE_LENGTH)
-                    .setLeftButton(LEFT_BUTTON, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
+            final PFLockScreenFragment fragment = new PFLockScreenFragment();
+            final PFFLockScreenConfiguration.Builder builder =
+                    new PFFLockScreenConfiguration.Builder(context)
+                            .setCodeLength(CODE_LENGTH)
+                            .setLeftButton(LEFT_BUTTON, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
 
-                        }
-                    })
-                    .setUseFingerprint(true)
-                    .setMode(PFFLockScreenConfiguration.MODE_AUTH);
+                                }
+                            })
+                            .setUseFingerprint(true)
+                            .setMode(PFFLockScreenConfiguration.MODE_AUTH);
             fragment.setConfiguration(builder.build());
             return fragment;
         }
@@ -70,13 +71,13 @@ public class PFLockScreenFragmentAuthTest {
         Espresso.onView(withId(R.id.button_left)).check(matches(withText(LEFT_BUTTON)));
 
 
-        for (int i = 0; i < CODE_LENGTH; i ++) {
+        for (int i = 0; i < CODE_LENGTH; i++) {
             Espresso.onView(withId(R.id.button_1)).perform(click());
             Espresso.onView(withId(R.id.button_finger_print)).check(matches(not(isDisplayed())));
             Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
         }
 
-        for (int i = 0; i < CODE_LENGTH - 1; i ++) {
+        for (int i = 0; i < CODE_LENGTH - 1; i++) {
             Espresso.onView(withId(R.id.button_delete)).perform(click());
             Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
             Espresso.onView(withId(R.id.button_finger_print)).check(matches(not(isDisplayed())));

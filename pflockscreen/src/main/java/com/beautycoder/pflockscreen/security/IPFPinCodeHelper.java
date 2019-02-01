@@ -25,7 +25,12 @@ public interface IPFPinCodeHelper {
      * @return true if pin codes matches.
      * @throws PFSecurityException  throw exception if something went wrong.
      */
-    void checkPin(Context context, String encodedPin, String pin, PFSecurityCallback<Boolean> callback);
+    void checkPin(
+            Context context,
+            String encodedPin,
+            String pin,
+            PFSecurityCallback<Boolean> callback
+    );
 
     /**
      * Delete pin code encryption key.

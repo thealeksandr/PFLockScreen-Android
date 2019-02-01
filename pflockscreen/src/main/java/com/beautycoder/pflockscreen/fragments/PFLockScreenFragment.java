@@ -65,7 +65,7 @@ public class PFLockScreenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lock_screen_pf, container,
+        final View view = inflater.inflate(R.layout.fragment_lock_screen_pf, container,
                 false);
         mFingerprintButton = view.findViewById(R.id.button_finger_print);
         mDeleteButton = view.findViewById(R.id.button_delete);
@@ -112,7 +112,7 @@ public class PFLockScreenFragment extends Fragment {
         if (mRootView == null || configuration == null) {
             return;
         }
-        TextView titleView = mRootView.findViewById(R.id.title_text_view);
+        final TextView titleView = mRootView.findViewById(R.id.title_text_view);
         titleView.setText(configuration.getTitle());
         if (TextUtils.isEmpty(configuration.getLeftButton())) {
             mLeftButton.setVisibility(View.GONE);
@@ -158,29 +158,29 @@ public class PFLockScreenFragment extends Fragment {
         parent.findViewById(R.id.button_9).setOnClickListener(mOnKeyClickListener);
     }
 
-    private View.OnClickListener mOnKeyClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnKeyClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (v instanceof TextView) {
-                String string = ((TextView) v).getText().toString();
+                final String string = ((TextView) v).getText().toString();
                 if (string.length() != 1) {
                     return;
                 }
-                int codeLength = mCodeView.input(string);
+                final int codeLength = mCodeView.input(string);
                 configureRightButton(codeLength);
             }
         }
     };
 
-    private View.OnClickListener mOnDeleteButtonClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnDeleteButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            int codeLength = mCodeView.delete();
+            final int codeLength = mCodeView.delete();
             configureRightButton(codeLength);
         }
     };
 
-    private View.OnLongClickListener mOnDeleteButtonOnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener mOnDeleteButtonOnLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             mCodeView.clearCode();
@@ -189,7 +189,7 @@ public class PFLockScreenFragment extends Fragment {
         }
     };
 
-    private View.OnClickListener mOnFingerprintClickListener = new View.OnClickListener() {
+    private final View.OnClickListener mOnFingerprintClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M ||

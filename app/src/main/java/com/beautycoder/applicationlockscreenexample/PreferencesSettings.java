@@ -12,15 +12,15 @@ public class PreferencesSettings {
     private static final String PREF_FILE = "settings_pref";
 
     static void saveToPref(Context context, String str) {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+        final SharedPreferences sharedPref = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString("code", str);
-        editor.commit();
+        editor.apply();
     }
 
     static String getCode(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
-        String defaultValue = "";
+        final SharedPreferences sharedPref = context.getSharedPreferences(PREF_FILE, Context.MODE_PRIVATE);
+        final String defaultValue = "";
         return sharedPref.getString("code", defaultValue);
     }
 
