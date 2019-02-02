@@ -9,7 +9,8 @@ import android.widget.Toast;
 
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
-import com.beautycoder.pflockscreen.security.PFSecurityResult;
+import com.beautycoder.pflockscreen.security.PFResult;
+import com.beautycoder.pflockscreen.security.PFSecurityManager;
 import com.beautycoder.pflockscreen.viewmodels.PFPinCodeViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showLockScreenFragment();
+        PFSecurityManager.getInstance().setPinCodeHelper(new TestPFPinCodeHelperImpl());
     }
-
 
     private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
             new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         public void onCodeCreated(String encodedCode) {
             Toast.makeText(MainActivity.this, "Code created", Toast.LENGTH_SHORT).show();
             PreferencesSettings.saveToPref(MainActivity.this, encodedCode);
-
         }
     };
 
@@ -61,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
     private void showLockScreenFragment() {
         new PFPinCodeViewModel().isPinCodeEncryptionKeyExist().observe(
                 this,
-                new Observer<PFSecurityResult<Boolean>>() {
+                new Observer<PFResult<Boolean>>() {
                     @Override
-                    public void onChanged(@Nullable PFSecurityResult<Boolean> result) {
+                    public void onChanged(@Nullable PFResult<Boolean> result) {
                         if (result == null) {
                             return;
                         }

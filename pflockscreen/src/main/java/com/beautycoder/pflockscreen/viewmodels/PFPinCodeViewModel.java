@@ -4,21 +4,21 @@ import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import com.beautycoder.pflockscreen.security.PFSecurityManager;
-import com.beautycoder.pflockscreen.security.PFSecurityResult;
-import com.beautycoder.pflockscreen.security.callbacks.PFSecurityCallback;
+import com.beautycoder.pflockscreen.security.PFResult;
+import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 import com.beautycoder.pflockscreen.security.livedata.PFLiveData;
 
 
 public class PFPinCodeViewModel {
 
-    public LiveData<PFSecurityResult<String>> encodePin(Context context, String pin) {
-        final PFLiveData<PFSecurityResult<String>> liveData = new PFLiveData<>();
+    public LiveData<PFResult<String>> encodePin(Context context, String pin) {
+        final PFLiveData<PFResult<String>> liveData = new PFLiveData<>();
         PFSecurityManager.getInstance().getPinCodeHelper().encodePin(
                 context,
                 pin,
-                new PFSecurityCallback<String>() {
+                new PFPinCodeHelperCallback<String>() {
                     @Override
-                    public void onResult(PFSecurityResult<String> result) {
+                    public void onResult(PFResult<String> result) {
                         liveData.setData(result);
                     }
                 }
@@ -26,15 +26,15 @@ public class PFPinCodeViewModel {
         return liveData;
     }
 
-    public LiveData<PFSecurityResult<Boolean>> checkPin(Context context, String encodedPin, String pin) {
-        final PFLiveData<PFSecurityResult<Boolean>> liveData = new PFLiveData<>();
+    public LiveData<PFResult<Boolean>> checkPin(Context context, String encodedPin, String pin) {
+        final PFLiveData<PFResult<Boolean>> liveData = new PFLiveData<>();
         PFSecurityManager.getInstance().getPinCodeHelper().checkPin(
                 context,
                 encodedPin,
                 pin,
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
                     @Override
-                    public void onResult(PFSecurityResult<Boolean> result) {
+                    public void onResult(PFResult<Boolean> result) {
                         liveData.setData(result);
                     }
                 }
@@ -42,12 +42,12 @@ public class PFPinCodeViewModel {
         return liveData;
     }
 
-    public LiveData<PFSecurityResult<Boolean>> delete() {
-        final PFLiveData<PFSecurityResult<Boolean>> liveData = new PFLiveData<>();
+    public LiveData<PFResult<Boolean>> delete() {
+        final PFLiveData<PFResult<Boolean>> liveData = new PFLiveData<>();
         PFSecurityManager.getInstance().getPinCodeHelper().delete(
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
                     @Override
-                    public void onResult(PFSecurityResult<Boolean> result) {
+                    public void onResult(PFResult<Boolean> result) {
                         liveData.setData(result);
                     }
                 }
@@ -55,12 +55,12 @@ public class PFPinCodeViewModel {
         return liveData;
     }
 
-    public LiveData<PFSecurityResult<Boolean>> isPinCodeEncryptionKeyExist() {
-        final PFLiveData<PFSecurityResult<Boolean>> liveData = new PFLiveData<>();
+    public LiveData<PFResult<Boolean>> isPinCodeEncryptionKeyExist() {
+        final PFLiveData<PFResult<Boolean>> liveData = new PFLiveData<>();
         PFSecurityManager.getInstance().getPinCodeHelper().isPinCodeEncryptionKeyExist(
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
                     @Override
-                    public void onResult(PFSecurityResult<Boolean> result) {
+                    public void onResult(PFResult<Boolean> result) {
                         liveData.setData(result);
                     }
                 }

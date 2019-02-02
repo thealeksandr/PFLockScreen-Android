@@ -7,9 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.beautycoder.pflockscreen.rules.FragmentTestRule;
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
-import com.beautycoder.pflockscreen.security.PFSecurityException;
-import com.beautycoder.pflockscreen.security.PFSecurityResult;
-import com.beautycoder.pflockscreen.security.callbacks.PFSecurityCallback;
+import com.beautycoder.pflockscreen.security.PFResult;
+import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,9 +52,9 @@ public class PFLockScreenFragmentCreateTest {
     @Test
     public void fragment_can_be_instantiated() {
         PFFingerprintPinCodeHelper.getInstance().delete(null);
-        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFSecurityCallback<Boolean>() {
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
                 assertFalse(result.getResult());
             }
@@ -105,9 +104,9 @@ public class PFLockScreenFragmentCreateTest {
         Espresso.onView(withId(R.id.button_next)).perform(click());
 
 
-        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFSecurityCallback<Boolean>() {
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
                 assertTrue(result.getResult());
             }

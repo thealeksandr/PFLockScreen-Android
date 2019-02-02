@@ -23,9 +23,7 @@ import android.widget.TextView;
 
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.R;
-import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
-import com.beautycoder.pflockscreen.security.PFSecurityException;
-import com.beautycoder.pflockscreen.security.PFSecurityResult;
+import com.beautycoder.pflockscreen.security.PFResult;
 import com.beautycoder.pflockscreen.viewmodels.PFPinCodeViewModel;
 import com.beautycoder.pflockscreen.views.PFCodeView;
 
@@ -289,9 +287,9 @@ public class PFLockScreenFragment extends Fragment {
             mCode = code;
             mPFPinCodeViewModel.checkPin(getContext(), mEncodedPinCode, mCode).observe(
                     PFLockScreenFragment.this,
-                    new Observer<PFSecurityResult<Boolean>>() {
+                    new Observer<PFResult<Boolean>>() {
                         @Override
-                        public void onChanged(@Nullable PFSecurityResult<Boolean> result) {
+                        public void onChanged(@Nullable PFResult<Boolean> result) {
                             if (result == null) {
                                 return;
                             }
@@ -330,9 +328,9 @@ public class PFLockScreenFragment extends Fragment {
         public void onClick(View v) {
             mPFPinCodeViewModel.encodePin(getContext(), mCode).observe(
                     PFLockScreenFragment.this,
-                    new Observer<PFSecurityResult<String>>() {
+                    new Observer<PFResult<String>>() {
                         @Override
-                        public void onChanged(@Nullable PFSecurityResult<String> result) {
+                        public void onChanged(@Nullable PFResult<String> result) {
                             if (result == null) {
                                 return;
                             }
@@ -355,9 +353,9 @@ public class PFLockScreenFragment extends Fragment {
     private void deleteEncodeKey() {
         mPFPinCodeViewModel.delete().observe(
                 this,
-                new Observer<PFSecurityResult<Boolean>>() {
+                new Observer<PFResult<Boolean>>() {
                     @Override
-                    public void onChanged(@Nullable PFSecurityResult<Boolean> result) {
+                    public void onChanged(@Nullable PFResult<Boolean> result) {
                         if (result == null) {
                             return;
                         }

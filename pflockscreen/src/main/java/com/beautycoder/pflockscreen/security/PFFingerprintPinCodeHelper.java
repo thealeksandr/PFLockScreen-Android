@@ -3,7 +3,7 @@ package com.beautycoder.pflockscreen.security;
 import android.content.Context;
 import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
 
-import com.beautycoder.pflockscreen.security.callbacks.PFSecurityCallback;
+import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 
 /**
  * Created by Aleksandr Nikiforov on 2018/02/09.
@@ -38,15 +38,15 @@ public class PFFingerprintPinCodeHelper implements IPFPinCodeHelper {
      * @throws PFSecurityException throw exception if something went wrong.
      */
     @Override
-    public void encodePin(Context context, String pin, PFSecurityCallback<String> callback) {
+    public void encodePin(Context context, String pin, PFPinCodeHelperCallback<String> callback) {
         try {
             final String encoded = pfSecurityUtils.encode(context, PIN_ALIAS, pin, false);
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(encoded));
+                callback.onResult(new PFResult(encoded));
             }
         } catch (PFSecurityException e) {
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(e.getError()));
+                callback.onResult(new PFResult(e.getError()));
             }
         }
     }
@@ -60,15 +60,15 @@ public class PFFingerprintPinCodeHelper implements IPFPinCodeHelper {
      * @throws PFSecurityException  throw exception if something went wrong.
      */
     @Override
-    public void checkPin(Context context, String encodedPin, String pin, PFSecurityCallback<Boolean> callback) {
+    public void checkPin(Context context, String encodedPin, String pin, PFPinCodeHelperCallback<Boolean> callback) {
         try {
             final String pinCode = pfSecurityUtils.decode(PIN_ALIAS, encodedPin);
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(pinCode.equals(pin)));
+                callback.onResult(new PFResult(pinCode.equals(pin)));
             }
         } catch (PFSecurityException e) {
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(e.getError()));
+                callback.onResult(new PFResult(e.getError()));
             }
         }
     }
@@ -87,15 +87,15 @@ public class PFFingerprintPinCodeHelper implements IPFPinCodeHelper {
      * @throws PFSecurityException throw exception if something went wrong.
      */
     @Override
-    public void delete(PFSecurityCallback<Boolean> callback) {
+    public void delete(PFPinCodeHelperCallback<Boolean> callback) {
         try {
             pfSecurityUtils.deleteKey(PIN_ALIAS);
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(true));
+                callback.onResult(new PFResult(true));
             }
         } catch (PFSecurityException e) {
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(e.getError()));
+                callback.onResult(new PFResult(e.getError()));
             }
         }
     }
@@ -106,15 +106,15 @@ public class PFFingerprintPinCodeHelper implements IPFPinCodeHelper {
      * @throws PFSecurityException throw exception if something went wrong.
      */
     @Override
-    public void isPinCodeEncryptionKeyExist(PFSecurityCallback<Boolean> callback) {
+    public void isPinCodeEncryptionKeyExist(PFPinCodeHelperCallback<Boolean> callback) {
         try {
             final boolean isExist = pfSecurityUtils.isKeystoreContainAlias(PIN_ALIAS);
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(isExist));
+                callback.onResult(new PFResult(isExist));
             }
         } catch (PFSecurityException e) {
             if (callback != null) {
-                callback.onResult(new PFSecurityResult(e.getError()));
+                callback.onResult(new PFResult(e.getError()));
             }
         }
     }
