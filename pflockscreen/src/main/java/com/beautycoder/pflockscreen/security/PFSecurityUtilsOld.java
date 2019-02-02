@@ -37,7 +37,11 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
 
     }
 
-    private static final String RSA_MODE =  "RSA/ECB/PKCS1Padding";
+    private static final String RSA_MODE = "RSA/ECB/PKCS1Padding";
+    private static final String PROVIDER =
+            android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M
+                    ? "AndroidKeyStoreBCWorkaround"
+                    : "AndroidOpenSSL";
 
     /**
      * Load AndroidKeyStore.
@@ -53,14 +57,22 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
                 | CertificateException
                 | IOException e) {
             e.printStackTrace();
-            throw new PFSecurityException("Can not load keystore:" + e.getMessage());
+            throw new PFSecurityException(
+                    "Can not load keystore:" + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_LOAD_KEY_STORE
+            );
         }
     }
 
-    private boolean generateKeyIfNecessary(@NonNull Context context, @NonNull KeyStore keyStore, String alias,
-                                           boolean isAuthenticationRequired) {
+    private boolean generateKeyIfNecessary(
+            @NonNull Context context,
+            @NonNull KeyStore keyStore,
+            String alias,
+            boolean isAuthenticationRequired)
+    {
         try {
-            return keyStore.containsAlias(alias) || generateKey(context, alias, isAuthenticationRequired);
+            return keyStore.containsAlias(alias)
+                    || generateKey(context, alias, isAuthenticationRequired);
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
@@ -68,25 +80,38 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
     }
 
     @Override
-    public String encode(@NonNull Context context, String alias, String input, boolean isAuthorizationRequared)
-            throws PFSecurityException {
+    public String encode(
+            @NonNull Context context,
+            String alias,
+            String input,
+            boolean isAuthorizationRequared
+    ) throws PFSecurityException {
         try {
             final byte[] bytes = rsaEncrypt(context, input.getBytes(), alias);
             return Base64.encodeToString(bytes, Base64.NO_WRAP);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new PFSecurityException("Error while encoding : " + e.getMessage());
+            throw new PFSecurityException(
+                    "Error while encoding : " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_ENCODING
+            );
         }
     }
 
-    private byte[] rsaEncrypt(@NonNull Context context, byte[] secret, String keystoreAlias) throws Exception {
+    private byte[] rsaEncrypt(
+            @NonNull Context context,
+            byte[] secret,
+            String keystoreAlias
+    ) throws Exception {
         final KeyStore keyStore = loadKeyStore();
         generateKeyIfNecessary(context, keyStore, keystoreAlias, false);
-        final KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(keystoreAlias, null);
-        final Cipher inputCipher = Cipher.getInstance(RSA_MODE, "AndroidOpenSSL");
+        final KeyStore.PrivateKeyEntry privateKeyEntry
+                = (KeyStore.PrivateKeyEntry) keyStore.getEntry(keystoreAlias, null);
+        final Cipher inputCipher = Cipher.getInstance(RSA_MODE, PROVIDER);
         inputCipher.init(Cipher.ENCRYPT_MODE, privateKeyEntry.getCertificate().getPublicKey());
         final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        final CipherOutputStream cipherOutputStream = new CipherOutputStream(outputStream, inputCipher);
+        final CipherOutputStream cipherOutputStream
+                = new CipherOutputStream(outputStream, inputCipher);
         cipherOutputStream.write(secret);
         cipherOutputStream.close();
         final byte[] vals = outputStream.toByteArray();
@@ -94,20 +119,30 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
     }
 
     @Override
-    public String decode(String alias, String encodedString) throws PFSecurityException {
+    public String decode(
+            String alias,
+            String encodedString
+    ) throws PFSecurityException {
         try {
             final byte[] bytes = Base64.decode(encodedString, Base64.NO_WRAP);
             return new String(rsaDecrypt(bytes, alias));
         } catch (Exception e) {
             e.printStackTrace();
-            throw  new PFSecurityException("Error while decoding: " + e.getMessage());
+            throw  new PFSecurityException(
+                    "Error while decoding: " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_DEENCODING
+            );
         }
     }
 
-    private  byte[] rsaDecrypt(byte[] encrypted, String keystoreAlias) throws Exception {
+    private  byte[] rsaDecrypt(
+            byte[] encrypted,
+            String keystoreAlias
+    ) throws Exception {
         final KeyStore keyStore = loadKeyStore();
-        final KeyStore.PrivateKeyEntry privateKeyEntry = (KeyStore.PrivateKeyEntry)keyStore.getEntry(keystoreAlias, null);
-        final Cipher output = Cipher.getInstance(RSA_MODE, "AndroidOpenSSL");
+        final KeyStore.PrivateKeyEntry privateKeyEntry =
+                (KeyStore.PrivateKeyEntry)keyStore.getEntry(keystoreAlias, null);
+        final Cipher output = Cipher.getInstance(RSA_MODE, PROVIDER);
         output.init(Cipher.DECRYPT_MODE, privateKeyEntry.getPrivateKey());
         final CipherInputStream cipherInputStream = new CipherInputStream(
                 new ByteArrayInputStream(encrypted), output);
@@ -123,19 +158,26 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
         return bytes;
     }
 
-
-    private boolean generateKey(Context context, String keystoreAlias, boolean isAuthenticationRequired) {
+    private boolean generateKey(
+            Context context,
+            String keystoreAlias,
+            boolean isAuthenticationRequired
+    ) {
         return generateKeyOld(context, keystoreAlias, isAuthenticationRequired);
     }
 
-
-    private boolean generateKeyOld(Context context, String keystoreAlias, boolean isAuthenticationRequired) {
+    private boolean generateKeyOld(
+            Context context,
+            String keystoreAlias,
+            boolean isAuthenticationRequired
+    ) {
         try {
             final Calendar start = Calendar.getInstance();
             final Calendar end = Calendar.getInstance();
             end.add(Calendar.YEAR, 25);
 
-            final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(KeyProperties.KEY_ALGORITHM_RSA, "AndroidKeyStore");
+            final KeyPairGenerator keyGen = KeyPairGenerator
+                    .getInstance(KeyProperties.KEY_ALGORITHM_RSA, "AndroidKeyStore");
 
             final KeyPairGeneratorSpec spec = new KeyPairGeneratorSpec.Builder(context)
                     .setAlias(keystoreAlias)
@@ -144,7 +186,9 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
                     .setEndDate(end.getTime())
                     .setStartDate(start.getTime())
                     .setSerialNumber(BigInteger.ONE)
-                    .setSubject(new X500Principal("CN = Secured Preference Store, O = Devliving Online"))
+                    .setSubject(new X500Principal(
+                            "CN = Secured Preference Store, O = Devliving Online")
+                    )
                     .build();
 
             keyGen.initialize(spec);
@@ -166,7 +210,10 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
             return keyStore.containsAlias(alias);
         } catch (KeyStoreException e) {
             e.printStackTrace();
-            throw new PFSecurityException(e.getMessage());
+            throw new PFSecurityException(
+                    e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_KEY_STORE
+            );
         }
     }
 
@@ -182,7 +229,10 @@ public class PFSecurityUtilsOld implements IPFSecurityUtils {
             keyStore.deleteEntry(alias);
         } catch (KeyStoreException e) {
             e.printStackTrace();
-            throw new PFSecurityException("Can not delete key: " + e.getMessage());
+            throw new PFSecurityException(
+                    "Can not delete key: " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_DELETE_KEY
+            );
         }
     }
 

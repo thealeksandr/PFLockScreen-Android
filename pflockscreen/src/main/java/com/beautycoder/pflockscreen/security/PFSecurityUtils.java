@@ -3,14 +3,12 @@ package com.beautycoder.pflockscreen.security;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
-import android.security.KeyPairGeneratorSpec;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.NonNull;
 import android.util.Base64;
 
 import java.io.IOException;
-import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -26,7 +24,6 @@ import java.security.cert.CertificateException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.MGF1ParameterSpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.Calendar;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -34,7 +31,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.OAEPParameterSpec;
 import javax.crypto.spec.PSource;
-import javax.security.auth.x500.X500Principal;
 
 /**
  * Created by Aleksandr Nikiforov on 2018/02/07.
@@ -67,7 +63,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
                 | CertificateException
                 | IOException e) {
             e.printStackTrace();
-            throw new PFSecurityException("Can not load keystore:" + e.getMessage());
+            throw new PFSecurityException(
+                    "Can not load keystore:" + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_LOAD_KEY_STORE
+            );
         }
     }
 
@@ -80,7 +79,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
             return Base64.encodeToString(bytes, Base64.NO_WRAP);
         } catch (IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
-            throw new PFSecurityException("Error while encoding : " + e.getMessage());
+            throw new PFSecurityException(
+                    "Error while encoding : " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_ENCODING
+            );
         }
     }
 
@@ -117,7 +119,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
             return new String(cipher.doFinal(bytes));
         } catch (IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
-            throw  new PFSecurityException("Error while decoding: " + e.getMessage());
+            throw  new PFSecurityException(
+                    "Error while decoding: " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_DEENCODING
+            );
         }
     }
 
@@ -130,7 +135,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
             return new String(cipher.doFinal(bytes));
         } catch (IllegalBlockSizeException | BadPaddingException e) {
             e.printStackTrace();
-            throw  new PFSecurityException("Error while decoding: " + e.getMessage());
+            throw  new PFSecurityException(
+                    "Error while decoding: " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_DEENCODING
+            );
         }
     }
 
@@ -164,7 +172,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
             return cipher;
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             e.printStackTrace();
-            throw new PFSecurityException("Can not get instance of Cipher object" + e.getMessage());
+            throw new PFSecurityException(
+                    "Can not get instance of Cipher object" + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_GET_CIPHER_INSTANCE
+            );
         }
     }
 
@@ -177,7 +188,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException
                 | InvalidKeyException e) {
             e.printStackTrace();
-            throw  new PFSecurityException("Error while decoding: " + e.getMessage());
+            throw  new PFSecurityException(
+                    "Error init decode Cipher: " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_INIT_DECODE_CIPHER
+            );
         }
 
     }
@@ -194,7 +208,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
         } catch (KeyStoreException | InvalidKeySpecException |
                 NoSuchAlgorithmException | InvalidKeyException |
                 InvalidAlgorithmParameterException e) {
-            throw new PFSecurityException("Can not initialize Encode Cipher:" + e.getMessage());
+            throw new PFSecurityException(
+                    "Can not initialize Encode Cipher:" + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_INIT_ENDECODE_CIPHER
+            );
         }
     }
 
@@ -205,7 +222,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
             return keyStore.containsAlias(alias);
         } catch (KeyStoreException e) {
             e.printStackTrace();
-            throw new PFSecurityException(e.getMessage());
+            throw new PFSecurityException(
+                    e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_KEY_STORE
+            );
         }
     }
 
@@ -222,7 +242,10 @@ public class PFSecurityUtils implements IPFSecurityUtils {
             keyStore.deleteEntry(alias);
         } catch (KeyStoreException e) {
             e.printStackTrace();
-            throw new PFSecurityException("Can not delete key: " + e.getMessage());
+            throw new PFSecurityException(
+                    "Can not delete key: " + e.getMessage(),
+                    PFSecurityUtilsErrorCodes.ERROR_DELETE_KEY
+            );
         }
     }
 

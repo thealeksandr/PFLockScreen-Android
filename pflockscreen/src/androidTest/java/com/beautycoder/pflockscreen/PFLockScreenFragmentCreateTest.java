@@ -7,7 +7,8 @@ import android.support.test.runner.AndroidJUnit4;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
 import com.beautycoder.pflockscreen.rules.FragmentTestRule;
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
-import com.beautycoder.pflockscreen.security.PFSecurityException;
+import com.beautycoder.pflockscreen.security.PFResult;
+import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -19,6 +20,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
@@ -49,14 +51,14 @@ public class PFLockScreenFragmentCreateTest {
 
     @Test
     public void fragment_can_be_instantiated() {
-        try {
-            PFFingerprintPinCodeHelper.getInstance().delete();
-            boolean isAliasFalse = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-            assertFalse(isAliasFalse);
-        } catch (PFSecurityException e) {
-            e.printStackTrace();
-            assertFalse(true);
-        }
+        PFFingerprintPinCodeHelper.getInstance().delete(null);
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFPinCodeHelperCallback<Boolean>() {
+            @Override
+            public void onResult(PFResult<Boolean> result) {
+                assertNull(result.getError());
+                assertFalse(result.getResult());
+            }
+        });
 
 
         // Launch the activity to make the fragment visible
@@ -102,13 +104,13 @@ public class PFLockScreenFragmentCreateTest {
         Espresso.onView(withId(R.id.button_next)).perform(click());
 
 
-        try {
-            boolean isAliasFalse = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-            assertTrue(isAliasFalse);
-        } catch (PFSecurityException e) {
-            e.printStackTrace();
-            assertFalse(true);
-        }
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFPinCodeHelperCallback<Boolean>() {
+            @Override
+            public void onResult(PFResult<Boolean> result) {
+                assertNull(result.getError());
+                assertTrue(result.getResult());
+            }
+        });
 
     }
 

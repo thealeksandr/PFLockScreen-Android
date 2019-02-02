@@ -1,5 +1,7 @@
 package com.beautycoder.applicationlockscreenexample;
 
+import android.arch.lifecycle.Observer;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,8 +9,9 @@ import android.widget.Toast;
 
 import com.beautycoder.pflockscreen.PFFLockScreenConfiguration;
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
-import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
-import com.beautycoder.pflockscreen.security.PFSecurityException;
+import com.beautycoder.pflockscreen.security.PFResult;
+import com.beautycoder.pflockscreen.security.PFSecurityManager;
+import com.beautycoder.pflockscreen.viewmodels.PFPinCodeViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,20 +20,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showLockScreenFragment();
+        PFSecurityManager.getInstance().setPinCodeHelper(new TestPFPinCodeHelperImpl());
     }
 
-
-    private PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
+    private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
             new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
         @Override
         public void onCodeCreated(String encodedCode) {
             Toast.makeText(MainActivity.this, "Code created", Toast.LENGTH_SHORT).show();
             PreferencesSettings.saveToPref(MainActivity.this, encodedCode);
-
         }
     };
 
-    private PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
+    private final PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
             new PFLockScreenFragment.OnPFLockScreenLoginListener() {
 
         @Override
@@ -57,43 +59,54 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void showLockScreenFragment() {
-        try {
-            final boolean isPinExist = PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist();
-            final PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
-                    .setTitle(isPinExist ? "Unlock with your pin code or fingerprint" : "Create Code")
-                    .setCodeLength(6)
-                    .setLeftButton("Can't remeber", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-
+        new PFPinCodeViewModel().isPinCodeEncryptionKeyExist().observe(
+                this,
+                new Observer<PFResult<Boolean>>() {
+                    @Override
+                    public void onChanged(@Nullable PFResult<Boolean> result) {
+                        if (result == null) {
+                            return;
                         }
-                    })
-                    .setUseFingerprint(true);
-            PFLockScreenFragment fragment = new PFLockScreenFragment();
+                        if (result.getError() != null) {
+                            Toast.makeText(MainActivity.this, "Can not get pin code info", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        showLockScreenFragment(result.getResult());
+                    }
+                }
+        );
+    }
 
-            builder.setMode(isPinExist
-                    ? PFFLockScreenConfiguration.MODE_AUTH
-                    : PFFLockScreenConfiguration.MODE_CREATE);
-            if (isPinExist) {
-                fragment.setEncodedPinCode(PreferencesSettings.getCode(this));
-                fragment.setLoginListener(mLoginListener);
-            }
+    private void showLockScreenFragment(boolean isPinExist) {
+        final PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
+                .setTitle(isPinExist ? "Unlock with your pin code or fingerprint" : "Create Code")
+                .setCodeLength(6)
+                .setLeftButton("Can't remeber", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
 
-            fragment.setConfiguration(builder.build());
-            fragment.setCodeCreateListener(mCodeCreateListener);
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container_view, fragment).commit();
+                    }
+                })
+                .setUseFingerprint(true);
+        final PFLockScreenFragment fragment = new PFLockScreenFragment();
 
-        } catch (PFSecurityException e) {
-            e.printStackTrace();
-            Toast.makeText(MainActivity.this, "Can not get pin code info", Toast.LENGTH_SHORT).show();
-            return;
+        builder.setMode(isPinExist
+                ? PFFLockScreenConfiguration.MODE_AUTH
+                : PFFLockScreenConfiguration.MODE_CREATE);
+        if (isPinExist) {
+            fragment.setEncodedPinCode(PreferencesSettings.getCode(this));
+            fragment.setLoginListener(mLoginListener);
         }
+
+        fragment.setConfiguration(builder.build());
+        fragment.setCodeCreateListener(mCodeCreateListener);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container_view, fragment).commit();
 
     }
 
     private  void showMainFragment() {
-        MainFragment fragment = new MainFragment();
+        final MainFragment fragment = new MainFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_view, fragment).commit();
     }
