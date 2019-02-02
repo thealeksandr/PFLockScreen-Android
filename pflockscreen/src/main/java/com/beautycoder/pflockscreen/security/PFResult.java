@@ -1,15 +1,15 @@
 package com.beautycoder.pflockscreen.security;
 
-public class PFSecurityResult<T> {
+public class PFResult<T> {
 
     private PFSecurityError mError = null;
     private T mResult = null;
 
-    public PFSecurityResult(PFSecurityError mError) {
+    public PFResult(PFSecurityError mError) {
         this.mError = mError;
     }
 
-    public PFSecurityResult(T result) {
+    public PFResult(T result) {
         mResult = result;
     }
 

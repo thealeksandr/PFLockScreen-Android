@@ -5,10 +5,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.beautycoder.pflockscreen.security.PFFingerprintPinCodeHelper;
-import com.beautycoder.pflockscreen.security.PFSecurityResult;
+import com.beautycoder.pflockscreen.security.PFResult;
 import com.beautycoder.pflockscreen.security.PFSecurityUtils;
 import com.beautycoder.pflockscreen.security.PFSecurityUtilsOld;
-import com.beautycoder.pflockscreen.security.callbacks.PFSecurityCallback;
+import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -87,17 +87,17 @@ public class PFSecurityUtilsTest {
 
         final Context appContext = InstrumentationRegistry.getTargetContext();
 
-        PFFingerprintPinCodeHelper.getInstance().delete(new PFSecurityCallback<Boolean>() {
+        PFFingerprintPinCodeHelper.getInstance().delete(new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
             }
         });
 
         PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
                     @Override
-                    public void onResult(PFSecurityResult<Boolean> result) {
+                    public void onResult(PFResult<Boolean> result) {
                         assertNull(result.getError());
                         assertFalse(result.getResult());
                     }
@@ -105,9 +105,9 @@ public class PFSecurityUtilsTest {
 
         final StringBuilder stringBuilder = new StringBuilder();
         PFFingerprintPinCodeHelper.getInstance().encodePin(appContext, pinCode,
-                new PFSecurityCallback<String>() {
+                new PFPinCodeHelperCallback<String>() {
             @Override
-            public void onResult(PFSecurityResult<String> result) {
+            public void onResult(PFResult<String> result) {
                 assertNull(result.getError());
                 final String encoded = result.getResult();
                 stringBuilder.append(encoded);
@@ -116,9 +116,9 @@ public class PFSecurityUtilsTest {
         });
 
         PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
                     @Override
-                    public void onResult(PFSecurityResult<Boolean> result) {
+                    public void onResult(PFResult<Boolean> result) {
                         assertNull(result.getError());
                         assertTrue(result.getResult());
                     }
@@ -127,9 +127,9 @@ public class PFSecurityUtilsTest {
 
         final String encoded = stringBuilder.toString();
         PFFingerprintPinCodeHelper.getInstance().checkPin(appContext, encoded, pinCode,
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
                 assertTrue(result.getResult());
             }
@@ -137,24 +137,24 @@ public class PFSecurityUtilsTest {
 
 
         PFFingerprintPinCodeHelper.getInstance().checkPin(appContext, encoded, "1122",
-                new PFSecurityCallback<Boolean>() {
+                new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
                 assertFalse(result.getResult());
             }
         });
 
-        PFFingerprintPinCodeHelper.getInstance().delete(new PFSecurityCallback<Boolean>() {
+        PFFingerprintPinCodeHelper.getInstance().delete(new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
             }
         });
 
-        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFSecurityCallback<Boolean>() {
+        PFFingerprintPinCodeHelper.getInstance().isPinCodeEncryptionKeyExist(new PFPinCodeHelperCallback<Boolean>() {
             @Override
-            public void onResult(PFSecurityResult<Boolean> result) {
+            public void onResult(PFResult<Boolean> result) {
                 assertNull(result.getError());
                 assertFalse(result.getResult());
             }
