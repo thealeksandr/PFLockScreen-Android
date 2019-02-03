@@ -2,7 +2,7 @@
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
-**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me **Direct Message** on twitter @thealeksandr. If you create issue it would be nice if you subscribe for updates. So we can discuss it. 
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me **Direct Message** on twitter @thealeksandr. If you create issue it would be nice if you **subscribe** for updates. So we can discuss it.
 
 ## beta 4 Update
 * Separate UI from Encryption part in case if you want to create your own encryption. (Please see detail below)
@@ -212,4 +212,4 @@ PFLockScreenTitleTextStyle
 
 The only important thing you can't change right now is the size of keys. But it's coming.
 
-**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr. 
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr. If you create issue it would be nice if you **subscribe** for updates. So we can discuss it.
