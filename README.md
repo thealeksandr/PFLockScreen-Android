@@ -2,11 +2,15 @@
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
-**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr.
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me **Direct Message** on twitter @thealeksandr. If you create issue it would be nice if you subscribe for updates. So we can discuss it. 
 
-## beta 3 Update
-* Fix support for Android < M
-* Minor fixes and Improvements
+## beta 4 Update
+* Separate UI from Encryption part in case if you want to create your own encryption. (Please see detail below)
+* (if you created something server side related. Remember not to pass pure pin in request. Or be sure it's secure).
+* Added options to change style for next button, Hint (Can't rememeber) button and title. Also Removed some 
+* parameters as background and margin from "Next" button to make it more flexible to customise. If you want transparent 
+* background or any other and marging please added your custom style. 
+* Updated to AndroidX and gradle version.
 
 ## Min SDK Version - 15
 
@@ -109,6 +113,26 @@ You need to delete encryption key if you delete/reset pin code.
 PFFingerprintPinCodeHelper.getInstance().delete();
 ```
 
+## Custom encryption
+Now you can create your custom encryption if for some reasons the one I have doesn't meet your app requarements: 
+
+You need to override ```java IPFPinCodeHelper``` interface. That has four methods: 
+```java
+void encodePin(Context context, String pin, PFPinCodeHelperCallback<String> callBack);
+void checkPin(Context context, String encodedPin, String pin, PFPinCodeHelperCallback<Boolean> callback);
+void delete(PFPinCodeHelperCallback<Boolean> callback);
+void isPinCodeEncryptionKeyExist(PFPinCodeHelperCallback<Boolean> callback);
+```
+*encodePin* - method where you encode pin
+*checkPin* - to check if pin is valid. 
+*delete* - deletePinCode and all related stuff
+*isPinCodeEncryptionKeyExist* - if you have any encryprion keys or something else you're using to encrpt your key
+here you check if all keys you need are exists. Haven't beed deleted or anyting. This method is only for your own logic.
+Basically to check if you're code can be decrypted.
+
+All methods take callback as a parameter in case if you want implement something async like server side or whatever.
+
+
 ## UI Customization
 
 You can customize buttons, backgrounds, etc. To do that, use attributes in your activity theme:
@@ -118,6 +142,9 @@ You can customize buttons, backgrounds, etc. To do that, use attributes in your 
 *pf_fingerprint_button* - style object for fingerprint button. You can set custom drawable, paddings, etc.
 *pf_delete_button* - style object for delete/backspace button. You can set custom drawable, paddings, etc.
 *pf_code_view* - style object to customize code view. (The view from the top of the screen). The view itself is set of check boxes. To customize it use a custom selector with checked states.
+*pf_title* (**NEW**) - style object for title
+*pf_next* (**NEW**) - style object for next button
+*pf_hint* (**NEW**) - style object for hint button (Can't remember)
 
 
 Examples:
@@ -153,6 +180,34 @@ Examples:
 <style name="MyLockScreenCodeStyle">
     <item name="android:button">@drawable/code_selector</item>
 </style>
+
+<style name="MyLockNextButtonStyle">
+    <item name="android:textColor">#9FFF</item>
+    <item name="android:textSize">18dp</item>
+    <item name="android:background">@null</item>
+    <item name="android:layout_margin">20dp</item>
+</style>
+
+<style name="MyLockTitleStyle">
+    <item name="android:textColor">#FFF</item>
+</style>
+
+<style name="MyLockHintStyle">
+    <item name="android:textColor">#FFF</item>
+</style>
+```
+
+If you want just a bit correct an existing styles you can override: 
+```xml
+PFLockScreenStyle
+PFLockScreenButtonStyle
+PFLockScreenFingerPrintButtonStyle
+PFLockScreenDeleteButtonStyle
+PFCheckBox
+PFLockScreenCodeStyle
+PFLockScreenNextTextStyle
+PFLockScreenHintTextStyle
+PFLockScreenTitleTextStyle
 ```
 
 The only important thing you can't change right now is the size of keys. But it's coming.
