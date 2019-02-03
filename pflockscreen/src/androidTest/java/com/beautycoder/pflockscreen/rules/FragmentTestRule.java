@@ -2,10 +2,10 @@ package com.beautycoder.pflockscreen.rules;
 
 
 import android.content.Context;
-import android.support.test.rule.ActivityTestRule;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.test.rule.ActivityTestRule;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.beautycoder.pflockscreen.activities.TestActivity;
 

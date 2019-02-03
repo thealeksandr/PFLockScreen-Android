@@ -1,6 +1,6 @@
 package com.beautycoder.pflockscreen.matchers;
 
-import android.support.test.espresso.matcher.BoundedMatcher;
+import androidx.test.espresso.matcher.BoundedMatcher;
 import android.view.View;
 
 import com.beautycoder.pflockscreen.views.PFCodeView;
