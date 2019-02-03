@@ -113,19 +113,19 @@ You need to delete encryption key if you delete/reset pin code.
 PFFingerprintPinCodeHelper.getInstance().delete();
 ```
 
-## Custom encryption
+## Custom encryption.  **NEW!** **NEW!** **NEW!**
 Now you can create your custom encryption if for some reasons the one I have doesn't meet your app requarements: 
 
 You need to override ```java IPFPinCodeHelper``` interface. That has four methods: 
 ```java
-void encodePin(Context context, String pin, PFPinCodeHelperCallback<String> callBack);
-void checkPin(Context context, String encodedPin, String pin, PFPinCodeHelperCallback<Boolean> callback);
-void delete(PFPinCodeHelperCallback<Boolean> callback);
-void isPinCodeEncryptionKeyExist(PFPinCodeHelperCallback<Boolean> callback);
+void encodePin(Context context, String pin, PFPinCodeHelperCallback<String> callBack);     
+void checkPin(Context context, String encodedPin, String pin, PFPinCodeHelperCallback<Boolean> callback);        
+void delete(PFPinCodeHelperCallback<Boolean> callback);      
+void isPinCodeEncryptionKeyExist(PFPinCodeHelperCallback<Boolean> callback);         
 ```
-*encodePin* - method where you encode pin
-*checkPin* - to check if pin is valid. 
-*delete* - deletePinCode and all related stuff
+*encodePin* - method where you encode pin.   
+*checkPin* - to check if pin is valid.        
+*delete* - deletePinCode and all related stuff.    
 *isPinCodeEncryptionKeyExist* - if you have any encryprion keys or something else you're using to encrpt your key
 here you check if all keys you need are exists. Haven't beed deleted or anyting. This method is only for your own logic.
 Basically to check if you're code can be decrypted.
@@ -141,10 +141,10 @@ You can customize buttons, backgrounds, etc. To do that, use attributes in your 
 *pf_lock_screen* - style object for the background. Use it to set custom background.
 *pf_fingerprint_button* - style object for fingerprint button. You can set custom drawable, paddings, etc.
 *pf_delete_button* - style object for delete/backspace button. You can set custom drawable, paddings, etc.
-*pf_code_view* - style object to customize code view. (The view from the top of the screen). The view itself is set of check boxes. To customize it use a custom selector with checked states.
-*pf_title* (**NEW**) - style object for title
-*pf_next* (**NEW**) - style object for next button
-*pf_hint* (**NEW**) - style object for hint button (Can't remember)
+*pf_code_view* - style object to customize code view. (The view from the top of the screen). The view itself is set of check boxes. To customize it use a custom selector with checked states.       
+*pf_title* (**NEW**) - style object for title.       
+*pf_next* (**NEW**) - style object for next button.         
+*pf_hint* (**NEW**) - style object for hint button (Can't remember).          
 
 
 Examples:
