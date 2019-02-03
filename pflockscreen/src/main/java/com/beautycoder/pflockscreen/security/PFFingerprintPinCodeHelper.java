@@ -1,7 +1,7 @@
 package com.beautycoder.pflockscreen.security;
 
 import android.content.Context;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
 
 import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 

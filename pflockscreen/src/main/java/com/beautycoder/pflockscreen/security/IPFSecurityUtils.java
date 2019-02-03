@@ -1,7 +1,7 @@
 package com.beautycoder.pflockscreen.security;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 public interface IPFSecurityUtils {
 

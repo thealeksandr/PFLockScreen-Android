@@ -1,7 +1,7 @@
 package com.beautycoder.pflockscreen;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.view.View;
 
 import java.lang.annotation.Retention;
