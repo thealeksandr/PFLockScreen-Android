@@ -1,10 +1,10 @@
 package com.beautycoder.pflockscreen;
 
 import android.content.Context;
-import android.support.test.espresso.Espresso;
-import android.support.test.espresso.ViewAssertion;
-import android.support.test.espresso.assertion.ViewAssertions;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.ViewAssertion;
+import androidx.test.espresso.assertion.ViewAssertions;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.beautycoder.pflockscreen.actions.PFCodeViewActionDelete;
 import com.beautycoder.pflockscreen.actions.PFCodeViewActionInput;
@@ -16,7 +16,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 /**
  * Created by Aleksandr Nikiforov on 2018/03/11.

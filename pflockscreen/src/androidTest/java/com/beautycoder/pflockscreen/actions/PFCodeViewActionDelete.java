@@ -1,14 +1,14 @@
 package com.beautycoder.pflockscreen.actions;
 
-import android.support.test.espresso.UiController;
-import android.support.test.espresso.ViewAction;
+import androidx.test.espresso.UiController;
+import androidx.test.espresso.ViewAction;
 import android.view.View;
 
 import com.beautycoder.pflockscreen.views.PFCodeView;
 
 import org.hamcrest.Matcher;
 
-import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 
 /**
  * Created by Aleksandr Nikiforov on 2018/03/19.

@@ -1,9 +1,9 @@
 package com.beautycoder.pflockscreen.fragments;
 
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
-import android.support.v4.os.CancellationSignal;
+import androidx.annotation.RequiresApi;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+import androidx.core.os.CancellationSignal;
 import android.widget.ImageView;
 import android.widget.TextView;
 
