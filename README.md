@@ -4,6 +4,8 @@
 
 **Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me **Direct Message** on twitter @thealeksandr. If you create issue it would be nice if you **subscribe** for updates. So we can discuss it.
 
+**Please support with a Star :D**
+
 ## beta 4 Update
 * Separate UI from Encryption part in case if you want to create your own encryption. (Please see detail below)
 * (if you created something server side related. Remember not to pass pure pin in request. Or be sure it's secure).
