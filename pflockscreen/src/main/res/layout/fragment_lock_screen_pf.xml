@@ -224,7 +224,8 @@
                     android:focusable="true"
                     android:gravity="center"
                     android:text="@string/forgot_pf"
-                    android:textColor="@android:color/white" />
+                    android:theme="@style/PFLockScreenHintTextStyle"
+                    style="?pf_hint"/>
             </FrameLayout>
 
             <FrameLayout
@@ -296,12 +297,10 @@
             android:id="@+id/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:background="@null"
             android:text="@string/next_pf"
-            android:textColor="#9FFF"
-            android:textSize="18dp"
-            android:visibility="gone" />
+            android:visibility="visible"
+            android:theme="@style/PFLockScreenNextTextStyle"
+            style="?pf_next"/>
 
     </LinearLayout>
 </RelativeLayout>

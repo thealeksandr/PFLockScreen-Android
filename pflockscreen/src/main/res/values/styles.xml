@@ -31,7 +31,13 @@
         <item name="android:button">@drawable/code_selector_pf</item>
     </style>
 
-    <style name="PFLockScreenSkipTextStyle">
+    <style name="PFLockScreenNextTextStyle">
+        <item name="android:textColor">#9FFF</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:backgroundTint">#c66</item>
+    </style>
+
+    <style name="PFLockScreenHintTextStyle">
         <item name="android:textColor">@android:color/white</item>
     </style>
 
@@ -40,5 +46,7 @@
         <item name="android:textSize">18dp</item>
         <item name="android:gravity">center</item>
     </style>
+
+
 
 </resources>
