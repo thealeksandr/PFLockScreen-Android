@@ -197,7 +197,7 @@ Examples:
 </style>
 ```
 
-If you want just a bit correct an existing styles you can override: 
+**If you want just a bit correct an existing styles you can override:**
 ```xml
 PFLockScreenStyle
 PFLockScreenButtonStyle
@@ -212,4 +212,4 @@ PFLockScreenTitleTextStyle
 
 The only important thing you can't change right now is the size of keys. But it's coming.
 
-**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr.
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me DM on twitter @thealeksandr. 
