@@ -407,7 +407,7 @@ public class PFLockScreenFragment extends Fragment {
             }
         }
 
-        mConfiguration.isErrorAnimation() {
+        if (mConfiguration.isErrorAnimation()) {
             final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_pf);
             mCodeView.startAnimation(animShake);
         }
