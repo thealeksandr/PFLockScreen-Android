@@ -101,6 +101,34 @@ public class PFLockScreenFragment extends Fragment {
         super.onStart();
     }
 
+    /*
+      java.lang.NullPointerException: Attempt to invoke virtual method 'boolean com.beautycoder.pflockscreen.PFFLockScreenConfiguration.isAutoShowFingerprint()' on a null object reference
+        at com.beautycoder.pflockscreen.fragments.PFLockScreenFragment.onStart(PFLockScreenFragment.java:97)
+        at androidx.fragment.app.Fragment.performStart(Fragment.java:2478)
+        at androidx.fragment.app.FragmentManagerImpl.moveToState(FragmentManagerImpl.java:919)
+        at androidx.fragment.app.FragmentManagerImpl.moveFragmentToExpectedState(FragmentManagerImpl.java:1229)
+        at androidx.fragment.app.FragmentManagerImpl.moveToState(FragmentManagerImpl.java:1295)
+        at androidx.fragment.app.FragmentManagerImpl.dispatchStateChange(FragmentManagerImpl.java:2605)
+        at androidx.fragment.app.FragmentManagerImpl.dispatchStart(FragmentManagerImpl.java:2571)
+        at androidx.fragment.app.FragmentController.dispatchStart(FragmentController.java:256)
+        at androidx.fragment.app.FragmentActivity.onStart(FragmentActivity.java:533)
+        at androidx.appcompat.app.AppCompatActivity.onStart(AppCompatActivity.java:179)
+        at android.app.Instrumentation.callActivityOnStart(Instrumentation.java:1392)
+        at android.app.Activity.performStart(Activity.java:7157)
+        at android.app.ActivityThread.handleStartActivity(ActivityThread.java:2949)
+        at android.app.servertransaction.TransactionExecutor.performLifecycleSequence(TransactionExecutor.java:180)
+        at android.app.servertransaction.TransactionExecutor.cycleToPath(TransactionExecutor.java:165)
+        at android.app.servertransaction.TransactionExecutor.executeLifecycleState(TransactionExecutor.java:142)
+        at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:70)
+        at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1818)
+        at android.os.Handler.dispatchMessage(Handler.java:106)
+        at android.os.Looper.loop(Looper.java:193)
+        at android.app.ActivityThread.main(ActivityThread.java:6762)
+        at java.lang.reflect.Method.invoke(Native Method)
+        at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:493)
+        at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:858)
+     */
+
     public void setConfiguration(PFFLockScreenConfiguration configuration) {
         this.mConfiguration = configuration;
         applyConfiguration(configuration);
@@ -140,6 +168,8 @@ public class PFLockScreenFragment extends Fragment {
         } else {
             mNextButton.setOnClickListener(null);
         }
+
+        mNextButton.setVisibility(View.INVISIBLE);
         mCodeView.setCodeLength(mConfiguration.getCodeLength());
     }
 
@@ -316,7 +346,7 @@ public class PFLockScreenFragment extends Fragment {
         @Override
         public void onCodeNotCompleted(String code) {
             if (mIsCreateMode) {
-                mNextButton.setVisibility(View.GONE);
+                mNextButton.setVisibility(View.INVISIBLE);
                 return;
             }
         }
@@ -370,12 +400,17 @@ public class PFLockScreenFragment extends Fragment {
     }
 
     private void errorAction() {
-        final Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        if (v != null) {
-            v.vibrate(400);
+        if (mConfiguration.isErrorVibration()) {
+            final Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            if (v != null) {
+                v.vibrate(400);
+            }
         }
-        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_pf);
-        mCodeView.startAnimation(animShake);
+
+        mConfiguration.isErrorAnimation() {
+            final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_pf);
+            mCodeView.startAnimation(animShake);
+        }
     }
 
 

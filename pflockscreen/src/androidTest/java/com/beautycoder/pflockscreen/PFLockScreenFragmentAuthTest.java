@@ -2,6 +2,7 @@ package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.runner.AndroidJUnit4;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.Matchers.not;
@@ -64,7 +66,7 @@ public class PFLockScreenFragmentAuthTest {
         Espresso.onView(withId(R.id.button_finger_print)).check(matches(isDisplayed()));
         Espresso.onView(withId(R.id.button_delete)).check(matches(not(isDisplayed())));
         Espresso.onView(withId(R.id.button_left)).check(matches(isDisplayed()));
-        Espresso.onView(withId(R.id.button_next)).check(matches(not(isDisplayed())));
+        Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
 
         Espresso.onView(withId(R.id.button_left)).check(matches(withText(LEFT_BUTTON)));
 
@@ -86,7 +88,7 @@ public class PFLockScreenFragmentAuthTest {
         Espresso.onView(withId(R.id.button_delete)).check(matches(not(isDisplayed())));
 
 
-        Espresso.onView(withId(R.id.button_next)).check(matches(not(isDisplayed())));
+        Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
 
 
     }

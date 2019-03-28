@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_lock_screen_fp_size">60dp</dimen>
+    <dimen name="button_lock_screen_fp_margin_vertical">15dp</dimen>
+</resources>

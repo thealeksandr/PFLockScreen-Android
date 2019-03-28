@@ -2,6 +2,7 @@ package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import androidx.test.espresso.Espresso;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.runner.AndroidJUnit4;
 
 import com.beautycoder.pflockscreen.fragments.PFLockScreenFragment;
@@ -17,6 +18,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
+import static androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertFalse;
@@ -72,19 +74,19 @@ public class PFLockScreenFragmentCreateTest {
 
         //INPUT CODE_LENGTH
         for (int i = 0; i < CODE_LENGTH; i ++) {
-            Espresso.onView(withId(R.id.button_next)).check(matches(not(isDisplayed())));
+            Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
             Espresso.onView(withId(R.id.button_1)).perform(click());
             Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
         }
 
         //NEXT BUTTON SHOULD BE ON SCREEN
-        Espresso.onView(withId(R.id.button_next)).check(matches(isDisplayed()));
+        Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
         //DELETE WHOLE CODE
         for (int i = 0; i < CODE_LENGTH; i ++) {
             Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
             Espresso.onView(withId(R.id.button_delete)).perform(click());
-            Espresso.onView(withId(R.id.button_next)).check(matches(not(isDisplayed())));
+            Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
         }
 
         //DELETE BUTTON HAS TO BE HIDDEN
@@ -92,13 +94,13 @@ public class PFLockScreenFragmentCreateTest {
 
         //INPUT CODE_LENGTH
         for (int i = 0; i < CODE_LENGTH; i ++) {
-            Espresso.onView(withId(R.id.button_next)).check(matches(not(isDisplayed())));
+            Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)));
             Espresso.onView(withId(R.id.button_1)).perform(click());
             Espresso.onView(withId(R.id.button_delete)).check(matches(isDisplayed()));
         }
 
         //NEXT BUTTON SHOULD BE ON SCREEN
-        Espresso.onView(withId(R.id.button_next)).check(matches(isDisplayed()));
+        Espresso.onView(withId(R.id.button_next)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)));
 
 
         Espresso.onView(withId(R.id.button_next)).perform(click());

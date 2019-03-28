@@ -22,6 +22,8 @@ public class PFFLockScreenConfiguration {
     private int mMode = MODE_AUTH;
     private int mCodeLength = 4;
     private boolean mClearCodeOnError = false;
+    private boolean mErrorVibration = true;
+    private boolean mErrorAnimation = true;
 
     private PFFLockScreenConfiguration(Builder builder) {
         mLeftButton = builder.mLeftButton;
@@ -33,6 +35,8 @@ public class PFFLockScreenConfiguration {
         mMode = builder.mMode;
         mCodeLength = builder.mCodeLength;
         mClearCodeOnError = builder.mClearCodeOnError;
+        mErrorVibration = builder.mErrorVibration;
+        mErrorAnimation = builder.mErrorAnimation;
     }
 
     public String getLeftButton() {
@@ -67,6 +71,14 @@ public class PFFLockScreenConfiguration {
         return mClearCodeOnError;
     }
 
+    public boolean isErrorVibration() {
+        return mErrorVibration;
+    }
+
+    public boolean isErrorAnimation() {
+        return mErrorAnimation;
+    }
+
     @PFLockScreenMode
     public int getMode() {
         return this.mMode;
@@ -83,6 +95,8 @@ public class PFFLockScreenConfiguration {
         private int mMode = 0;
         private int mCodeLength = 4;
         private boolean mClearCodeOnError = false;
+        private boolean mErrorVibration = true;
+        private boolean mErrorAnimation = true;
 
 
         public Builder(Context context) {
@@ -127,6 +141,16 @@ public class PFFLockScreenConfiguration {
 
         public Builder setClearCodeOnError(boolean clearCodeOnError) {
             mClearCodeOnError = clearCodeOnError;
+            return this;
+        }
+
+        public Builder setErrorVibration(boolean errorVibration) {
+            mErrorVibration = errorVibration;
+            return this;
+        }
+
+        public Builder setErrorAnimation(boolean errorAnimation) {
+            mErrorAnimation = errorAnimation;
             return this;
         }
 
