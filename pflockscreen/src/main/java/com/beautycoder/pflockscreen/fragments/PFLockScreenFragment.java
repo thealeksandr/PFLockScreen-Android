@@ -1,6 +1,8 @@
 package com.beautycoder.pflockscreen.fragments;
 
 import android.app.AlertDialog;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -39,6 +41,9 @@ public class PFLockScreenFragment extends Fragment {
 
     private static final String FINGERPRINT_DIALOG_FRAGMENT_TAG = "FingerprintDialogFragment";
 
+    private static final String INSTANCE_STATE_CONFIG
+            = "com.beautycoder.pflockscreen.instance_state_config";
+
     private View mFingerprintButton;
     private View mDeleteButton;
     private TextView mLeftButton;
@@ -59,12 +64,25 @@ public class PFLockScreenFragment extends Fragment {
 
     private final PFPinCodeViewModel mPFPinCodeViewModel = new PFPinCodeViewModel();
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(INSTANCE_STATE_CONFIG, mConfiguration);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_lock_screen_pf, container,
                 false);
+
+        if (mConfiguration == null) {
+            mConfiguration = (PFFLockScreenConfiguration) savedInstanceState.getSerializable(
+                    INSTANCE_STATE_CONFIG
+            );
+        }
+
         mFingerprintButton = view.findViewById(R.id.button_finger_print);
         mDeleteButton = view.findViewById(R.id.button_delete);
 
@@ -140,6 +158,8 @@ public class PFLockScreenFragment extends Fragment {
         } else {
             mNextButton.setOnClickListener(null);
         }
+
+        mNextButton.setVisibility(View.INVISIBLE);
         mCodeView.setCodeLength(mConfiguration.getCodeLength());
     }
 
@@ -178,7 +198,8 @@ public class PFLockScreenFragment extends Fragment {
         }
     };
 
-    private final View.OnLongClickListener mOnDeleteButtonOnLongClickListener = new View.OnLongClickListener() {
+    private final View.OnLongClickListener mOnDeleteButtonOnLongClickListener
+            = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
             mCodeView.clearCode();
@@ -270,7 +291,9 @@ public class PFLockScreenFragment extends Fragment {
                 .setPositiveButton(R.string.settings_pf, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        startActivity(new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS));
+                        startActivity(
+                                new Intent(android.provider.Settings.ACTION_SECURITY_SETTINGS)
+                        );
                     }
                 }).create().show();
     }
@@ -316,7 +339,7 @@ public class PFLockScreenFragment extends Fragment {
         @Override
         public void onCodeNotCompleted(String code) {
             if (mIsCreateMode) {
-                mNextButton.setVisibility(View.GONE);
+                mNextButton.setVisibility(View.INVISIBLE);
                 return;
             }
         }
@@ -370,12 +393,17 @@ public class PFLockScreenFragment extends Fragment {
     }
 
     private void errorAction() {
-        final Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        if (v != null) {
-            v.vibrate(400);
+        if (mConfiguration.isErrorVibration()) {
+            final Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            if (v != null) {
+                v.vibrate(400);
+            }
         }
-        final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_pf);
-        mCodeView.startAnimation(animShake);
+
+        if (mConfiguration.isErrorAnimation()) {
+            final Animation animShake = AnimationUtils.loadAnimation(getContext(), R.anim.shake_pf);
+            mCodeView.startAnimation(animShake);
+        }
     }
 
 

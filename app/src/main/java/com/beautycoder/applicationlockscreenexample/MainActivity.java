@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         showLockScreenFragment();
-        PFSecurityManager.getInstance().setPinCodeHelper(new TestPFPinCodeHelperImpl());
+        //PFSecurityManager.getInstance().setPinCodeHelper(new TestPFPinCodeHelperImpl());
     }
 
     private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
