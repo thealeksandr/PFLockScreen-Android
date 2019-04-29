@@ -4,6 +4,7 @@ import android.content.Context;
 import androidx.annotation.IntDef;
 import android.view.View;
 
+import java.io.Serializable;
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
@@ -11,7 +12,7 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Created by Aleksandr Nikiforov on 2018/02/14.
  */
-public class PFFLockScreenConfiguration {
+public class PFFLockScreenConfiguration implements Serializable {
 
     private String mLeftButton = "";
     private String mNextButton = "";
