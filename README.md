@@ -6,13 +6,11 @@
 
 **Please support with a Star :D**
 
-## beta 4 Update
-* Separate UI from Encryption part in case if you want to create your own encryption. (Please see detail below)
-* (if you created something server side related. Remember not to pass pure pin in request. Or be sure it's secure).
-* Added options to change style for next button, Hint (Can't rememeber) button and title. Also Removed some 
-* parameters as background and margin from "Next" button to make it more flexible to customise. If you want transparent 
-* background or any other and marging please added your custom style. 
-* Updated to AndroidX and gradle version.
+## beta 5 Update
+* Added UI for Landscape orientation
+* Optional vibration for wrong code
+* Optional animation for wrong code
+* Fix bug with Next button 
 
 ## Min SDK Version - 15
 
