@@ -6,7 +6,7 @@
 
 **Please support with a Star :D**
 
-## beta 5 Update (April 29, 2019)
+## Beta 5 Update - Landscape Orientation Support (April 29, 2019)
 * Added UI for Landscape orientation
 * Optional vibration for wrong code
 * Optional animation for wrong code
