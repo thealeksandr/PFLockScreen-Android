@@ -113,6 +113,8 @@ You need to delete encryption key if you delete/reset pin code.
 PFSecurityManager.getInstance().getPinCodeHelper().delete();
 ```
 
+**Don't use PFFingerprintPinCodeHelper.getInstance().isPinCodeExist() directly.**
+
 ## PFPinCodeViewModel
 
 Also you can use PFPinCodeViewModel() for the same methods. ViewModel wrapper around PinCodeHelper that returns LiveData objects.
