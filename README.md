@@ -99,7 +99,7 @@ PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Buil
 ## Check if pin code encryption key exist
 
 ```java
-boolean isExist = PFFingerprintPinCodeHelper.getInstance().isPinCodeExist();
+boolean isExist = PFSecurityManager.getInstance().getPinCodeHelper().isPinCodeEncryptionKeyExist();
 ```
 
 An encryption key is needed to encode/decode pin code and stored in Android KeyStore.
@@ -110,8 +110,12 @@ An encryption key is needed to encode/decode pin code and stored in Android KeyS
 You need to delete encryption key if you delete/reset pin code.
 
 ```java
-PFFingerprintPinCodeHelper.getInstance().delete();
+PFSecurityManager.getInstance().getPinCodeHelper().delete();
 ```
+
+## PFPinCodeViewModel
+
+Also you can use PFPinCodeViewModel() for the same methods. ViewModel wrapper around PinCodeHelper that returns LiveData objects.
 
 ## Custom encryption.  **NEW!** **NEW!** **NEW!**
 Now you can create your custom encryption if for some reasons the one I have doesn't meet your app requarements: 
