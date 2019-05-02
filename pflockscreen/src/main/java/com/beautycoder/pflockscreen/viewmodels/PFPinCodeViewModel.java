@@ -1,6 +1,8 @@
 package com.beautycoder.pflockscreen.viewmodels;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
+
 import android.content.Context;
 
 import com.beautycoder.pflockscreen.security.PFSecurityManager;
@@ -9,7 +11,7 @@ import com.beautycoder.pflockscreen.security.callbacks.PFPinCodeHelperCallback;
 import com.beautycoder.pflockscreen.security.livedata.PFLiveData;
 
 
-public class PFPinCodeViewModel {
+public class PFPinCodeViewModel extends ViewModel {
 
     public LiveData<PFResult<String>> encodePin(Context context, String pin) {
         final PFLiveData<PFResult<String>> liveData = new PFLiveData<>();
