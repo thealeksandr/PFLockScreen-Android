@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name_pf">PFLockScreen</string>
+    <string name="cancel_pf">Abbrechen</string>
+    <string name="sign_in_pf">Einloggen</string>
+    <string name="ok_pf">OK</string>
+    <string name="next_pf">Weiter</string>
+    <string name="forgot_pf">Vergessen?</string>
+    <string name="lock_screen_title_pf">Pin eingeben oder Fingerabdruck nutzen</string>
+    <string name="settings_pf">Einstellungen</string>
+    <string name="no_fingerprints_message_pf">Keine Fingerabdrücke gefunden. Bitte fügen
+        Sie in den Einstellungen welche hinzu.</string>
+    <string name="no_fingerprints_title_pf">Keine Fingerabdrücke gefunden</string>
+
+    <string name="fingerprint_not_recognized_pf">Fingerabdruck nicht erkannt</string>
+    <string name="fingerprint_success_pf">Fingerabdruck erkannt</string>
+    <string name="fingerprint_description_pf">Fingerabdruck bestätigen</string>
+    <string name="fingerprint_hint_pf">Sensor</string>
+    <string name="description_fingerprint_icon_pf">Fingerabdruck icon</string>
+</resources>
