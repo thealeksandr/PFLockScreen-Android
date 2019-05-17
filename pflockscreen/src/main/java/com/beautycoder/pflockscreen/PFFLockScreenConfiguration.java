@@ -2,6 +2,9 @@ package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import androidx.annotation.IntDef;
+
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.view.View;
 
 import java.io.Serializable;
@@ -12,7 +15,52 @@ import static java.lang.annotation.RetentionPolicy.SOURCE;
 /**
  * Created by Aleksandr Nikiforov on 2018/02/14.
  */
-public class PFFLockScreenConfiguration implements Serializable {
+public class PFFLockScreenConfiguration implements Serializable, Parcelable {
+
+    protected PFFLockScreenConfiguration(Parcel in) {
+        mLeftButton = in.readString();
+        mNextButton = in.readString();
+        mUseFingerprint = in.readByte() != 0;
+        mAutoShowFingerprint = in.readByte() != 0;
+        mTitle = in.readString();
+        mMode = in.readInt();
+        mCodeLength = in.readInt();
+        mClearCodeOnError = in.readByte() != 0;
+        mErrorVibration = in.readByte() != 0;
+        mErrorAnimation = in.readByte() != 0;
+    }
+
+    public static final Creator<PFFLockScreenConfiguration> CREATOR =
+            new Creator<PFFLockScreenConfiguration>() {
+                @Override
+                public PFFLockScreenConfiguration createFromParcel(Parcel in) {
+                    return new PFFLockScreenConfiguration(in);
+                }
+
+                @Override
+                public PFFLockScreenConfiguration[] newArray(int size) {
+                    return new PFFLockScreenConfiguration[size];
+                }
+            };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mLeftButton);
+        dest.writeString(mNextButton);
+        dest.writeByte((byte) (mUseFingerprint ? 1 : 0));
+        dest.writeByte((byte) (mAutoShowFingerprint ? 1 : 0));
+        dest.writeString(mTitle);
+        dest.writeInt(mMode);
+        dest.writeInt(mCodeLength);
+        dest.writeByte((byte) (mClearCodeOnError ? 1 : 0));
+        dest.writeByte((byte) (mErrorVibration ? 1 : 0));
+        dest.writeByte((byte) (mErrorAnimation ? 1 : 0));
+    }
 
     private String mLeftButton = "";
     private String mNextButton = "";
