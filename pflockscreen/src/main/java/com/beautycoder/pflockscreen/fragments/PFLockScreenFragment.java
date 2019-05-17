@@ -63,6 +63,7 @@ public class PFLockScreenFragment extends Fragment {
     private View mRootView;
 
     private final PFPinCodeViewModel mPFPinCodeViewModel = new PFPinCodeViewModel();
+    private PFFingerprintAuthDialogFragment fragment;
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -81,6 +82,10 @@ public class PFLockScreenFragment extends Fragment {
             mConfiguration = (PFFLockScreenConfiguration) savedInstanceState.getSerializable(
                     INSTANCE_STATE_CONFIG
             );
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && isFingerprintApiAvailable(getActivity())) {
+            fragment = new PFFingerprintAuthDialogFragment();
         }
 
         mFingerprintButton = view.findViewById(R.id.button_finger_print);
@@ -117,6 +122,14 @@ public class PFLockScreenFragment extends Fragment {
             mOnFingerprintClickListener.onClick(mFingerprintButton);
         }
         super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        if (fragment != null) {
+            fragment.dismiss();
+        }
+        super.onPause();
     }
 
     public void setConfiguration(PFFLockScreenConfiguration configuration) {
@@ -222,8 +235,10 @@ public class PFLockScreenFragment extends Fragment {
                 return;
             }
 
-            final PFFingerprintAuthDialogFragment fragment
-                    = new PFFingerprintAuthDialogFragment();
+            if (fragment == null) {
+                return;
+            }
+
             fragment.show(getFragmentManager(), FINGERPRINT_DIALOG_FRAGMENT_TAG);
             fragment.setAuthListener(new PFFingerprintAuthListener() {
                 @Override
