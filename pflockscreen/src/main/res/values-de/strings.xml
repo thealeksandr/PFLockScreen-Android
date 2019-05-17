@@ -14,6 +14,6 @@
     <string name="fingerprint_not_recognized_pf">Fingerabdruck nicht erkannt</string>
     <string name="fingerprint_success_pf">Fingerabdruck erkannt</string>
     <string name="fingerprint_description_pf">Fingerabdruck bestätigen</string>
-    <string name="fingerprint_hint_pf">Sensor</string>
+    <string name="fingerprint_hint_pf">Sensor berühren</string>
     <string name="description_fingerprint_icon_pf">Fingerabdruck icon</string>
 </resources>
