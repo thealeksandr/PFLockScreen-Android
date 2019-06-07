@@ -64,6 +64,8 @@ public class PFLockScreenFragment extends Fragment {
 
     private final PFPinCodeViewModel mPFPinCodeViewModel = new PFPinCodeViewModel();
 
+    private View.OnClickListener mOnLeftButtonClickListener = null;
+
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -134,7 +136,7 @@ public class PFLockScreenFragment extends Fragment {
             mLeftButton.setVisibility(View.GONE);
         } else {
             mLeftButton.setText(configuration.getLeftButton());
-            mLeftButton.setOnClickListener(configuration.getOnLeftButtonClickListener());
+            mLeftButton.setOnClickListener(mOnLeftButtonClickListener);
         }
 
         if (!TextUtils.isEmpty(configuration.getNextButton())) {
@@ -406,8 +408,9 @@ public class PFLockScreenFragment extends Fragment {
         }
     }
 
-
-
+    public void setOnLeftButtonClickListener(View.OnClickListener onLeftButtonClickListener) {
+        this.mOnLeftButtonClickListener = onLeftButtonClickListener;
+    }
 
     /*private void showFingerprintAlertDialog(Context context) {
         new AlertDialog.Builder(context).setTitle("Fingerprint").setMessage(

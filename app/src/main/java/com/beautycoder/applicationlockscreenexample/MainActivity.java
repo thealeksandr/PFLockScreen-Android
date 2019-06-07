@@ -81,14 +81,16 @@ public class MainActivity extends AppCompatActivity {
         final PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
                 .setTitle(isPinExist ? "Unlock with your pin code or fingerprint" : "Create Code")
                 .setCodeLength(6)
-                .setLeftButton("Can't remeber", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                    }
-                })
+                .setLeftButton("Can't remeber")
                 .setUseFingerprint(true);
         final PFLockScreenFragment fragment = new PFLockScreenFragment();
+
+        fragment.setOnLeftButtonClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Left button pressed", Toast.LENGTH_LONG).show();
+            }
+        });
 
         builder.setMode(isPinExist
                 ? PFFLockScreenConfiguration.MODE_AUTH

@@ -2,7 +2,6 @@ package com.beautycoder.pflockscreen;
 
 import android.content.Context;
 import androidx.annotation.IntDef;
-import android.view.View;
 
 import java.io.Serializable;
 import java.lang.annotation.Retention;
@@ -16,7 +15,6 @@ public class PFFLockScreenConfiguration implements Serializable {
 
     private String mLeftButton = "";
     private String mNextButton = "";
-    private View.OnClickListener mOnLeftButtonClickListener = null;
     private boolean mUseFingerprint = false;
     private boolean mAutoShowFingerprint = false;
     private String mTitle = "";
@@ -32,7 +30,6 @@ public class PFFLockScreenConfiguration implements Serializable {
         mUseFingerprint = builder.mUseFingerprint;
         mAutoShowFingerprint = builder.mAutoShowFingerprint;
         mTitle = builder.mTitle;
-        mOnLeftButtonClickListener = builder.mOnLeftButtonClickListener;
         mMode = builder.mMode;
         mCodeLength = builder.mCodeLength;
         mClearCodeOnError = builder.mClearCodeOnError;
@@ -60,10 +57,6 @@ public class PFFLockScreenConfiguration implements Serializable {
         return mTitle;
     }
 
-    public View.OnClickListener getOnLeftButtonClickListener() {
-        return mOnLeftButtonClickListener;
-    }
-
     public int getCodeLength() {
         return mCodeLength;
     }
@@ -89,7 +82,6 @@ public class PFFLockScreenConfiguration implements Serializable {
 
         private String mLeftButton = "";
         private String mNextButton = "";
-        private View.OnClickListener mOnLeftButtonClickListener = null;
         private boolean mUseFingerprint = false;
         private boolean mAutoShowFingerprint = false;
         private String mTitle = "";
@@ -109,9 +101,8 @@ public class PFFLockScreenConfiguration implements Serializable {
             return this;
         }
 
-        public Builder setLeftButton(String leftButton, View.OnClickListener onClickListener) {
+        public Builder setLeftButton(String leftButton) {
             mLeftButton = leftButton;
-            mOnLeftButtonClickListener = onClickListener;
             return this;
         }
 
