@@ -65,6 +65,7 @@ public class PFLockScreenFragment extends Fragment {
     private final PFPinCodeViewModel mPFPinCodeViewModel = new PFPinCodeViewModel();
 
     private View.OnClickListener mOnLeftButtonClickListener = null;
+    private OnEncryptionInProgressListener mOnEncryptionInProgressListener = null;
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
@@ -356,6 +357,9 @@ public class PFLockScreenFragment extends Fragment {
                     new Observer<PFResult<String>>() {
                         @Override
                         public void onChanged(@Nullable PFResult<String> result) {
+                            if (mOnEncryptionInProgressListener != null) {
+                                mOnEncryptionInProgressListener.onEncryptionInProgress(false);
+                            }
                             if (result == null) {
                                 return;
                             }
@@ -371,6 +375,9 @@ public class PFLockScreenFragment extends Fragment {
                         }
                     }
             );
+            if (mOnEncryptionInProgressListener != null) {
+                mOnEncryptionInProgressListener.onEncryptionInProgress(true);
+            }
         }
     };
 
@@ -410,6 +417,10 @@ public class PFLockScreenFragment extends Fragment {
 
     public void setOnLeftButtonClickListener(View.OnClickListener onLeftButtonClickListener) {
         this.mOnLeftButtonClickListener = onLeftButtonClickListener;
+    }
+
+    public void setOnEncryptionInProgressListener(OnEncryptionInProgressListener onEncryptionInProgressListener) {
+        this.mOnEncryptionInProgressListener = onEncryptionInProgressListener;
     }
 
     /*private void showFingerprintAlertDialog(Context context) {
@@ -499,6 +510,20 @@ public class PFLockScreenFragment extends Fragment {
          */
         void onFingerprintLoginFailed();
 
+    }
+
+
+    /**
+     * Callback interface to track when encryption is in progress. You can use this to show a
+     * progress bar or other loading indicators.
+     */
+    public interface OnEncryptionInProgressListener {
+
+        /**
+         * Callback method for when encryption has started, i.e. when user taps "Next" button
+         * @param inProgress true if encryption is in progress, false if it has finished
+         */
+        void onEncryptionInProgress(boolean inProgress);
     }
 
 
