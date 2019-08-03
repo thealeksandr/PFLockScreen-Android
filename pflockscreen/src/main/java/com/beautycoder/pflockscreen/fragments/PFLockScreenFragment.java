@@ -352,6 +352,9 @@ public class PFLockScreenFragment extends Fragment {
     private final View.OnClickListener mOnNextButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mOnEncryptionInProgressListener != null) {
+                mOnEncryptionInProgressListener.onEncryptionInProgress(true);
+            }
             mPFPinCodeViewModel.encodePin(getContext(), mCode).observe(
                     PFLockScreenFragment.this,
                     new Observer<PFResult<String>>() {
@@ -375,9 +378,6 @@ public class PFLockScreenFragment extends Fragment {
                         }
                     }
             );
-            if (mOnEncryptionInProgressListener != null) {
-                mOnEncryptionInProgressListener.onEncryptionInProgress(true);
-            }
         }
     };
 
