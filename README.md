@@ -1,4 +1,5 @@
-# PFLockScreen-Android (Bug fix update and some improvements coming soon. Probably around Nov 2019)
+# PFLockScreen-Android
+(Bug fix update and some improvements coming soon. Probably around Nov 2019)
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
