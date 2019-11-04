@@ -8,10 +8,7 @@
 **Please support with a Star :D**
 
 ## Beta 6 Update - Bug fixing (November 3, 2019)
-* Added UI for Landscape orientation
-* Optional vibration for wrong code
-* Optional animation for wrong code
-* Fix bug with Next button 
+* Removed left button listener from config
 
 ## Min SDK Version - 15
 
