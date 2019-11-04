@@ -49,6 +49,7 @@ public class PFLockScreenFragment extends Fragment {
     private TextView mLeftButton;
     private Button mNextButton;
     private PFCodeView mCodeView;
+    private TextView titleView;
 
     private boolean mUseFingerPrint = true;
     private boolean mFingerprintHardwareDetected = false;
@@ -57,6 +58,7 @@ public class PFLockScreenFragment extends Fragment {
     private OnPFLockScreenCodeCreateListener mCodeCreateListener;
     private OnPFLockScreenLoginListener mLoginListener;
     private String mCode = "";
+    private String mCodeValidation = "";
     private String mEncodedPinCode = "";
 
     private PFFLockScreenConfiguration mConfiguration;
@@ -130,7 +132,7 @@ public class PFLockScreenFragment extends Fragment {
         if (mRootView == null || configuration == null) {
             return;
         }
-        final TextView titleView = mRootView.findViewById(R.id.title_text_view);
+        titleView = mRootView.findViewById(R.id.title_text_view);
         titleView.setText(configuration.getTitle());
         if (TextUtils.isEmpty(configuration.getLeftButton())) {
             mLeftButton.setVisibility(View.GONE);
@@ -351,6 +353,19 @@ public class PFLockScreenFragment extends Fragment {
     private final View.OnClickListener mOnNextButtonClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            if (mConfiguration.isNewCodeValidation() && TextUtils.isEmpty(mCodeValidation)) {
+                mCodeValidation = mCode;
+                cleanCode();
+                titleView.setText(mConfiguration.getNewCodeValidationTitle());
+                return;
+            }
+            if (mConfiguration.isNewCodeValidation() && !TextUtils.isEmpty(mCodeValidation) && !mCode.equals(mCodeValidation)) {
+                mCodeCreateListener.onNewCodeValidationFailed();
+                titleView.setText(mConfiguration.getTitle());
+                cleanCode();
+                return;
+            }
+            mCodeValidation = "";
             mPFPinCodeViewModel.encodePin(getContext(), mCode).observe(
                     PFLockScreenFragment.this,
                     new Observer<PFResult<String>>() {
@@ -373,6 +388,11 @@ public class PFLockScreenFragment extends Fragment {
             );
         }
     };
+
+    private void cleanCode() {
+        mCode = "";
+        mCodeView.clearCode();
+    }
 
 
     private void deleteEncodeKey() {
@@ -470,6 +490,13 @@ public class PFLockScreenFragment extends Fragment {
          * @param encodedCode encoded pin code string.
          */
         void onCodeCreated(String encodedCode);
+
+        /**
+         * This will be called if PFFLockScreenConfiguration#newCodeValidation is true.
+         * User need to input new code twice. This method will be called when second code isn't
+         * the same as first.
+         */
+        void onNewCodeValidationFailed();
 
     }
 
