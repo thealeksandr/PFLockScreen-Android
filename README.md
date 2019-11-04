@@ -1,5 +1,5 @@
 # PFLockScreen-Android
-(Bug fix update and some improvements coming soon. Probably around Nov 2019)
+(Beta 7 with some improvements coming soon in November)
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
@@ -7,7 +7,7 @@
 
 **Please support with a Star :D**
 
-## Beta 5 Update - Landscape Orientation Support (April 29, 2019)
+## Beta 6 Update - Bug fixing (November 3, 2019)
 * Added UI for Landscape orientation
 * Optional vibration for wrong code
 * Optional animation for wrong code
