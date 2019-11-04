@@ -25,38 +25,43 @@ public class MainActivity extends AppCompatActivity {
 
     private final PFLockScreenFragment.OnPFLockScreenCodeCreateListener mCodeCreateListener =
             new PFLockScreenFragment.OnPFLockScreenCodeCreateListener() {
-        @Override
-        public void onCodeCreated(String encodedCode) {
-            Toast.makeText(MainActivity.this, "Code created", Toast.LENGTH_SHORT).show();
-            PreferencesSettings.saveToPref(MainActivity.this, encodedCode);
-        }
-    };
+                @Override
+                public void onCodeCreated(String encodedCode) {
+                    Toast.makeText(MainActivity.this, "Code created", Toast.LENGTH_SHORT).show();
+                    PreferencesSettings.saveToPref(MainActivity.this, encodedCode);
+                }
+
+                @Override
+                public void onNewCodeValidationFailed() {
+                    Toast.makeText(MainActivity.this, "Code validation error", Toast.LENGTH_SHORT).show();
+                }
+            };
 
     private final PFLockScreenFragment.OnPFLockScreenLoginListener mLoginListener =
             new PFLockScreenFragment.OnPFLockScreenLoginListener() {
 
-        @Override
-        public void onCodeInputSuccessful() {
-            Toast.makeText(MainActivity.this, "Code successfull", Toast.LENGTH_SHORT).show();
-            showMainFragment();
-        }
+                @Override
+                public void onCodeInputSuccessful() {
+                    Toast.makeText(MainActivity.this, "Code successfull", Toast.LENGTH_SHORT).show();
+                    showMainFragment();
+                }
 
-        @Override
-        public void onFingerprintSuccessful() {
-            Toast.makeText(MainActivity.this, "Fingerprint successfull", Toast.LENGTH_SHORT).show();
-            showMainFragment();
-        }
+                @Override
+                public void onFingerprintSuccessful() {
+                    Toast.makeText(MainActivity.this, "Fingerprint successfull", Toast.LENGTH_SHORT).show();
+                    showMainFragment();
+                }
 
-        @Override
-        public void onPinLoginFailed() {
-            Toast.makeText(MainActivity.this, "Pin failed", Toast.LENGTH_SHORT).show();
-        }
+                @Override
+                public void onPinLoginFailed() {
+                    Toast.makeText(MainActivity.this, "Pin failed", Toast.LENGTH_SHORT).show();
+                }
 
-        @Override
-        public void onFingerprintLoginFailed() {
-            Toast.makeText(MainActivity.this, "Fingerprint failed", Toast.LENGTH_SHORT).show();
-        }
-    };
+                @Override
+                public void onFingerprintLoginFailed() {
+                    Toast.makeText(MainActivity.this, "Fingerprint failed", Toast.LENGTH_SHORT).show();
+                }
+            };
 
     private void showLockScreenFragment() {
         new PFPinCodeViewModel().isPinCodeEncryptionKeyExist().observe(
@@ -82,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
                 .setTitle(isPinExist ? "Unlock with your pin code or fingerprint" : "Create Code")
                 .setCodeLength(6)
                 .setLeftButton("Can't remeber")
+                .setNewCodeValidation(true)
+                .setNewCodeValidationTitle("Please input code again")
                 .setUseFingerprint(true);
         final PFLockScreenFragment fragment = new PFLockScreenFragment();
 
@@ -107,12 +114,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private  void showMainFragment() {
+    private void showMainFragment() {
         final MainFragment fragment = new MainFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container_view, fragment).commit();
     }
-
 
 
 }

@@ -23,6 +23,8 @@ public class PFFLockScreenConfiguration implements Serializable {
     private boolean mClearCodeOnError = false;
     private boolean mErrorVibration = true;
     private boolean mErrorAnimation = true;
+    private boolean mNewCodeValidation = false;
+    private String mNewCodeValidationTitle = "";
 
     private PFFLockScreenConfiguration(Builder builder) {
         mLeftButton = builder.mLeftButton;
@@ -35,6 +37,8 @@ public class PFFLockScreenConfiguration implements Serializable {
         mClearCodeOnError = builder.mClearCodeOnError;
         mErrorVibration = builder.mErrorVibration;
         mErrorAnimation = builder.mErrorAnimation;
+        mNewCodeValidation = builder.mNewCodeValidation;
+        mNewCodeValidationTitle = builder.mNewCodeValidationTitle;
     }
 
     public String getLeftButton() {
@@ -73,6 +77,14 @@ public class PFFLockScreenConfiguration implements Serializable {
         return mErrorAnimation;
     }
 
+    public boolean isNewCodeValidation() {
+        return mNewCodeValidation;
+    }
+
+    public String getNewCodeValidationTitle() {
+        return mNewCodeValidationTitle;
+    }
+
     @PFLockScreenMode
     public int getMode() {
         return this.mMode;
@@ -90,6 +102,8 @@ public class PFFLockScreenConfiguration implements Serializable {
         private boolean mClearCodeOnError = false;
         private boolean mErrorVibration = true;
         private boolean mErrorAnimation = true;
+        private boolean mNewCodeValidation = false;
+        private String mNewCodeValidationTitle = "";
 
 
         public Builder(Context context) {
@@ -143,6 +157,16 @@ public class PFFLockScreenConfiguration implements Serializable {
 
         public Builder setErrorAnimation(boolean errorAnimation) {
             mErrorAnimation = errorAnimation;
+            return this;
+        }
+
+        public Builder setNewCodeValidation(boolean newCodeValidation) {
+            this.mNewCodeValidation = newCodeValidation;
+            return this;
+        }
+
+        public Builder setNewCodeValidationTitle(String newCodeValidationTitle) {
+            this.mNewCodeValidationTitle = newCodeValidationTitle;
             return this;
         }
 
