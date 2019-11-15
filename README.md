@@ -3,7 +3,7 @@
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
-**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me **Direct Message** on twitter @thealeksandr. If you create issue it would be nice if you **SUBSCRIBE FOR UPDATES**. So we can discuss it.
+**Feel free to ask questions add issues.** If I don't respond to an issue or PR, feel free to ping me or send me **DIRECT Message** on twitter @thealeksandr. If you create issue it would be nice if you **SUBSCRIBE FOR UPDATES**. So we can discuss it.
 
 **Please support with a Star :D**
 
