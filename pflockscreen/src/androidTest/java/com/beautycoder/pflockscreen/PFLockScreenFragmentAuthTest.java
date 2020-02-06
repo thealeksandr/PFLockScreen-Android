@@ -41,15 +41,16 @@ public class PFLockScreenFragmentAuthTest {
             final PFFLockScreenConfiguration.Builder builder =
                     new PFFLockScreenConfiguration.Builder(context)
                             .setCodeLength(CODE_LENGTH)
-                            .setLeftButton(LEFT_BUTTON, new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-
-                                }
-                            })
+                            .setLeftButton(LEFT_BUTTON)
                             .setUseFingerprint(true)
                             .setMode(PFFLockScreenConfiguration.MODE_AUTH);
             fragment.setConfiguration(builder.build());
+            fragment.setOnLeftButtonClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
             return fragment;
         }
     };
