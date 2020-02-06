@@ -1,5 +1,4 @@
 # PFLockScreen-Android
-(Beta 7 with some improvements coming soon in November)
 
 [![](https://jitpack.io/v/thealeksandr/PFLockScreen-Android.svg)](https://jitpack.io/#thealeksandr/PFLockScreen-Android)
 
@@ -7,8 +6,9 @@
 
 **Please support with a Star :D**
 
-## Beta 6 Update - Bug fixing (November 3, 2019)
-* Removed left button listener from config
+## 
+7 Update - Bug fixing (November 3, 2019)
+* Added code validation for CREATE mode.
 
 ## Min SDK Version - 15
 
@@ -32,7 +32,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	compile 'com.github.thealeksandr:PFLockScreen-Android:1.0.0-beta6'
+	compile 'com.github.thealeksandr:PFLockScreen-Android:1.0.0-beta7'
 }
 ```
 
