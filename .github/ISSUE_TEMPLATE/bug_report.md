@@ -6,7 +6,6 @@ labels: ''
 assignees: ''
 
 ---
-
 **Describe the bug**
 A clear and concise description of what the bug is.
 
@@ -27,6 +26,12 @@ If applicable, add screenshots to help explain your problem.
  - Device: [e.g. Samsung Galaxy S10]
  - OS: [e.g. Android 8.1]
  - Library version Version [e.g. 22]
+
+**Can you reproduce it with example project.**
+Some errors can happen because of different use of library or themes/style. 
+This bugs is hard to reproduce. Do you have the same error if you build example project.
+What the difference between example project and your code. If you can help me to find edge cases
+this would be very helpful.
 
 **Additional context**
 Add any other context about the problem here.
