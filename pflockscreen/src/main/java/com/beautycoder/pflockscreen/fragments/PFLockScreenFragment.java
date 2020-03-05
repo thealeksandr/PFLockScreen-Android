@@ -1,18 +1,25 @@
 package com.beautycoder.pflockscreen.fragments;
 
+import android.Manifest;
 import android.app.AlertDialog;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.Observer;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -274,11 +281,20 @@ public class PFLockScreenFragment extends Fragment {
         }
 
         mDeleteButton.setEnabled(false);
-
     }
 
     private boolean isFingerprintApiAvailable(Context context) {
-        return FingerprintManagerCompat.from(context).isHardwareDetected();
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) == PackageManager.PERMISSION_GRANTED &&
+                        context.getSystemService(FingerprintManager.class).isHardwareDetected();
+            } else {
+                return FingerprintManagerCompat.from(context).isHardwareDetected();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     private boolean isFingerprintsExists(Context context) {
