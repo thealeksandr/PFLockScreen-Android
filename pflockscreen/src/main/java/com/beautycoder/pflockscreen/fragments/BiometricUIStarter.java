@@ -39,7 +39,7 @@ public class BiometricUIStarter {
                 .setTitle(title)
                 .setDescription(description)
                 .setDeviceCredentialAllowed(false)
-                .setNegativeButtonText("Use pin")
+                .setNegativeButtonText("use_pin_pf")
                 .setConfirmationRequired(confirmationRequired)
                 .build();
     }
