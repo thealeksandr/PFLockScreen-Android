@@ -1,11 +1,14 @@
 package com.beautycoder.pflockscreen.fragments;
 
 import android.content.Context;
+import android.content.res.Resources;
 
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+
+import com.beautycoder.pflockscreen.R;
 
 import java.util.concurrent.Executor;
 
@@ -15,9 +18,11 @@ public class BiometricUIStarter {
     private String title = "Biometric Authentication";
     private String description;
     private boolean confirmationRequired;
+    private String usePin;
 
     public BiometricUIStarter(BiometricManager bioManager, Context context, Fragment fragment, BiometricPrompt.AuthenticationCallback callback) {
         biometricManager = bioManager;
+        usePin = context.getResources().getString(R.string.use_pin_pf);
         biometricPrompt = instanceOfBiometricPrompt(context, fragment, callback);
     }
 
@@ -39,7 +44,7 @@ public class BiometricUIStarter {
                 .setTitle(title)
                 .setDescription(description)
                 .setDeviceCredentialAllowed(false)
-                .setNegativeButtonText("use_pin_pf")
+                .setNegativeButtonText(usePin)
                 .setConfirmationRequired(confirmationRequired)
                 .build();
     }
