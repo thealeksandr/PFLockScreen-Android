@@ -42,13 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onCodeInputSuccessful() {
-                    Toast.makeText(MainActivity.this, "Code successfull", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Code successful", Toast.LENGTH_SHORT).show();
                     showMainFragment();
                 }
 
                 @Override
-                public void onFingerprintSuccessful() {
-                    Toast.makeText(MainActivity.this, "Fingerprint successfull", Toast.LENGTH_SHORT).show();
+                public void onBiometricAuthSuccessful() {
+                    Toast.makeText(MainActivity.this, "Biometric authentication successful", Toast.LENGTH_SHORT).show();
                     showMainFragment();
                 }
 
@@ -58,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFingerprintLoginFailed() {
-                    Toast.makeText(MainActivity.this, "Fingerprint failed", Toast.LENGTH_SHORT).show();
+                public void onBiometricAuthLoginFailed() {
+                    Toast.makeText(MainActivity.this, "Biometric authentication failed", Toast.LENGTH_SHORT).show();
                 }
             };
 
@@ -89,7 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 .setLeftButton("Can't remeber")
                 .setNewCodeValidation(true)
                 .setNewCodeValidationTitle("Please input code again")
-                .setUseFingerprint(true);
+                .setAutoShowBiometric(true)
+                .setUseBiometric(true);
         final PFLockScreenFragment fragment = new PFLockScreenFragment();
 
         fragment.setOnLeftButtonClickListener(new View.OnClickListener() {
