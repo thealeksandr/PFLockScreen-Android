@@ -12,7 +12,7 @@
 
 ## Min SDK Version - 15
 
-PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **fingerprint** authorization for API level 23+.
+PFLockScreen - Lock Screen Library for Android Application. Library support **pin code** and **biometric** authorization for API level 23+.
 
 <p align="center">
 <img src="https://user-images.githubusercontent.com/1378730/37100456-9225c0c6-2255-11e8-972c-e365ef2659fa.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675641-2c16130a-1b3c-11e8-88ac-32038e5b3540.png" alt="alt text" width="200" hspace="40"><img src="https://user-images.githubusercontent.com/1378730/36675645-2c63823e-1b3c-11e8-8936-6db8c84333f1.png" alt="alt text" width="200" hspace="40">
@@ -72,7 +72,7 @@ PFFLockScreenConfiguration.Builder(this).setMode(PFFLockScreenConfiguration.MODE
 ```java
 PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Builder(this)
             .setTitle("Unlock")
-            .setUseFingerprint(true).
+            .setUseBiometric(true).
             .setMode(PFFLockScreenConfiguration.MODE_AUTH)
             .setCodeLength(6)
             .setLeftButton("Can't remeber",
@@ -87,7 +87,7 @@ PFFLockScreenConfiguration.Builder builder = new PFFLockScreenConfiguration.Buil
 
 
 *setTitle(String)* - set custom string on the top of the screen.
-*setUseFingerprint(boolean)* - by default fingerprint button will be shown for all device 23+ with a fingerprint sensor. If you don't want use fingerprint at all set *false*.
+*setUseBiometric(boolean)* - by default fingerprint(biometric authentication) button will be shown for all device 23+ with a fingerprint sensor and/or face recognition. If you don't want use biometric authentication at all set *false*.
 *setMode(PFLockScreenMode)* - MODE_CREATE or MODE_AUTH. See details above.
 *setCodeLength(int)* - set the length of the pin code. By default, length is 4. Minimum length is 4.
 *setLeftButton(String, View.OnClickListener)* - set string for the left button and ClickListener.
