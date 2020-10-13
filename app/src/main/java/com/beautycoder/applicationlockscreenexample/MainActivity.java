@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onPinLoginFailed() {
                     Toast.makeText(MainActivity.this, "Pin failed", Toast.LENGTH_SHORT).show();
+                    PFCodeView pfCodeView;
+                    pfCodeView = findViewById(R.id.code_view);
+                    pfCodeView.clearCode();
                 }
 
                 @Override
@@ -120,5 +123,11 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container_view, fragment).commit();
     }
 
-
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        finish();
+    }
 }
