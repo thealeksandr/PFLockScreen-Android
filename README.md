@@ -32,7 +32,7 @@ allprojects {
 
 ```gradle
 dependencies {
-	compile 'com.github.thealeksandr:PFLockScreen-Android:1.0.0-beta7'
+	implementation 'com.github.thealeksandr:PFLockScreen-Android:1.0.0-beta7'
 }
 ```
 
